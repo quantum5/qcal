@@ -1,5 +1,5 @@
 import React from 'react';
-import {Day, decadeNames, frJDN, jdnGregorian, Month} from './dates';
+import {Day, decadeNames, frJDN, jdnGregorian, jdnLongCount, Month} from './dates';
 
 type MonthProps = {
     year: number;
@@ -25,6 +25,7 @@ function DecadeName({name}: { name: string }): JSX.Element {
 function DayDetail({jdn}: { jdn: number }): JSX.Element {
     return <div className="DayDetail">
         <div className="DayDetail-gregorian">{jdnGregorian(jdn).toDateString()}</div>
+        <div className="DayDetail-lc">{jdnLongCount(jdn)}</div>
     </div>;
 }
 
