@@ -1,0 +1,59 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/containers';
+
+.Month {
+    @include make-container();
+}
+
+.Month-decadeHead {
+    display: none;
+}
+
+@include media-breakpoint-up(md) {
+    .Month-decade {
+        @include make-row();
+
+        > * {
+            @include make-col-ready();
+        }
+    }
+}
+
+.Month-decadeSplitter {
+    width: 100%;
+}
+
+@include media-breakpoint-up(xl) {
+    .Month-decadeSplitter {
+        display: none;
+    }
+
+    .Month-decadeHead {
+        display: block;
+        @include make-row();
+    }
+}
+
+.Day, .DecadeName {
+    margin: 0.5em;
+    @include make-col($columns: 10);
+}
+
+.Day {
+    padding: 0.5em;
+    border: 1px solid black;
+    border-radius: $border-radius;
+}
+
+.DecadeName {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.Day-name {
+    font-size: 2em;
+    font-weight: 600;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Calendar.scss';
 import {Day, decadeNames, frJDN, jdnGregorian, jdnLongCount, Month} from './dates';
 
 type MonthProps = {
@@ -43,8 +44,10 @@ function NormalMonth({year, month}: MonthProps): JSX.Element {
         <div className="Month-decadeHead">{decadeHeads}</div>
         <div className="Month-decades">{
             Array.from(Array(3).keys()).map(i => <div className="Month-decade">{
-                Array.from(Array(10).keys()).map(j =>
-                    <NormalDay year={year} month={month} day={i * 10 + j + 1 as Day} isToday={false}/>)
+                Array.from(Array(10).keys()).map(j => <>
+                    <NormalDay year={year} month={month} day={i * 10 + j + 1 as Day} isToday={false}/>
+                    {j === 4 && <div className="Month-decadeSplitter"/>}
+                </>)
             }</div>)
         }</div>
     </div>;
