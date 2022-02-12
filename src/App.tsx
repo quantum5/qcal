@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {Calendar} from './Calendar';
-import {gregorianJDN} from "./dates";
+import {gregorianJDN, Month} from "./dates";
 
 function App() {
-  const today = new Date();
-  const todayJDN = gregorianJDN(today.getFullYear(), today.getMonth() + 1, today.getDay());
-  return (
-    <Calendar year={230} month={5} day={24} todayJDN={todayJDN}/>
-  );
+    const today = new Date();
+    const todayJDN = gregorianJDN(today.getFullYear(), today.getMonth() + 1, today.getDay());
+    const [yearMonth, setYearMonth] = useState([230, 5]);
+    return (
+        <Calendar year={yearMonth[0]} month={yearMonth[1] as Month} todayJDN={todayJDN}
+                  onSwitch={(year, month) => setYearMonth([year, month])}/>
+    );
 }
 
 export default App;

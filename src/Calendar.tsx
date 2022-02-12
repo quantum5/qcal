@@ -1,6 +1,6 @@
 import React from 'react';
 import './Calendar.scss';
-import {Day, decadeNames, frJDN, jdnGregorian, jdnLongCount, Month} from './dates';
+import {Day, decadeNames, frJDN, jdnGregorian, jdnLongCount, Month, monthName} from './dates';
 
 type MonthProps = {
     year: number;
@@ -11,11 +11,9 @@ type DateProps = MonthProps & {
     day: Day;
 };
 
-export type CalendarProps = DateProps & {
-    year: number;
-    month: Month;
+export type CalendarProps = MonthProps & {
     todayJDN: number;
-    onSwitch?: (year: number, month: Month, day: Day) => void,
+    onSwitch?: (year: number, month: Month) => void,
 };
 
 type CalendarState = {};
@@ -33,7 +31,6 @@ function DayDetail({jdn}: { jdn: number }): JSX.Element {
 
 function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
     const jdn = frJDN(year, month, day);
-    console.log(year, month, day, jdn, todayJDN);
     return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
         <div className="Day-decade">{decadeNames[(day - 1) % 10]}</div>
@@ -57,7 +54,58 @@ function NormalMonth({year, month, todayJDN}: MonthProps & { todayJDN: number })
 }
 
 export class Calendar extends React.Component<CalendarProps, CalendarState> {
+    private goToNormalized(year: number, month: number) {
+        if (month < 0) {
+            --year;
+            month += 13;
+        }
+
+        if (month > 13) {
+            ++year;
+            month -= 13;
+        }
+
+        this.props.onSwitch && this.props.onSwitch(year, month as Month);
+    }
+
+    prevYear() {
+        this.goToNormalized(this.props.year - 1, this.props.month);
+    }
+
+    prevMonth() {
+        this.goToNormalized(this.props.year, this.props.month - 1);
+    }
+
+    nextYear() {
+        this.goToNormalized(this.props.year + 1, this.props.month);
+    }
+
+    nextMonth() {
+        this.goToNormalized(this.props.year, this.props.month + 1);
+    }
+
     render(): JSX.Element {
-        return <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>;
+        return <div className="Calendar">
+            <div className="Calendar-head">
+                <div className="Calendar-prev">
+                    <button type="button" className="btn btn-secondary" title="Previous year"
+                            onClick={this.prevYear.bind(this)}>«
+                    </button>
+                    <button type="button" className="btn btn-secondary" title="Previous month"
+                            onClick={this.prevMonth.bind(this)}>‹
+                    </button>
+                </div>
+                <div className="Calendar-month-name">{monthName(this.props.month)} {this.props.year}</div>
+                <div className="Calendar-next">
+                    <button type="button" className="btn btn-secondary" title="Next month"
+                            onClick={this.nextMonth.bind(this)}>›
+                    </button>
+                    <button type="button" className="btn btn-secondary" title="Next year"
+                            onClick={this.nextYear.bind(this)}>»
+                    </button>
+                </div>
+            </div>
+            <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>
+        </div>;
     }
 }
