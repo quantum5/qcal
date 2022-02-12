@@ -64,6 +64,24 @@
     }
 }
 
+@include media-breakpoint-up(lg) {
+    .ComplementaryDays {
+        @include make-row();
+
+        > * {
+            @include make-col-ready();
+        }
+    }
+
+    .ComplementaryDay {
+        @include make-col($columns: 2);
+    }
+
+    .ComplementaryDays-splitter {
+        width: 100%;
+    }
+}
+
 .Day, .DecadeName {
     margin: 0.5em;
     @include make-col($columns: 10);

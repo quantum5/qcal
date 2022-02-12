@@ -1,4 +1,4 @@
-import {dateName, frJDN, gregorianJDN, jdnFrench, jdnGregorian, jdnLongCount, monthName} from './dates';
+import {dateName, frIsLeap, frJDN, gregorianJDN, jdnFrench, jdnGregorian, jdnLongCount, monthName} from './dates';
 
 describe('gregorianJDN', () => {
     it('works', () => {
@@ -27,6 +27,25 @@ describe('frJDN', () => {
         expect(frJDN( 111, 1, 1)).toBe(2416017); // equinox 1902-09-23T23:55:19 UT1
         expect(frJDN( 206, 1, 1)).toBe(2450715); // equinox 1997-09-22T23:55:46 UT1
         expect(frJDN(2490, 1, 1)).toBe(3284926); // equinox 4281-09-20T23:50:38 UT1
+    });
+});
+
+describe('frIsLeap', () => {
+    it('works for sample dates', () => {
+        expect(frIsLeap(1)).toBeFalsy();
+        expect(frIsLeap(8)).toBeFalsy();
+        expect(frIsLeap(3)).toBeTruthy();
+        expect(frIsLeap(7)).toBeTruthy();
+        expect(frIsLeap(11)).toBeTruthy();
+    });
+
+    it('works in years starting/ending near midnight', () => {
+        expect(frIsLeap(110)).toBeTruthy();
+        expect(frIsLeap(205)).toBeTruthy();
+        expect(frIsLeap(2489)).toBeFalsy();
+        expect(frIsLeap(111)).toBeFalsy();
+        expect(frIsLeap(206)).toBeFalsy();
+        expect(frIsLeap(2490)).toBeTruthy();
     });
 });
 

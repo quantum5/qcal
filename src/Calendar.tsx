@@ -1,6 +1,6 @@
 import React from 'react';
 import './Calendar.scss';
-import {Day, decadeNames, frJDN, jdnGregorian, jdnLongCount, Month, monthName} from './dates';
+import {dateName, Day, decadeNames, frIsLeap, frJDN, jdnGregorian, jdnLongCount, Month, monthName} from './dates';
 
 type MonthProps = {
     year: number;
@@ -53,9 +53,26 @@ function NormalMonth({year, month, todayJDN}: MonthProps & { todayJDN: number })
     </div>;
 }
 
+function ComplementaryDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
+    const jdn = frJDN(year, month, day);
+    return <div className={`Day ComplementaryDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
+        <div className="Day-name">{dateName(month, day)}</div>
+        <DayDetail jdn={jdn}/>
+    </div>;
+}
+
+function ComplementaryDays({year, todayJDN}: {year: number, todayJDN: number}): JSX.Element {
+    return <div className="ComplementaryDays">{
+        Array.from(Array(frIsLeap(year) ? 6 : 5).keys()).map(i => <>
+            <ComplementaryDay year={year} month={13} day={i + 1 as Day} todayJDN={todayJDN}/>
+            {i % 2 === 1 && <div className="ComplementaryDays-splitter"/>}
+        </>)
+    }</div>;
+}
+
 export class Calendar extends React.Component<CalendarProps, CalendarState> {
     private goToNormalized(year: number, month: number) {
-        if (month < 0) {
+        if (month < 1) {
             --year;
             month += 13;
         }
@@ -95,7 +112,9 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                             onClick={this.prevMonth.bind(this)}>‹
                     </button>
                 </div>
-                <div className="Calendar-month-name">{monthName(this.props.month)} {this.props.year}</div>
+                <div className="Calendar-month-name">
+                    {this.props.month < 13 && monthName(this.props.month)} {this.props.year}
+                </div>
                 <div className="Calendar-next">
                     <button type="button" className="btn btn-secondary" title="Next month"
                             onClick={this.nextMonth.bind(this)}>›
@@ -105,7 +124,8 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                     </button>
                 </div>
             </div>
-            <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>
+            {this.props.month < 13 && <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>}
+            {this.props.month === 13 && <ComplementaryDays year={this.props.year} todayJDN={this.props.todayJDN}/>}
         </div>;
     }
 }

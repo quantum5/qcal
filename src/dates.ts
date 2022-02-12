@@ -87,6 +87,10 @@ export function frJDN(year: number, month: Month, day: Day): number {
     return startJD + 365 * dy + leaps[dy] + dd;
 }
 
+export function frIsLeap(year: number): boolean {
+    return !!data.leap[year - startYear];
+}
+
 export function jdnGregorian(jdn: number): Date {
     const e = 4 * (jdn + 1401 + Math.floor(Math.floor((4 * jdn + 274277) / 146097) * 3 / 4) - 38) + 3;
     const h = 5 * Math.floor((e % 1461 + 1461) % 1461 / 4) + 2;
