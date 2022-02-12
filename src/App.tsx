@@ -1,7 +1,6 @@
 import React from 'react';
-import './App.css';
 import {Calendar} from './Calendar';
-import {frSupportedYear, gregorianJDN, jdnFrench, Month} from "./dates";
+import {frSupportedYear, gregorianJDN, jdnFrench, Month} from './dates';
 
 type YearMonth = {
     year: number;

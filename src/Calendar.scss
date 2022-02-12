@@ -39,6 +39,7 @@
 @include media-breakpoint-up(md) {
     .Month-decade {
         @include make-row();
+        padding: 0 0.5em;
 
         > * {
             @include make-col-ready();
