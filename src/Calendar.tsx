@@ -1,6 +1,17 @@
 import React from 'react';
 import './Calendar.scss';
-import {dateName, Day, decadeNames, frIsLeap, frJDN, jdnGregorian, jdnLongCount, Month, monthName} from './dates';
+import {
+    dateName,
+    Day,
+    decadeNames,
+    frIsLeap,
+    frJDN,
+    jdnFrench,
+    jdnGregorian,
+    jdnLongCount,
+    Month,
+    monthName
+} from './dates';
 
 type MonthProps = {
     year: number;
@@ -10,13 +21,6 @@ type MonthProps = {
 type DateProps = MonthProps & {
     day: Day;
 };
-
-export type CalendarProps = MonthProps & {
-    todayJDN: number;
-    onSwitch?: (year: number, month: Month) => void,
-};
-
-type CalendarState = {};
 
 function DecadeName({name}: { name: string }): JSX.Element {
     return <div className="DecadeName">{name}</div>;
@@ -61,7 +65,7 @@ function ComplementaryDay({year, month, day, todayJDN}: DateProps & { todayJDN: 
     </div>;
 }
 
-function ComplementaryDays({year, todayJDN}: {year: number, todayJDN: number}): JSX.Element {
+function ComplementaryDays({year, todayJDN}: { year: number, todayJDN: number }): JSX.Element {
     return <div className="ComplementaryDays">{
         Array.from(Array(frIsLeap(year) ? 6 : 5).keys()).map(i => <>
             <ComplementaryDay year={year} month={13} day={i + 1 as Day} todayJDN={todayJDN}/>
@@ -70,7 +74,37 @@ function ComplementaryDays({year, todayJDN}: {year: number, todayJDN: number}): 
     }</div>;
 }
 
+export type CalendarProps = MonthProps & {
+    todayJDN: number;
+    onSwitch?: (year: number, month: Month) => void,
+};
+
+type CalendarState = {
+    selecting: boolean,
+    yearStr: string,
+};
+
 export class Calendar extends React.Component<CalendarProps, CalendarState> {
+    selection: React.RefObject<HTMLDivElement>;
+
+    constructor(props: CalendarProps) {
+        super(props);
+        this.state = {
+            selecting: false,
+            yearStr: this.props.year.toString(),
+        };
+        this.selection = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.handleClickOutside, true);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside, true);
+    }
+
     private goToNormalized(year: number, month: number) {
         if (month < 1) {
             --year;
@@ -101,6 +135,49 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
         this.goToNormalized(this.props.year, this.props.month + 1);
     }
 
+    startSelection() {
+        this.setState({selecting: true});
+    }
+
+    handleClickOutside(event: any) {
+        if (this.state.selecting && this.selection.current && !this.selection.current.contains(event.target))
+            this.setState({selecting: false});
+    }
+
+    handleKeyUp(event: any) {
+        if (event.key === 'Escape')
+            this.setState({selecting: false});
+    }
+
+    monthChange(event: any) {
+        this.props.onSwitch && this.props.onSwitch(this.props.year, event.target.value as Month);
+    }
+
+    yearChange(event: any) {
+        console.log(/^-?\d+/.test(event.target.value));
+        if (/^-?\d+/.test(event.target.value)) {
+            this.props.onSwitch && this.props.onSwitch(+event.target.value, this.props.month);
+        }
+        this.setState({yearStr: event.target.value});
+    }
+
+    componentDidUpdate(prevProps: CalendarProps) {
+        if (prevProps.year !== this.props.year) {
+            const yearStr = this.props.year.toString();
+            if (this.state.yearStr !== yearStr) {
+                this.setState({
+                    yearStr: yearStr,
+                });
+            }
+        }
+    }
+
+    goToToday() {
+        const {year, month} = jdnFrench(this.props.todayJDN);
+        this.goToNormalized(year, month);
+        this.setState({selecting: false});
+    }
+
     render(): JSX.Element {
         return <div className="Calendar">
             <div className="Calendar-head">
@@ -112,9 +189,24 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                             onClick={this.prevMonth.bind(this)}>‹
                     </button>
                 </div>
-                <div className="Calendar-month-name">
+                {!this.state.selecting && <div className="Calendar-month-name" onClick={this.startSelection.bind(this)}>
                     {this.props.month < 13 && monthName(this.props.month)} {this.props.year}
-                </div>
+                </div>}
+                {this.state.selecting && <div className="Calendar-month-name input-group" ref={this.selection}
+                                              onKeyUp={this.handleKeyUp.bind(this)}>
+                  <select className="Calendar-month-input form-control" onChange={this.monthChange.bind(this)}
+                          value={this.props.month}>{
+                      Array.from(Array(13).keys()).map(i => {
+                          const month = i + 1 as Month;
+                          return <option value={month}>{monthName(month)}</option>;
+                      })
+                  }</select>
+                  <input type="number" className="Calendar-year-input form-control" value={this.state.yearStr}
+                         onChange={this.yearChange.bind(this)}/>
+                  <button type="button" className="form-control btn btn-primary Calendar-today-button"
+                          onClick={this.goToToday.bind(this)}>Today
+                  </button>
+                </div>}
                 <div className="Calendar-next">
                     <button type="button" className="btn btn-secondary" title="Next month"
                             onClick={this.nextMonth.bind(this)}>›
@@ -124,7 +216,8 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                     </button>
                 </div>
             </div>
-            {this.props.month < 13 && <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>}
+            {this.props.month < 13 &&
+              <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>}
             {this.props.month === 13 && <ComplementaryDays year={this.props.year} todayJDN={this.props.todayJDN}/>}
         </div>;
     }

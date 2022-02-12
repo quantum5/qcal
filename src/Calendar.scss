@@ -1,6 +1,7 @@
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/forms';
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/buttons';
 
@@ -110,4 +111,21 @@
 
 .Day-today {
     background: $gray-300;
+}
+
+.Calendar-month-name.input-group {
+    justify-content: center;
+    font-size: 0.75em;
+}
+
+.Calendar-month-input {
+    max-width: 12.5em;
+}
+
+.Calendar-year-input {
+    max-width: 6em;
+}
+
+.Calendar-today-button {
+    max-width: 5em;
 }
