@@ -1,4 +1,4 @@
-import data from '../cal.json';
+import data from './cal.json';
 
 // Month 13 is for the complementary days
 export type Month = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
@@ -52,6 +52,10 @@ const monthNames: {
     13: 'Jours Complémentaires',
 };
 
+export const decadeNames = [
+    'primidi', 'duodi', 'tridi', 'quartidi', 'quintidi', 'sextidi', 'septidi', 'octidi', 'nonidi', 'décadi',
+];
+
 const startJD = data.start_jd;
 const startYear = data.start_year;
 const leaps: Array<number> = [0];
@@ -84,13 +88,20 @@ export function monthName(month: Month): string {
 export function dateName(month: Month, day: Day): string | null {
     if (month === 13) {
         switch (day) {
-            case 1: return 'La Fête de la Vertu';
-            case 2: return 'La Fête du Génie';
-            case 3: return 'La Fête du Travail';
-            case 4: return "La Fête de l'Opinion";
-            case 5: return 'La Fête des Récompenses';
-            case 6: return 'La Fête de la Révolution';
-            default: return null;
+            case 1:
+                return 'La Fête de la Vertu';
+            case 2:
+                return 'La Fête du Génie';
+            case 3:
+                return 'La Fête du Travail';
+            case 4:
+                return "La Fête de l'Opinion";
+            case 5:
+                return 'La Fête des Récompenses';
+            case 6:
+                return 'La Fête de la Révolution';
+            default:
+                return null;
         }
     }
     return `${day} ${monthNames[month]}`;
