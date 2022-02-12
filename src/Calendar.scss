@@ -34,6 +34,10 @@
         display: block;
         @include make-row();
     }
+
+    .Day-decade {
+        display: none;
+    }
 }
 
 .Day, .DecadeName {
@@ -56,4 +60,12 @@
 .Day-name {
     font-size: 2em;
     font-weight: 600;
+}
+
+.Day-decade {
+    font-weight: 600;
+}
+
+.Day-today {
+    background: $gray-300;
 }

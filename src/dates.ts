@@ -93,7 +93,7 @@ export function jdnGregorian(jdn: number): Date {
     const day = Math.floor((h % 153 + 153) % 153 / 5) + 1;
     const month = (Math.floor(h / 153) + 2) % 12 + 1;
     const year = Math.floor(e / 1461) - 4716 + Math.floor((14 - month) / 12);
-    return new Date(year, month, day);
+    return new Date(year, month - 1, day);
 }
 
 export function jdnLongCount(jdn: number): string | null {

@@ -14,6 +14,7 @@ type DateProps = MonthProps & {
 export type CalendarProps = DateProps & {
     year: number;
     month: Month;
+    todayJDN: number;
     onSwitch?: (year: number, month: Month, day: Day) => void,
 };
 
@@ -30,22 +31,24 @@ function DayDetail({jdn}: { jdn: number }): JSX.Element {
     </div>;
 }
 
-function NormalDay({year, month, day, isToday}: DateProps & { isToday: boolean }): JSX.Element {
-    return <div className={`Day NormalDay ${isToday ? 'Day-today' : ''}`}>
+function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
+    const jdn = frJDN(year, month, day);
+    console.log(year, month, day, jdn, todayJDN);
+    return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
         <div className="Day-decade">{decadeNames[(day - 1) % 10]}</div>
-        <DayDetail jdn={frJDN(year, month, day)}/>
+        <DayDetail jdn={jdn}/>
     </div>;
 }
 
-function NormalMonth({year, month}: MonthProps): JSX.Element {
+function NormalMonth({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.Element {
     const decadeHeads = decadeNames.map(name => <DecadeName name={name}/>);
     return <div className="Month">
         <div className="Month-decadeHead">{decadeHeads}</div>
         <div className="Month-decades">{
             Array.from(Array(3).keys()).map(i => <div className="Month-decade">{
                 Array.from(Array(10).keys()).map(j => <>
-                    <NormalDay year={year} month={month} day={i * 10 + j + 1 as Day} isToday={false}/>
+                    <NormalDay year={year} month={month} day={i * 10 + j + 1 as Day} todayJDN={todayJDN}/>
                     {j === 4 && <div className="Month-decadeSplitter"/>}
                 </>)
             }</div>)
@@ -55,6 +58,6 @@ function NormalMonth({year, month}: MonthProps): JSX.Element {
 
 export class Calendar extends React.Component<CalendarProps, CalendarState> {
     render(): JSX.Element {
-        return <NormalMonth year={this.props.year} month={this.props.month}/>;
+        return <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>;
     }
 }
