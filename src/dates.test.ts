@@ -1,4 +1,4 @@
-import {dateName, frJDN, gregorianJDN, jdnGregorian, jdnLongCount, monthName} from './dates';
+import {dateName, frJDN, gregorianJDN, jdnFrench, jdnGregorian, jdnLongCount, monthName} from './dates';
 
 describe('gregorianJDN', () => {
     it('works', () => {
@@ -27,6 +27,22 @@ describe('frJDN', () => {
         expect(frJDN( 111, 1, 1)).toBe(2416017); // equinox 1902-09-23T23:55:19 UT1
         expect(frJDN( 206, 1, 1)).toBe(2450715); // equinox 1997-09-22T23:55:46 UT1
         expect(frJDN(2490, 1, 1)).toBe(3284926); // equinox 4281-09-20T23:50:38 UT1
+    });
+});
+
+describe('jdnFrench', () => {
+    it('works for sample dates', () => {
+        expect(jdnFrench(2375840)).toEqual({year: 1, month: 1, day: 1});
+        expect(jdnFrench(2378444)).toEqual({year: 8, month: 2, day: 18});
+    });
+
+    it('works in years starting/ending near midnight', () => {
+        expect(jdnFrench(2416017)).toEqual({year:  111, month: 1, day: 1});
+        expect(jdnFrench(2450715)).toEqual({year:  206, month: 1, day: 1});
+        expect(jdnFrench(3284926)).toEqual({year: 2490, month: 1, day: 1});
+        expect(jdnFrench(2416016)).toEqual({year:  110, month: 13, day: 6});
+        expect(jdnFrench(2450714)).toEqual({year:  205, month: 13, day: 6});
+        expect(jdnFrench(3284925)).toEqual({year: 2489, month: 13, day: 5});
     });
 });
 

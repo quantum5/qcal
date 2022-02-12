@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Calendar} from './Calendar';
-import {gregorianJDN, Month} from "./dates";
+import {gregorianJDN, jdnFrench, Month} from "./dates";
 
 type YearMonth = {
     year: number;
@@ -28,12 +28,13 @@ class App extends React.Component<{}, AppState> {
 
     constructor(props: {}) {
         super(props);
-        const current = {year: 230, month: 5};
         const today = new Date();
+        const todayJDN = gregorianJDN(today.getFullYear(), today.getMonth() + 1, today.getDay());
+        const {year, month} = jdnFrench(todayJDN);
 
         this.state = {
-            ...(parseURL() || current as YearMonth),
-            todayJDN: gregorianJDN(today.getFullYear(), today.getMonth() + 1, today.getDay()),
+            ...(parseURL() || {year, month}),
+            todayJDN,
         };
         this.updateURL();
         this.updateStateFromURL = this.updateStateFromURL.bind(this);

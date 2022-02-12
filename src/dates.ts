@@ -34,10 +34,10 @@ export type Day =
     | 29
     | 30;
 
-export type GregorianDate = {
+export type FrenchDate = {
     year: number,
-    month: number,
-    day: number,
+    month: Month,
+    day: Day,
 };
 
 const monthNames: {
@@ -94,6 +94,26 @@ export function jdnGregorian(jdn: number): Date {
     const month = (Math.floor(h / 153) + 2) % 12 + 1;
     const year = Math.floor(e / 1461) - 4716 + Math.floor((14 - month) / 12);
     return new Date(year, month - 1, day);
+}
+
+export function jdnFrench(jdn: number): FrenchDate {
+    let lo = 0;
+    let hi = leaps.length;
+
+    while (lo + 1 < hi) {
+        const mid = Math.floor((lo + hi) / 2);
+        if (startJD + 365 * mid + leaps[mid] <= jdn)
+            lo = mid;
+        else
+            hi = mid;
+    }
+
+    const dd = jdn - (startJD + 365 * lo + leaps[lo]);
+    return {
+        year: startYear + lo,
+        month: Math.floor(dd / 30) + 1 as Month,
+        day: dd % 30 + 1 as Day,
+    }
 }
 
 export function jdnLongCount(jdn: number): string | null {
