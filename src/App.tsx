@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Calendar} from './Calendar';
-import {gregorianJDN, jdnFrench, Month} from "./dates";
+import {frSupportedYear, gregorianJDN, jdnFrench, Month} from "./dates";
 
 type YearMonth = {
     year: number;
@@ -14,9 +14,10 @@ function parseURL(): YearMonth | null {
         return null;
 
     const month = +match[2];
-    if (month < 1 || month > 13)
+    const year = +match[1];
+    if (!frSupportedYear(year) || month < 1 || month > 13)
         return null;
-    return {year: +match[1], month: month as Month};
+    return {year: year, month: month as Month};
 }
 
 type AppState = YearMonth & {

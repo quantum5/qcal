@@ -63,14 +63,20 @@ export const decadeNames = [
 ];
 
 const startJD = data.start_jd;
-const startYear = data.start_year;
+export const startYear = data.start_year;
 const leaps: Array<number> = [0];
 
 let leapFromStart = 0;
 data.leap.forEach(leap => {
     leapFromStart += leap;
     leaps.push(leapFromStart);
+
 });
+
+export const endYear = startYear + leaps.length - 1;
+export function frSupportedYear(year: number): boolean {
+    return startYear <= year && year <= endYear;
+}
 
 export function gregorianJDN(year: number, month: number, day: number): number {
     const g = year + 4716 - (month <= 2 ? 1 : 0);

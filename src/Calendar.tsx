@@ -4,13 +4,15 @@ import {
     dateName,
     Day,
     decadeNames,
+    endYear,
     frIsLeap,
     frJDN,
     jdnFrench,
     jdnGregorian,
     jdnLongCount,
     Month,
-    monthName
+    monthName,
+    startYear
 } from './dates';
 
 type MonthProps = {
@@ -116,6 +118,14 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
             month -= 13;
         }
 
+        if (year < startYear) {
+            year = startYear;
+            month = 1;
+        } else if (year > endYear) {
+            year = endYear;
+            month = 13;
+        }
+
         this.props.onSwitch && this.props.onSwitch(year, month as Month);
     }
 
@@ -150,13 +160,13 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
     }
 
     monthChange(event: any) {
-        this.props.onSwitch && this.props.onSwitch(this.props.year, event.target.value as Month);
+        this.goToNormalized(this.props.year, event.target.value as Month);
     }
 
     yearChange(event: any) {
         console.log(/^-?\d+/.test(event.target.value));
         if (/^-?\d+/.test(event.target.value)) {
-            this.props.onSwitch && this.props.onSwitch(+event.target.value, this.props.month);
+            this.goToNormalized(+event.target.value, this.props.month);
         }
         this.setState({yearStr: event.target.value});
     }
@@ -202,7 +212,7 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                       })
                   }</select>
                   <input type="number" className="Calendar-year-input form-control" value={this.state.yearStr}
-                         onChange={this.yearChange.bind(this)}/>
+                         onChange={this.yearChange.bind(this)} min={startYear} max={endYear}/>
                   <button type="button" className="form-control btn btn-primary Calendar-today-button"
                           onClick={this.goToToday.bind(this)}>Today
                   </button>
