@@ -1,5 +1,5 @@
 import React from 'react';
-import {Day, decadeNames, frJDN, Month} from './dates';
+import {Day, decadeNames, frJDN, jdnGregorian, Month} from './dates';
 
 type MonthProps = {
     year: number;
@@ -19,35 +19,34 @@ export type CalendarProps = DateProps & {
 type CalendarState = {};
 
 function DecadeName({name}: { name: string }): JSX.Element {
-    return <th className="DecadeName">{name}</th>;
+    return <div className="DecadeName">{name}</div>;
 }
 
 function DayDetail({jdn}: { jdn: number }): JSX.Element {
     return <div className="DayDetail">
-        <div className="DayDetail-gregorian">{}</div>
+        <div className="DayDetail-gregorian">{jdnGregorian(jdn).toDateString()}</div>
     </div>;
 }
 
 function NormalDay({year, month, day, isToday}: DateProps & { isToday: boolean }): JSX.Element {
-    return <td className={`Day NormalDay ${isToday ? 'Day-today' : ''}`}>
+    return <div className={`Day NormalDay ${isToday ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
+        <div className="Day-decade">{decadeNames[(day - 1) % 10]}</div>
         <DayDetail jdn={frJDN(year, month, day)}/>
-    </td>;
+    </div>;
 }
 
 function NormalMonth({year, month}: MonthProps): JSX.Element {
     const decadeHeads = decadeNames.map(name => <DecadeName name={name}/>);
-    return <table>
-        <thead>
-        <tr className="Month-decadeHead">{decadeHeads}</tr>
-        </thead>
-        <tbody>{
-            Array.from(Array(3).keys()).map(i => <tr className="Month-decade">{
+    return <div className="Month">
+        <div className="Month-decadeHead">{decadeHeads}</div>
+        <div className="Month-decades">{
+            Array.from(Array(3).keys()).map(i => <div className="Month-decade">{
                 Array.from(Array(10).keys()).map(j =>
                     <NormalDay year={year} month={month} day={i * 10 + j + 1 as Day} isToday={false}/>)
-            }</tr>)
-        }</tbody>
-    </table>;
+            }</div>)
+        }</div>
+    </div>;
 }
 
 export class Calendar extends React.Component<CalendarProps, CalendarState> {
