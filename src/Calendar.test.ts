@@ -1,4 +1,4 @@
-import {gregorianJDN} from "./Calendar";
+import {frJDN, gregorianJDN} from './Calendar';
 
 describe('gregorianJDN', () => {
     it('works', () => {
@@ -14,5 +14,18 @@ describe('gregorianJDN', () => {
         expect(gregorianJDN(8824, 11, 28)).toBe(4944292);
         expect(gregorianJDN(19720, 8, 14)).toBe(8923868);
         expect(gregorianJDN(7504, 7, 22)).toBe(4462042);
+    });
+});
+
+describe('frJDN', () => {
+    it('works for sample dates', () => {
+        expect(frJDN(1, 1, 1)).toBe(2375840);
+        expect(frJDN(8, 2, 18)).toBe(2378444);
+    });
+
+    it('works in years starting/ending near midnight', () => {
+        expect(frJDN( 111, 1, 1)).toBe(2416017); // equinox 1902-09-23T23:55:19 UT1
+        expect(frJDN( 206, 1, 1)).toBe(2450715); // equinox 1997-09-22T23:55:46 UT1
+        expect(frJDN(2490, 1, 1)).toBe(3284926); // equinox 4281-09-20T23:50:38 UT1
     });
 });
