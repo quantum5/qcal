@@ -1,4 +1,4 @@
-import {dateName, frJDN, gregorianJDN, monthName} from './dates';
+import {dateName, frJDN, gregorianJDN, jdnGregorian, monthName} from './dates';
 
 describe('gregorianJDN', () => {
     it('works', () => {
@@ -27,6 +27,27 @@ describe('frJDN', () => {
         expect(frJDN( 111, 1, 1)).toBe(2416017); // equinox 1902-09-23T23:55:19 UT1
         expect(frJDN( 206, 1, 1)).toBe(2450715); // equinox 1997-09-22T23:55:46 UT1
         expect(frJDN(2490, 1, 1)).toBe(3284926); // equinox 4281-09-20T23:50:38 UT1
+    });
+});
+
+describe('jdnGregorian', () => {
+    it('works', () => {
+        expect(jdnGregorian(0)).toEqual(new Date(-4713, 11, 24));
+        expect(jdnGregorian(2299160)).toEqual(new Date(1582, 10, 14));
+        expect(jdnGregorian(2299161)).toEqual(new Date(1582, 10, 15));
+        expect(jdnGregorian(2361221)).toEqual(new Date(1752, 9, 13));
+        expect(jdnGregorian(2361222)).toEqual(new Date(1752, 9, 14));
+        expect(jdnGregorian(2451545)).toEqual(new Date(2000, 1, 1));
+        expect(jdnGregorian(-8512316)).toEqual(new Date(-28019, 12, 20));
+        expect(jdnGregorian(-8534852)).toEqual(new Date(-28080, 4, 8));
+        expect(jdnGregorian(2653462)).toEqual(new Date(2552, 10, 30));
+        expect(jdnGregorian(3271156)).toEqual(new Date(4244, 1, 8));
+        expect(jdnGregorian(-666477)).toEqual(new Date(-6537, 2, 23));
+        expect(jdnGregorian(2397854)).toEqual(new Date(1852, 12, 31));
+        expect(jdnGregorian(-1211235)).toEqual(new Date(-8029, 8, 26));
+        expect(jdnGregorian(-91680)).toEqual(new Date(-4964, 11, 20));
+        expect(jdnGregorian(-5605876)).toEqual(new Date(-20061, 7, 14));
+        expect(jdnGregorian(-295121)).toEqual(new Date(-5521, 11, 19));
     });
 });
 

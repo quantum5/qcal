@@ -34,6 +34,12 @@ export type Day =
     | 29
     | 30;
 
+export type GregorianDate = {
+    year: number,
+    month: number,
+    day: number,
+};
+
 const monthNames: {
     [key in Month]: string
 } = {
@@ -79,6 +85,15 @@ export function frJDN(year: number, month: Month, day: Day): number {
     const dy = year - startYear;
     const dd = month * 30 + day - 31;
     return startJD + 365 * dy + leaps[dy] + dd;
+}
+
+export function jdnGregorian(jdn: number): Date {
+    const e = 4 * (jdn + 1401 + Math.floor(Math.floor((4 * jdn + 274277) / 146097) * 3 / 4) - 38) + 3;
+    const h = 5 * Math.floor((e % 1461 + 1461) % 1461 / 4) + 2;
+    const day = Math.floor((h % 153 + 153) % 153 / 5) + 1;
+    const month = (Math.floor(h / 153) + 2) % 12 + 1;
+    const year = Math.floor(e / 1461) - 4716 + Math.floor((14 - month) / 12);
+    return new Date(year, month, day);
 }
 
 export function monthName(month: Month): string {
