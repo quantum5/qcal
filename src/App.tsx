@@ -29,7 +29,7 @@ class App extends React.Component<{}, AppState> {
     constructor(props: {}) {
         super(props);
         const today = new Date();
-        const todayJDN = gregorianJDN(today.getFullYear(), today.getMonth() + 1, today.getDay());
+        const todayJDN = gregorianJDN(today.getFullYear(), today.getMonth() + 1, today.getDate());
         const {year, month} = jdnFrench(todayJDN);
 
         this.state = {
