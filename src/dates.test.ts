@@ -1,4 +1,4 @@
-import {frJDN, gregorianJDN} from './Calendar';
+import {dateName, frJDN, gregorianJDN, monthName} from './dates';
 
 describe('gregorianJDN', () => {
     it('works', () => {
@@ -27,5 +27,29 @@ describe('frJDN', () => {
         expect(frJDN( 111, 1, 1)).toBe(2416017); // equinox 1902-09-23T23:55:19 UT1
         expect(frJDN( 206, 1, 1)).toBe(2450715); // equinox 1997-09-22T23:55:46 UT1
         expect(frJDN(2490, 1, 1)).toBe(3284926); // equinox 4281-09-20T23:50:38 UT1
+    });
+});
+
+describe('monthName', () => {
+    it('works', () => {
+        expect(monthName(1)).toBe('Vendémiaire');
+        expect(monthName(12)).toBe('Fructidor');
+        expect(monthName(13)).toBe('Jours Complémentaires');
+    });
+});
+
+describe('dateName', () => {
+    it('works', () => {
+        expect(dateName(1, 1)).toBe('1 Vendémiaire');
+        expect(dateName(2, 18)).toBe('18 Brumaire');
+        expect(dateName(3, 11)).toBe('11 Frimaire');
+        expect(dateName(8, 16)).toBe('16 Floréal');
+        expect(dateName(12, 30)).toBe('30 Fructidor');
+        expect(dateName(13, 1)).toBe('La Fête de la Vertu');
+        expect(dateName(13, 6)).toBe('La Fête de la Révolution');
+    });
+
+    it('returns null for non-existent complimentary days', () => {
+        expect(dateName(13, 7)).toBeNull();
     });
 });
