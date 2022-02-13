@@ -62,7 +62,7 @@ a {
 .footer {
   background: $light;
   min-height: $spacer * 4;
-  padding: ($spacer * 4 - $font-size-base) / 2;
+  padding: ($spacer * 4 - $font-size-base) / 2 0;
 
   .container {
     width: 100%;
