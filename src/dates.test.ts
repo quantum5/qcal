@@ -1,4 +1,14 @@
-import {dateName, frIsLeap, frJDN, gregorianJDN, jdnFrench, jdnGregorian, jdnLongCount, monthName} from './dates';
+import {
+    dateName,
+    dateRuralName,
+    frIsLeap,
+    frJDN,
+    gregorianJDN,
+    jdnFrench,
+    jdnGregorian,
+    jdnLongCount,
+    monthName
+} from './dates';
 
 describe('gregorianJDN', () => {
     it('works', () => {
@@ -168,5 +178,18 @@ describe('dateName', () => {
 
     it('returns null for non-existent complimentary days', () => {
         expect(dateName(13, 7)).toBeNull();
+    });
+});
+
+describe('dateRuralName', () => {
+    it('works', () => {
+        expect(dateRuralName(1, 1)).toEqual({name: 'Raisin', title: 'Grape'});
+        expect(dateRuralName(1, 30)).toEqual({name: 'Tonneau', title: 'Barrel'});
+        expect(dateRuralName(12, 1)).toEqual({name: 'Prune', title: 'Plum'});
+        expect(dateRuralName(12, 30)).toEqual({name: 'Panier', title: 'Pack Basket'});
+    });
+
+    it('returns null for complimentary days', () => {
+        expect(dateRuralName(13, 1)).toBeNull();
     });
 });

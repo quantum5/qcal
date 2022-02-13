@@ -1,7 +1,7 @@
 import React from 'react';
 import './Calendar.scss';
 import {
-    dateName,
+    dateName, dateRuralName,
     Day,
     decadeNames,
     endYear,
@@ -37,9 +37,11 @@ function DayDetail({jdn}: { jdn: number }): JSX.Element {
 
 function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
     const jdn = frJDN(year, month, day);
+    const rural = dateRuralName(month, day)!;
     return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
         <div className="Day-decade">{decadeNames[(day - 1) % 10]}</div>
+        <div className="Day-rural" title={rural.title}>{rural.name}</div>
         <DayDetail jdn={jdn}/>
     </div>;
 }

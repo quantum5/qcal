@@ -1,4 +1,5 @@
 import data from './cal.json';
+import ruralName from './rural-days.json';
 
 // Month 13 is for the complementary days
 export type Month = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
@@ -169,4 +170,12 @@ export function dateName(month: Month, day: Day): string | null {
         }
     }
     return `${day} ${monthNames[month]}`;
+}
+
+export function dateRuralName(month: Month, day: Day): {name: string, title: string} | null {
+    const rural = ruralName[month * 30 + day - 31];
+    if (!rural)
+        return null;
+    const [name, title] = rural;
+    return {name, title};
 }
