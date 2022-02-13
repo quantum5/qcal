@@ -48,22 +48,34 @@
     display: none;
 }
 
-@include media-breakpoint-up(md) {
-    .Month-decade {
-        @include make-row($gutter: 0);
+.Month-decade {
+    @include make-row($gutter: 0);
 
-        > * {
-            @include make-col-ready();
-        }
+    > * {
+        @include make-col-ready();
     }
 }
 
-.Month-decadeSplitter {
+.Month-decadeSplitter-small, .Month-decadeSplitter-medium {
     width: 100%;
 }
 
+.Month-decadeSplitter-medium {
+    display: none;
+}
+
+@include media-breakpoint-up(md) {
+    .Month-decadeSplitter-small {
+        display: none;
+    }
+
+    .Month-decadeSplitter-medium {
+        display: block;
+    }
+}
+
 @include media-breakpoint-up(xl) {
-    .Month-decadeSplitter {
+    .Month-decadeSplitter-medium {
         display: none;
     }
 

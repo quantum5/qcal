@@ -54,7 +54,8 @@ function NormalMonth({year, month, todayJDN}: MonthProps & { todayJDN: number })
             Array.from(Array(3).keys()).map(i => <div className="Month-decade">{
                 Array.from(Array(10).keys()).map(j => <>
                     <NormalDay year={year} month={month} day={i * 10 + j + 1 as Day} todayJDN={todayJDN}/>
-                    {j === 4 && <div className="Month-decadeSplitter"/>}
+                    {j % 2 === 1 && <div className="Month-decadeSplitter-small"/>}
+                    {j === 4 && <div className="Month-decadeSplitter-medium"/>}
                 </>)
             }</div>)
         }</div>
