@@ -41,7 +41,7 @@ same leap year rules as the Gregorian calendar, i.e. every year divisible
 by four, except century years not divisible by 400. This method might make
 sense, except years 3, 7, and 11 were leap years under the original rules
 and were observed as such in real life, but the *Romme* method instead makes
-years 4, 6, 11 leap years instead.
+years 4, 8, 12 leap years instead.
 
 This version uses the original rules. The [JPL's DE440 and DE441
 ephemerides][3] were used to calculate the exact timings of the autumnal
