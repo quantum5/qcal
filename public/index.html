@@ -1,43 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Interactive French Republican Calendar (a.k.a. French Revolutionary Calendar)."/>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
+    <title>French Republican Calendar (a.k.a. French Revolutionary Calendar)</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">French Republican Calendar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-anchors"
+                aria-controls="nav-anchors" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+        <div class="collapse navbar-collapse" id="nav-anchors">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#explanation">Explanation</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+<div class="main">
+    <h2 id="explanation">Explanation</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is this?</h4>
+            <p class="lead">The <a href="https://en.wikipedia.org/wiki/French_Republican_calendar">French Republican
+                calendar</a> was a calendar created and implemented during the French Revolution.</p>
+            <p>It was also frequently known as the <em>French Republican Calendar</em>, but this was a misnomer: year 1
+                of the calendar started on 22 September 1792, the day after the
+                <a href="https://en.wikipedia.org/wiki/Proclamation_of_the_abolition_of_the_monarchy">abolition of the
+                    monarchy</a> and the founding of the <a href="https://en.wikipedia.org/wiki/French_First_Republic">French
+                    First Republic</a>.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">How does it work?</h4>
+            <p class="lead">A year consists of 12 months of 30 days each, divided into three <em>décades</em> of 10 days
+                each, followed by 5 complementary days (6 in leap years).</p>
+            <p>The year starts on the day of the autumnal equinox at the Paris Observatory (longitude 2°20′14.03″ E). A
+                leap year follow directly from this definition: a year is a leap year when the next autumnal equinox
+                happens 366 days later instead of the normal 365. By this definition, the year will <b>never</b> drift
+                with respect to the seasons.</p>
+            <p>The 12 months are: <em>Vendémiaire</em>, <em>Brumaire</em>, <em>Frimaire</em>, <em>Nivôse</em>, <em>Pluviôse</em>,
+                <em>Ventôse</em>, <em>Germinal</em>, <em>Floréal</em>, <em>Prairial</em>, <em>Messidor</em>, <em>Thermidor</em>,
+                <em>Fructidor.</em></p>
+            <p>The complementary days are: <em>la Fête de la Vertu</em>, <em>la Fête du Génie</em>, <em>la Fête du
+                Travail</em>, <em>la Fête de l'Opinion</em>, <em>la Fête des Récompenses,</em> and <em>la Fête de la
+                Révolution</em> (leap years only).</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What's so special about this version?</h4>
+            <p class="lead">Most versions of the calendar floating around doesn't use the original definition above.</p>
+            <p>Most versions uses the so-called <em>Romme</em> method for leap years, using the same leap year rules as
+                the Gregorian calendar, i.e. every year divisible by four, except century years not divisible by 400.
+                This method might make sense, except years 3, 7, and 11 were leap years under the original rules and
+                were observed as such in real life, but the <em>Romme</em> method instead makes years 4, 6, 11 leap
+                years instead.</p>
+            <p>This version uses the original rules. The <a href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL's
+                DE440 and DE441 ephemerides</a> were used to calculate the exact timings of the autumnal equinoxes
+                between the Gregorian years 13201 BCE and 17191 CE (corresponding to the French Republican years -14991
+                to 15399). The times were then converted to UT1+00:09:21, the exact local time at the Paris Observatory.
+                UT1 was chosen to keep track of the Earth's rotation without having to worry about the issues posed by
+                leap seconds in UTC. Note that due to the uncertainty over
+                <a href="https://en.wikipedia.org/wiki/%CE%94T_(timekeeping)">ΔT</a> — the difference between UT1 and
+                Terrestrial Time (TT) used in the ephemerides — it is theoretically possible for there to be
+                inaccuracies when the equinox occurs very close to midnight.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What are those numbers below the Gregorian date?</h4>
+            <p>The five (or more) numbers separated by dots is the corresponding
+                <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Mesoamerican Long Count
+                    calendar</a> date. This is commonly known as the &ldquo;Mayan calendar.&rdquo; This calendar is not
+                available for dates before August 11, 3114 BCE (25 Thermidor -4905).</p>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Copyright &copy; 2018-<%= new Date().getFullYear() %> <a href="https://quantum5.ca">Quantum</a>.
+            Licensed under
+            <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">GNU AGPLv3</a>. Source code available on
+            <a href="https://github.com/quantum5/frcal">GitHub</a>.<br>
+        </p>
+    </div>
+</footer>
+</body>
 </html>

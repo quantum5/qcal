@@ -2,3 +2,70 @@
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
 @import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/card';
+@import './consts';
+
+body {
+  padding-top: $spacer * 4;
+  position: relative;
+}
+
+#root {
+  max-width: $calendar-width;
+  margin: 0 auto;
+}
+
+nav.navbar {
+  background: $light;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  left: 0;
+  right: 0;
+
+  .container {
+    width: $calendar-width;
+    margin: 0 auto;
+    padding: 0 1em;
+  }
+}
+
+.main {
+  max-width: $calendar-width;
+  margin-top: $spacer;
+  @include make-container();
+
+  .card {
+    margin-bottom: $spacer;
+  }
+}
+
+html {
+  scroll-padding-top: $spacer * 4;
+}
+
+@supports not (scroll-padding-top: 80px) {
+  h1, h2, h3, h4, h5, h6, .footnotes li {
+    margin-top: -$spacer * 4;
+    padding-top: $spacer * 4;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.footer {
+  background: $light;
+  min-height: $spacer * 4;
+  padding: ($spacer * 4 - $font-size-base) / 2;
+
+  .container {
+    width: $calendar-width;
+    margin: 0 auto;
+    padding: 0 1em;
+  }
+}
