@@ -27,7 +27,8 @@ nav.navbar {
   right: 0;
 
   .container {
-    width: $calendar-width;
+    max-width: $calendar-width;
+    width: 100%;
     margin: 0 auto;
     padding: 0 1em;
   }
@@ -64,7 +65,8 @@ a {
   padding: ($spacer * 4 - $font-size-base) / 2;
 
   .container {
-    width: $calendar-width;
+    width: 100%;
+    max-width: $calendar-width;
     margin: 0 auto;
     padding: 0 1em;
   }
