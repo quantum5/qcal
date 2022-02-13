@@ -1,46 +1,61 @@
-# Getting Started with Create React App
+# French Republican Calendar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![demo](demo.png)
 
-## Available Scripts
+## What is this?
 
-In the project directory, you can run:
+The [French Republican calendar][0] was a calendar created and implemented
+during the French Revolution.
 
-### `npm start`
+It was also frequently known as the *French Republican Calendar*, but this
+was a misnomer: year 1 of the calendar started on 22 September 1792, the day
+after the [abolition of the monarchy][1] and the founding of the [French
+First Republic][2].
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How does it work?
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+A year consists of 12 months of 30 days each, divided into three *décades* of
+10 days each, followed by 5 complementary days (6 in leap years).
 
-### `npm test`
+The year starts on the day of the autumnal equinox at the Paris Observatory
+(longitude 2°20′14.03″ E). A leap year follow directly from this definition:
+a year is a leap year when the next autumnal equinox happens 366 days later
+instead of the normal 365. By this definition, the year will **never** drift
+with respect to the seasons.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The 12 months are: *Vendémiaire*, *Brumaire*, *Frimaire*, *Nivôse*,
+*Pluviôse*, *Ventôse*, *Germinal*, *Floréal*, *Prairial*, *Messidor*,
+*Thermidor*, *Fructidor.*
 
-### `npm run build`
+The complementary days are: *la Fête de la Vertu*, *la Fête du Génie*,
+*la Fête du Travail*, *la Fête de l'Opinion*, *la Fête des Récompenses,*
+and *la Fête de la Révolution* (leap years only).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## What's so special about this version?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Most versions of the calendar floating around doesn't use the original
+definition above.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Most versions uses the so-called *Romme* method for leap years, using the
+same leap year rules as the Gregorian calendar, i.e. every year divisible
+by four, except century years not divisible by 400. This method might make
+sense, except years 3, 7, and 11 were leap years under the original rules
+and were observed as such in real life, but the *Romme* method instead makes
+years 4, 6, 11 leap years instead.
 
-### `npm run eject`
+This version uses the original rules. The [JPL's DE440 and DE441
+ephemerides][3] were used to calculate the exact timings of the autumnal
+equinoxes between the Gregorian years 13201 BCE and 17191 CE (corresponding
+to the French Republican years -14991 to 15399). The times were then converted
+to UT1+00:09:21, the exact local time at the Paris Observatory. UT1 was chosen
+to keep track of the Earth's rotation without having to worry about the issues
+posed by leap seconds in UTC. Note that due to the uncertainty over [ΔT][4] —
+the difference between UT1 and Terrestrial Time (TT) used in the ephemerides —
+it is theoretically possible for there to be inaccuracies when the equinox
+occurs very close to midnight.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[0]: https://en.wikipedia.org/wiki/French_Republican_calendar
+[1]: https://en.wikipedia.org/wiki/Proclamation_of_the_abolition_of_the_monarchy
+[2]: https://en.wikipedia.org/wiki/French_First_Republic
+[3]: https://ssd.jpl.nasa.gov/planets/eph*export.html
+[4]: https://en.wikipedia.org/wiki/%CE%94T*(timekeeping)
