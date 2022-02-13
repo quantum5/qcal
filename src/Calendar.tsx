@@ -41,7 +41,7 @@ function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number 
     return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
         <div className="Day-decade">{decadeNames[(day - 1) % 10]}</div>
-        <div className="Day-rural" title={rural.title}>{rural.name}</div>
+        <div className="Day-rural" title={rural.title} tabIndex={0}>{rural.name}</div>
         <DayDetail jdn={jdn}/>
     </div>;
 }
