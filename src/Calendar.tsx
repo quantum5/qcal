@@ -164,11 +164,10 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
     }
 
     monthChange(event: any) {
-        this.goToNormalized(this.props.year, event.target.value as Month);
+        this.goToNormalized(this.props.year, +event.target.value as Month);
     }
 
     yearChange(event: any) {
-        console.log(/^-?\d+/.test(event.target.value));
         if (/^-?\d+/.test(event.target.value)) {
             this.goToNormalized(+event.target.value, this.props.month);
         }
