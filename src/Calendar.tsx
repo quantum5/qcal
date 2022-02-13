@@ -68,9 +68,11 @@ function ComplementaryDay({year, month, day, todayJDN}: DateProps & { todayJDN: 
 }
 
 function ComplementaryDays({year, todayJDN}: { year: number, todayJDN: number }): JSX.Element {
+    const leap = frIsLeap(year);
     return <div className="ComplementaryDays">{
-        Array.from(Array(frIsLeap(year) ? 6 : 5).keys()).map(i => <>
-            <ComplementaryDay year={year} month={13} day={i + 1 as Day} todayJDN={todayJDN}/>
+        Array.from(Array(6).keys()).map(i => <>
+            {(i < 5 || leap) && <ComplementaryDay year={year} month={13} day={i + 1 as Day} todayJDN={todayJDN}/>}
+            {i === 5 && !leap && <div className="ComplementaryDay-fake"/>}
             {i % 2 === 1 && <div className="ComplementaryDays-splitter"/>}
         </>)
     }</div>;

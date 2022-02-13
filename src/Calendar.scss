@@ -4,6 +4,7 @@
 @import 'bootstrap/scss/forms';
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/buttons';
+@import './consts';
 
 .Calendar {
     @include make-container();
@@ -49,7 +50,7 @@
 
 @include media-breakpoint-up(md) {
     .Month-decade {
-        @include make-row();
+        @include make-row($gutter: 0);
 
         > * {
             @include make-col-ready();
@@ -68,7 +69,7 @@
 
     .Month-decadeHead {
         display: block;
-        @include make-row();
+        @include make-row($gutter: 0);
     }
 
     .Day-decade {
@@ -76,17 +77,22 @@
     }
 }
 
+.Day, .DecadeName, .ComplementaryDay-fake {
+    margin: $calendar-gutter;
+    @include make-col($columns: 10);
+}
+
 @include media-breakpoint-up(lg) {
     .ComplementaryDays {
-        @include make-row();
+        @include make-row($gutter: 0);
 
         > * {
             @include make-col-ready();
         }
     }
 
-    .ComplementaryDay {
-        @include make-col($columns: 2);
+    .ComplementaryDay, .ComplementaryDay-fake {
+        @include make-col();
     }
 
     .ComplementaryDays-splitter {
@@ -94,9 +100,17 @@
     }
 }
 
-.Day, .DecadeName {
-    margin: 0.5em;
-    @include make-col($columns: 10);
+.Month, .ComplementaryDays {
+    margin-left: -$calendar-gutter;
+    margin-right: -$calendar-gutter;
+}
+
+.ComplementaryDay {
+    margin-top: $calendar-gutter;
+}
+
+.ComplementaryDay-fake {
+    padding: 0.5em;
 }
 
 .Day {
