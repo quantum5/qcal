@@ -63,7 +63,7 @@ export const decadeNames = [
     'primidi', 'duodi', 'tridi', 'quartidi', 'quintidi', 'sextidi', 'septidi', 'octidi', 'nonidi', 'décadi',
 ];
 
-const startJD = data.start_jd;
+export const startJD = data.start_jd;
 export const startYear = data.start_year;
 const leaps: Array<number> = [0];
 
@@ -107,8 +107,9 @@ export function jdnGregorian(jdn: number): Date {
     return new Date(year, month - 1, day);
 }
 
+export const endJD = frJDN(endYear, 13, frIsLeap(endYear) ? 6: 5);
 export const startGregorian = jdnGregorian(startJD);
-export const endGregorian = jdnGregorian(frJDN(endYear, 13, frIsLeap(endYear) ? 6: 5));
+export const endGregorian = jdnGregorian(endJD);
 
 export function jdnFrench(jdn: number): FrenchDate {
     let lo = 0;

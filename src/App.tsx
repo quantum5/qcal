@@ -1,6 +1,6 @@
 import React, {FormEvent} from 'react';
 import {Calendar} from './Calendar';
-import {endGregorian, frSupportedYear, gregorianJDN, jdnFrench, Month, startGregorian} from './dates';
+import {endGregorian, endJD, frSupportedYear, gregorianJDN, jdnFrench, Month, startGregorian, startJD} from './dates';
 
 type YearMonth = {
     year: number;
@@ -92,7 +92,7 @@ class App extends React.Component<{}, AppState> {
             return;
 
         const jdn = gregorianJDN(+this.state.goYear, +this.state.goMonth, +this.state.goDay);
-        const {year, month} = jdnFrench(jdn);
+        const {year, month} = jdnFrench(Math.min(Math.max(startJD, jdn), endJD));
         this.setState({year, month});
     }
 
