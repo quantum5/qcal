@@ -6,6 +6,7 @@
 @import 'bootstrap/scss/transitions';
 @import 'bootstrap/scss/type';
 @import 'bootstrap/scss/card';
+@import 'bootstrap/scss/forms';
 @import './consts';
 
 body {
@@ -31,6 +32,30 @@ nav.navbar {
     width: 100%;
     margin: 0 auto;
     padding: 0 1em;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .hide-small {
+    display: none;
+  }
+}
+
+.navigate {
+  max-width: $calendar-width;
+  margin-top: $spacer;
+  @include make-container();
+
+  .go-year {
+    max-width: 7em;
+  }
+
+  .go-month, .go-day {
+    max-width: 5em;
+  }
+
+  .go-button {
+    max-width: 3em;
   }
 }
 

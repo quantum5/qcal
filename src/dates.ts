@@ -107,6 +107,9 @@ export function jdnGregorian(jdn: number): Date {
     return new Date(year, month - 1, day);
 }
 
+export const startGregorian = jdnGregorian(startJD);
+export const endGregorian = jdnGregorian(frJDN(endYear, 13, frIsLeap(endYear) ? 6: 5));
+
 export function jdnFrench(jdn: number): FrenchDate {
     let lo = 0;
     let hi = leaps.length;
