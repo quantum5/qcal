@@ -7,7 +7,7 @@
 The [French Republican calendar][0] was a calendar created and implemented
 during the French Revolution.
 
-It was also frequently known as the *French Republican Calendar*, but this
+It was also frequently known as the *French Revolutionary Calendar*, but this
 was a misnomer: year 1 of the calendar started on 22 September 1792, the day
 after the [abolition of the monarchy][1] and the founding of the [French
 First Republic][2].
