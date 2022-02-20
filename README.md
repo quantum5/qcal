@@ -57,5 +57,5 @@ occurs very close to midnight.
 [0]: https://en.wikipedia.org/wiki/French_Republican_calendar
 [1]: https://en.wikipedia.org/wiki/Proclamation_of_the_abolition_of_the_monarchy
 [2]: https://en.wikipedia.org/wiki/French_First_Republic
-[3]: https://ssd.jpl.nasa.gov/planets/eph*export.html
-[4]: https://en.wikipedia.org/wiki/%CE%94T*(timekeeping)
+[3]: https://ssd.jpl.nasa.gov/planets/eph_export.html
+[4]: https://en.wikipedia.org/wiki/%CE%94T_(timekeeping)
