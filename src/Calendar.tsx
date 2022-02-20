@@ -48,16 +48,16 @@ function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number 
 }
 
 function NormalMonth({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.Element {
-    const decadeHeads = decadeNames.map(name => <DecadeName name={name}/>);
+    const decadeHeads = decadeNames.map((name, i) => <DecadeName key={i} name={name}/>);
     return <div className="Month">
         <div className="Month-decadeHead">{decadeHeads}</div>
         <div className="Month-decades">{
-            Array.from(Array(3).keys()).map(i => <div className="Month-decade">{
-                Array.from(Array(10).keys()).map(j => <>
+            Array.from(Array(3).keys()).map(i => <div key={i} className="Month-decade">{
+                Array.from(Array(10).keys()).map(j => <React.Fragment key={j}>
                     <NormalDay year={year} month={month} day={i * 10 + j + 1 as Day} todayJDN={todayJDN}/>
                     {j % 2 === 1 && <div className="Month-decadeSplitter-small"/>}
                     {j === 4 && <div className="Month-decadeSplitter-medium"/>}
-                </>)
+                </React.Fragment>)
             }</div>)
         }</div>
     </div>;
@@ -74,11 +74,11 @@ function ComplementaryDay({year, month, day, todayJDN}: DateProps & { todayJDN: 
 function ComplementaryDays({year, todayJDN}: { year: number, todayJDN: number }): JSX.Element {
     const leap = frIsLeap(year);
     return <div className="ComplementaryDays">{
-        Array.from(Array(6).keys()).map(i => <>
+        Array.from(Array(6).keys()).map(i => <React.Fragment key={i}>
             {(i < 5 || leap) && <ComplementaryDay year={year} month={13} day={i + 1 as Day} todayJDN={todayJDN}/>}
             {i === 5 && !leap && <div className="ComplementaryDay-fake"/>}
             {i % 2 === 1 && <div className="ComplementaryDays-splitter"/>}
-        </>)
+        </React.Fragment>)
     }</div>;
 }
 
@@ -211,7 +211,7 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                           value={this.props.month}>{
                       Array.from(Array(13).keys()).map(i => {
                           const month = i + 1 as Month;
-                          return <option value={month}>{monthName(month)}</option>;
+                          return <option key={i} value={month}>{monthName(month)}</option>;
                       })
                   }</select>
                   <input type="number" className="Calendar-year-input form-control" value={this.state.yearStr}
