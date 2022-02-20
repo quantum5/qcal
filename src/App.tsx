@@ -67,9 +67,7 @@ class App extends React.Component<{}, AppState> {
     }
 
     changeField(field: keyof AppState, event: any) {
-        const change: Partial<AppState> = {};
-        change[field] = event.target.value;
-        this.setState(change);
+        this.setState({[field]: event.target.value});
     }
 
     validYear() {

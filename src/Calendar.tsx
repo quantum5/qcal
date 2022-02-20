@@ -1,7 +1,8 @@
 import React from 'react';
 import './Calendar.scss';
 import {
-    dateName, dateRuralName,
+    dateName,
+    dateRuralName,
     Day,
     decadeNames,
     endYear,
@@ -101,7 +102,6 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
             yearStr: this.props.year.toString(),
         };
         this.selection = React.createRef();
-        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentDidMount() {
@@ -134,45 +134,51 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
         this.props.onSwitch && this.props.onSwitch(year, month as Month);
     }
 
-    prevYear() {
+    prevYear = () => {
         this.goToNormalized(this.props.year - 1, this.props.month);
     }
 
-    prevMonth() {
+    prevMonth = () => {
         this.goToNormalized(this.props.year, this.props.month - 1);
     }
 
-    nextYear() {
+    nextYear = () => {
         this.goToNormalized(this.props.year + 1, this.props.month);
     }
 
-    nextMonth() {
+    nextMonth = () => {
         this.goToNormalized(this.props.year, this.props.month + 1);
     }
 
-    startSelection() {
+    startSelection = () => {
         this.setState({selecting: true});
     }
 
-    handleClickOutside(event: any) {
+    handleClickOutside = (event: any) => {
         if (this.state.selecting && this.selection.current && !this.selection.current.contains(event.target))
             this.setState({selecting: false});
     }
 
-    handleKeyUp(event: any) {
+    handleKeyUp = (event: any) => {
         if (event.key === 'Escape')
             this.setState({selecting: false});
     }
 
-    monthChange(event: any) {
+    monthChange = (event: any) => {
         this.goToNormalized(this.props.year, +event.target.value as Month);
     }
 
-    yearChange(event: any) {
+    yearChange = (event: any) => {
         if (/^-?\d+/.test(event.target.value)) {
             this.goToNormalized(+event.target.value, this.props.month);
         }
         this.setState({yearStr: event.target.value});
+    }
+
+    goToToday = () => {
+        const {year, month} = jdnFrench(this.props.todayJDN);
+        this.goToNormalized(year, month);
+        this.setState({selecting: false});
     }
 
     componentDidUpdate(prevProps: CalendarProps) {
@@ -186,29 +192,22 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
         }
     }
 
-    goToToday() {
-        const {year, month} = jdnFrench(this.props.todayJDN);
-        this.goToNormalized(year, month);
-        this.setState({selecting: false});
-    }
-
     render(): JSX.Element {
         return <div className="Calendar">
             <div className="Calendar-head">
                 <div className="Calendar-prev">
-                    <button type="button" className="btn btn-secondary" title="Previous year"
-                            onClick={this.prevYear.bind(this)}>«
+                    <button type="button" className="btn btn-secondary" title="Previous year" onClick={this.prevYear}>«
                     </button>
                     <button type="button" className="btn btn-secondary" title="Previous month"
-                            onClick={this.prevMonth.bind(this)}>‹
+                            onClick={this.prevMonth}>‹
                     </button>
                 </div>
-                {!this.state.selecting && <div className="Calendar-month-name" onClick={this.startSelection.bind(this)}>
+                {!this.state.selecting && <div className="Calendar-month-name" onClick={this.startSelection}>
                     {this.props.month < 13 && monthName(this.props.month)} {this.props.year}
                 </div>}
                 {this.state.selecting && <div className="Calendar-month-name input-group" ref={this.selection}
-                                              onKeyUp={this.handleKeyUp.bind(this)}>
-                  <select className="Calendar-month-input form-control" onChange={this.monthChange.bind(this)}
+                                              onKeyUp={this.handleKeyUp}>
+                  <select className="Calendar-month-input form-control" onChange={this.monthChange}
                           value={this.props.month}>{
                       Array.from(Array(13).keys()).map(i => {
                           const month = i + 1 as Month;
@@ -216,17 +215,15 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                       })
                   }</select>
                   <input type="number" className="Calendar-year-input form-control" value={this.state.yearStr}
-                         onChange={this.yearChange.bind(this)} min={startYear} max={endYear}/>
+                         onChange={this.yearChange} min={startYear} max={endYear}/>
                   <button type="button" className="form-control btn btn-primary Calendar-today-button"
-                          onClick={this.goToToday.bind(this)}>Today
+                          onClick={this.goToToday}>Today
                   </button>
                 </div>}
                 <div className="Calendar-next">
-                    <button type="button" className="btn btn-secondary" title="Next month"
-                            onClick={this.nextMonth.bind(this)}>›
+                    <button type="button" className="btn btn-secondary" title="Next month" onClick={this.nextMonth}>›
                     </button>
-                    <button type="button" className="btn btn-secondary" title="Next year"
-                            onClick={this.nextYear.bind(this)}>»
+                    <button type="button" className="btn btn-secondary" title="Next year" onClick={this.nextYear}>»
                     </button>
                 </div>
             </div>
