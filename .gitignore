@@ -152,3 +152,4 @@ cython_debug/
 
 # Ephemeris downloads
 *.bsp
+finals2000A.all
