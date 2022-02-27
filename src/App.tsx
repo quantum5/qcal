@@ -1,6 +1,7 @@
 import React, {FormEvent} from 'react';
 import {Calendar} from './Calendar';
 import {endGregorian, endJD, frSupportedYear, gregorianJDN, jdnFrench, Month, startGregorian, startJD} from './dates';
+import {TimeOfDay} from './TimeOfDay';
 
 type YearMonth = {
     year: number;
@@ -101,6 +102,10 @@ class App extends React.Component<{}, AppState> {
         });
     }
 
+    onDateChange = (todayJDN: number) => {
+        this.setState({todayJDN});
+    }
+
     render() {
         return <>
             <Calendar
@@ -108,6 +113,8 @@ class App extends React.Component<{}, AppState> {
                 onSwitch={(year, month) => {
                     this.setState({year, month});
                 }}/>
+
+            <TimeOfDay onDateChange={this.onDateChange}/>
 
             <div className="navigate">
                 <h4>Go to a date</h4>

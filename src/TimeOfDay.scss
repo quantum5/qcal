@@ -1,0 +1,33 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/buttons';
+@import './consts';
+
+.TimeOfDay {
+  @include make-container();
+}
+
+.TimeOfDay-Rows {
+  @include make-row();
+
+  > * {
+    @include make-col-ready();
+  }
+}
+
+.TimeOfDay-Style {
+  strong::after {
+    content: ' ';
+  }
+
+  @include make-col();
+}
+
+@include media-breakpoint-up(lg) {
+  .TimeOfDay-Rows {
+    display: block;
+  }
+}
