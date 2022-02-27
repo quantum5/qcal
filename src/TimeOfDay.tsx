@@ -17,10 +17,9 @@ function currentDayMs(): number {
 }
 
 export function dayMsToDecimal(dayMs: number): DecimalTimeStamp {
-    const dayFrac = dayMs / 86_400_000;
-    const hour = Math.floor(dayFrac * 10);
-    const minute = Math.floor(dayFrac * 10 % 1 * 100);
-    const second = Math.floor(dayFrac * 1000 % 1 * 100);
+    const second = Math.floor(dayMs / 864 % 100);
+    const minute = Math.floor(dayMs / 86_400 % 100);
+    const hour = Math.floor(dayMs / 8_640_000);
     return {hour, minute, second};
 }
 
