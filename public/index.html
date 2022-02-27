@@ -5,16 +5,16 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="theme-color" content="#ff0000"/>
-    <meta name="description" content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons."/>
+    <meta name="description" content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons, along with revolutionary decimal time."/>
     <meta property="og:title" content="French Republican Calendar"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://frcal.qt.ax/"/>
-    <meta property="og:description" content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons."/>
+    <meta property="og:description" content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons, along with revolutionary decimal time."/>
     <meta property="og:image" content="%PUBLIC_URL%/logo512.png"/>
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
-    <meta property="og:image:alt" content="A calendar icon that displays the date 18 Brumaire." />
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="512"/>
+    <meta property="og:image:height" content="512"/>
+    <meta property="og:image:alt" content="A calendar icon that displays the date 18 Brumaire."/>
     <link rel="canonical" href="%PUBLIC_URL%/"/>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
@@ -112,6 +112,18 @@
                 <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Mesoamerican Long Count
                     calendar</a> date. This is commonly known as the &ldquo;Mayan calendar.&rdquo; This calendar is not
                 available for dates before August 11, 3114 BCE (25 Thermidor -4905).</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is decimal time?</h4>
+            <p class="lead">Decimal time is a time system used during the French Revolution that divided the day into 10
+                hours, each with 100 minutes, which contained 100 seconds each.</p>
+            <p>The result is 100,000 seconds in one day, compared to the 86,400 seconds with the normal 24-hour
+                system. This makes it very easy to denote time as a decimal fraction of a day. For example, decimal time
+                5:67:72 (around 13:37:31) on January 1, 2000 can be represented as <code>2000-01-01.56772</code>.</p>
+            <p>Also note that each decimal hours is 2.4 normal hours, each decimal minute is 1.44 normal minutes, and
+                each decimal second is 0.864 normal seconds.</p>
         </div>
     </div>
 </div>
