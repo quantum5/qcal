@@ -88,6 +88,10 @@ export function gregorianJDN(year: number, month: number, day: number): number {
     return J + dg;
 }
 
+export function dateJDN(date: Date) {
+    return gregorianJDN(date.getFullYear(), date.getMonth() + 1, date.getDate());
+}
+
 export function frJDN(year: number, month: Month, day: Day): number {
     const dy = year - startYear;
     const dd = month * 30 + day - 31;

@@ -1,6 +1,6 @@
 import React from 'react';
 import './TimeOfDay.scss';
-import {gregorianJDN} from './dates';
+import {dateJDN, gregorianJDN} from './dates';
 
 type TimeStamp = {
     hour: number,
@@ -52,7 +52,7 @@ export class TimeOfDay extends React.Component<TimeOfDayProps, TimeOfDayState> {
             decimalTimer: 0,
             normal: zero,
             normalTimer: 0,
-            jdn: 0,
+            jdn: dateJDN(new Date()),
         };
     }
 

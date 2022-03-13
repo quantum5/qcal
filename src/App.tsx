@@ -1,6 +1,16 @@
 import React, {FormEvent} from 'react';
 import {Calendar} from './Calendar';
-import {endGregorian, endJD, frSupportedYear, gregorianJDN, jdnFrench, Month, startGregorian, startJD} from './dates';
+import {
+    dateJDN,
+    endGregorian,
+    endJD,
+    frSupportedYear,
+    gregorianJDN,
+    jdnFrench,
+    Month,
+    startGregorian,
+    startJD
+} from './dates';
 import {TimeOfDay} from './TimeOfDay';
 
 type YearMonth = {
@@ -33,7 +43,7 @@ class App extends React.Component<{}, AppState> {
     constructor(props: {}) {
         super(props);
         const today = new Date();
-        const todayJDN = gregorianJDN(today.getFullYear(), today.getMonth() + 1, today.getDate());
+        const todayJDN = dateJDN(today);
         const {year, month} = jdnFrench(todayJDN);
 
         this.state = {
@@ -43,7 +53,6 @@ class App extends React.Component<{}, AppState> {
             goMonth: (today.getMonth() + 1).toString(),
             goDay: today.getDate().toString(),
         };
-        this.updateURL();
         this.updateStateFromURL = this.updateStateFromURL.bind(this);
     }
 
