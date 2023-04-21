@@ -83,7 +83,7 @@ def main():
         'start_year': fr_year(int(equinoxes[0].ut1_calendar()[0])),
         'leap': [int(paris_jdn(b) - paris_jdn(a) == 366) for a, b in zip(equinoxes, equinoxes[1:])]
     }
-    with open('src/cal.json', 'w') as f:
+    with open('src/french/cal.json', 'w') as f:
         json.dump(result, f, separators=(',', ':'))
 
 

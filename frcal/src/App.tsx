@@ -1,21 +1,20 @@
 import React, {FormEvent} from 'react';
 import {Calendar} from './Calendar';
 import {
-    dateJDN,
     endGregorian,
     endJD,
+    FrenchMonth,
     frSupportedYear,
-    gregorianJDN,
     jdnFrench,
-    Month,
     startGregorian,
-    startJD
-} from './dates';
+    startJD,
+} from '@common/french';
+import {dateJDN, gregorianJDN} from '@common/gregorian';
 import {TimeOfDay} from './TimeOfDay';
 
 type YearMonth = {
     year: number;
-    month: Month;
+    month: FrenchMonth;
 }
 
 function parseURL(): YearMonth | null {
@@ -27,7 +26,7 @@ function parseURL(): YearMonth | null {
     const year = +match[1];
     if (!frSupportedYear(year) || month < 1 || month > 13)
         return null;
-    return {year: year, month: month as Month};
+    return {year: year, month: month as FrenchMonth};
 }
 
 type AppState = YearMonth & {

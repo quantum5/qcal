@@ -3,26 +3,26 @@ import './Calendar.scss';
 import {
     dateName,
     dateRuralName,
-    Day,
     decadeNames,
     endYear,
+    FrenchDay,
+    FrenchMonth,
     frIsLeap,
     frJDN,
     jdnFrench,
-    jdnGregorian,
-    jdnLongCount,
-    Month,
     monthName,
-    startYear
-} from './dates';
+    startYear,
+} from '@common/french';
+import {jdnGregorian} from '@common/gregorian';
+import {jdnLongCount} from '@common/longCount';
 
 type MonthProps = {
     year: number;
-    month: Month;
+    month: FrenchMonth;
 };
 
 type DateProps = MonthProps & {
-    day: Day;
+    day: FrenchDay;
 };
 
 function DecadeName({name}: { name: string }): JSX.Element {
@@ -54,7 +54,7 @@ function NormalMonth({year, month, todayJDN}: MonthProps & { todayJDN: number })
         <div className="Month-decades">{
             Array.from(Array(3).keys()).map(i => <div key={i} className="Month-decade">{
                 Array.from(Array(10).keys()).map(j => <React.Fragment key={j}>
-                    <NormalDay year={year} month={month} day={i * 10 + j + 1 as Day} todayJDN={todayJDN}/>
+                    <NormalDay year={year} month={month} day={i * 10 + j + 1 as FrenchDay} todayJDN={todayJDN}/>
                     {j % 2 === 1 && <div className="Month-decadeSplitter-small"/>}
                     {j === 4 && <div className="Month-decadeSplitter-medium"/>}
                 </React.Fragment>)
@@ -75,7 +75,7 @@ function ComplementaryDays({year, todayJDN}: { year: number, todayJDN: number })
     const leap = frIsLeap(year);
     return <div className="ComplementaryDays">{
         Array.from(Array(6).keys()).map(i => <React.Fragment key={i}>
-            {(i < 5 || leap) && <ComplementaryDay year={year} month={13} day={i + 1 as Day} todayJDN={todayJDN}/>}
+            {(i < 5 || leap) && <ComplementaryDay year={year} month={13} day={i + 1 as FrenchDay} todayJDN={todayJDN}/>}
             {i === 5 && !leap && <div className="ComplementaryDay-fake"/>}
             {i % 2 === 1 && <div className="ComplementaryDays-splitter"/>}
         </React.Fragment>)
@@ -84,7 +84,7 @@ function ComplementaryDays({year, todayJDN}: { year: number, todayJDN: number })
 
 export type CalendarProps = MonthProps & {
     todayJDN: number;
-    onSwitch?: (year: number, month: Month) => void,
+    onSwitch?: (year: number, month: FrenchMonth) => void,
 };
 
 type CalendarState = {
@@ -131,7 +131,7 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
             month = 13;
         }
 
-        this.props.onSwitch && this.props.onSwitch(year, month as Month);
+        this.props.onSwitch && this.props.onSwitch(year, month as FrenchMonth);
     }
 
     prevYear = () => {
@@ -165,7 +165,7 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
     }
 
     monthChange = (event: any) => {
-        this.goToNormalized(this.props.year, +event.target.value as Month);
+        this.goToNormalized(this.props.year, +event.target.value as FrenchMonth);
     }
 
     yearChange = (event: any) => {
@@ -210,7 +210,7 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                   <select className="Calendar-month-input form-control" onChange={this.monthChange}
                           value={this.props.month}>{
                       Array.from(Array(13).keys()).map(i => {
-                          const month = i + 1 as Month;
+                          const month = i + 1 as FrenchMonth;
                           return <option key={i} value={month}>{monthName(month)}</option>;
                       })
                   }</select>

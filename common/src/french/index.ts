@@ -1,9 +1,10 @@
 import data from './cal.json';
 import ruralName from './rural-days.json';
+import {jdnGregorian} from '../gregorian';
 
 // Month 13 is for the complementary days
-export type Month = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
-export type Day =
+export type FrenchMonth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
+export type FrenchDay =
     1
     | 2
     | 3
@@ -37,12 +38,12 @@ export type Day =
 
 export type FrenchDate = {
     year: number,
-    month: Month,
-    day: Day,
+    month: FrenchMonth,
+    day: FrenchDay,
 };
 
 const monthNames: {
-    [key in Month]: string
+    [key in FrenchMonth]: string
 } = {
     1: 'Vendémiaire',
     2: 'Brumaire',
@@ -75,24 +76,12 @@ data.leap.forEach(leap => {
 });
 
 export const endYear = startYear + leaps.length - 1;
+
 export function frSupportedYear(year: number): boolean {
     return startYear <= year && year <= endYear;
 }
 
-export function gregorianJDN(year: number, month: number, day: number): number {
-    const g = year + 4716 - (month <= 2 ? 1 : 0);
-    const f = (month + 9) % 12;
-    const e = Math.floor(1461 * g / 4) + day - 1402;
-    const J = e + Math.floor((153 * f + 2) / 5);
-    const dg = 38 - Math.floor(Math.floor((g + 184) / 100) * 3 / 4);
-    return J + dg;
-}
-
-export function dateJDN(date: Date) {
-    return gregorianJDN(date.getFullYear(), date.getMonth() + 1, date.getDate());
-}
-
-export function frJDN(year: number, month: Month, day: Day): number {
+export function frJDN(year: number, month: FrenchMonth, day: FrenchDay): number {
     const dy = year - startYear;
     const dd = month * 30 + day - 31;
     return startJD + 365 * dy + leaps[dy] + dd;
@@ -102,18 +91,7 @@ export function frIsLeap(year: number): boolean {
     return !!data.leap[year - startYear];
 }
 
-export function jdnGregorian(jdn: number): Date {
-    const e = 4 * (jdn + 1401 + Math.floor(Math.floor((4 * jdn + 274277) / 146097) * 3 / 4) - 38) + 3;
-    const h = 5 * Math.floor((e % 1461 + 1461) % 1461 / 4) + 2;
-    const day = Math.floor((h % 153 + 153) % 153 / 5) + 1;
-    const month = (Math.floor(h / 153) + 2) % 12 + 1;
-    const year = Math.floor(e / 1461) - 4716 + Math.floor((14 - month) / 12);
-    return new Date(year, month - 1, day);
-}
-
-export const endJD = frJDN(endYear, 13, frIsLeap(endYear) ? 6: 5);
-export const startGregorian = jdnGregorian(startJD);
-export const endGregorian = jdnGregorian(endJD);
+export const endJD = frJDN(endYear, 13, frIsLeap(endYear) ? 6 : 5);
 
 export function jdnFrench(jdn: number): FrenchDate {
     let lo = 0;
@@ -130,35 +108,16 @@ export function jdnFrench(jdn: number): FrenchDate {
     const dd = jdn - (startJD + 365 * lo + leaps[lo]);
     return {
         year: startYear + lo,
-        month: Math.floor(dd / 30) + 1 as Month,
-        day: dd % 30 + 1 as Day,
+        month: Math.floor(dd / 30) + 1 as FrenchMonth,
+        day: dd % 30 + 1 as FrenchDay,
     }
 }
 
-export function jdnLongCount(jdn: number): string | null {
-    let z = jdn - 584283;
-    if (z < 0)
-        return null;
-
-    const parts = [z % 20, Math.floor(z / 20) % 18];
-    z = Math.floor(z / 360);
-    while (z > 0) {
-        parts.push(z % 20);
-        z = Math.floor(z / 20);
-    }
-
-    while (parts.length < 5) {
-        parts.push(0);
-    }
-
-    return parts.reverse().join('.');
-}
-
-export function monthName(month: Month): string {
+export function monthName(month: FrenchMonth): string {
     return monthNames[month];
 }
 
-export function dateName(month: Month, day: Day): string | null {
+export function dateName(month: FrenchMonth, day: FrenchDay): string | null {
     if (month === 13) {
         switch (day) {
             case 1:
@@ -180,10 +139,13 @@ export function dateName(month: Month, day: Day): string | null {
     return `${day} ${monthNames[month]}`;
 }
 
-export function dateRuralName(month: Month, day: Day): {name: string, title: string} | null {
+export function dateRuralName(month: FrenchMonth, day: FrenchDay): { name: string, title: string } | null {
     const rural = ruralName[month * 30 + day - 31];
     if (!rural)
         return null;
     const [name, title] = rural;
     return {name, title};
 }
+
+export const startGregorian = jdnGregorian(startJD);
+export const endGregorian = jdnGregorian(endJD);
