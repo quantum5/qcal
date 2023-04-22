@@ -32,7 +32,7 @@ function DecadeName({name}: { name: string }): JSX.Element {
 function DayDetail({jdn}: { jdn: number }): JSX.Element {
     return <div className="DayDetail">
         <div className="DayDetail-gregorian">{jdnDate(jdn).toDateString()}</div>
-        <div className="DayDetail-lc">{jdnLongCount(jdn)}</div>
+        <div className="DayDetail-lc">{jdnLongCount(jdn)?.join('.')}</div>
     </div>;
 }
 

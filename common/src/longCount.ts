@@ -1,4 +1,6 @@
-export function jdnLongCount(jdn: number): string | null {
+export type LongCount = Array<number>;
+
+export function jdnLongCount(jdn: number): LongCount | null {
     let z = jdn - 584283;
     if (z < 0)
         return null;
@@ -14,5 +16,5 @@ export function jdnLongCount(jdn: number): string | null {
         parts.push(0);
     }
 
-    return parts.reverse().join('.');
+    return parts.reverse();
 }
