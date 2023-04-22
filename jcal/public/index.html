@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#ff0000"/>
+    <meta name="description"
+          content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons, along with revolutionary decimal time."/>
+    <meta property="og:title" content="French Republican Calendar"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://frcal.qt.ax/"/>
+    <meta property="og:description"
+          content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons, along with revolutionary decimal time."/>
+    <meta property="og:image" content="%PUBLIC_URL%/logo512.png"/>
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="512"/>
+    <meta property="og:image:height" content="512"/>
+    <meta property="og:image:alt" content="A calendar icon that displays the date 18 Brumaire."/>
+    <link rel="canonical" href="%PUBLIC_URL%/"/>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
+    <title>Julian Calendar (extended indefinitely to the future)</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Julian Calendar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-anchors"
+                aria-controls="nav-anchors" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav-anchors">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#explanation">Explanation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://frcal.qt.ax">French Republican Calendar</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+<div class="main">
+    <h2 id="explanation">Explanation</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is this?</h4>
+            <p class="lead">The <a href="https://en.wikipedia.org/wiki/Julian_calendar">Julian
+                calendar</a> is a calendar introduced by Julius Caesar in 46 BC. A reformed version, the <a
+                    href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian
+                calendar</a>, forms the basis of civil calendar in most countries.</p>
+            <p>Julius Caesar (with aid of Sosigenes of Alexandria) introduced this calendar to replace the earlier Roman
+                calendar, which required manual addition of leap months to keep it in synchrony with the
+                seasons.Unfortunately, it had leap days every four years without question, resulting in the average year
+                having 365.25 days. However, the actual tropical year is roughly 365.2422 days, resulting in the Julian
+                calendar gaining a day every 129 years. This means that seasons drift, starting earlier and earlier in
+                the year.</p>
+            <p>In 1582, Pope Gregory XIII decided to fix this drift by reducing the number of leap days, motivated by a
+                desire to keep the March equinox on March 21st, since that value was hardcoded in the calculation for
+                the date of Easter. To achieve this, he made years divisible by 100 but not by 400 non-leap years,
+                resulting in 97 leap years every 400 years, resulting in the Gregorian calendar. To bring the equinox
+                back in alignment, October 5th to October 14th in 1582 were deleted. The result is the Gregorian
+                calendar.</p>
+            <p>This website extends the Julian calendar indefinitely into the future for reference reasons. Note that in
+                the 20th and 21st centuries, the Julian calendar is 13 days behind the Gregorian calendar.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">How are BCE years handled?</h4>
+            <p class="lead">The astronomical convention is used, i.e. year 0 is 1 BCE, year -1 is 2 BCE, etc.</p>
+            <p>Due to the way the common era (a.k.a. Anno Domini) year numbering system works, the year 1 BCE is
+                followed directly by 1 CE with no year zero. This makes math hard. As such, the astronomical convention
+                of making 1 BCE year 0 and extending this into the past was used.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is the JD (Julian day number) value?</h4>
+            <p>The integer <a href="https://en.wikipedia.org/wiki/Julian_day">Julian day (JD) number</a> is the
+                continuous count of days since the beginning of the Julian period, which is very useful in astronomy and
+                in software for calculating durations without worrying about weird calendar issues. In this respect,
+                it's very similar to Unix time.</p>
+            <p>JD 0 is assigned to the date Monday, January 1, 4713 BCE (Julian) or November 24, 4714 BCE (Gregorian).
+                More specifically, if fractional JDs are considered, then the integer value specifically refers to the
+                Universal Time noon on that date.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is the LC (Mesoamerican Long Count) date?</h4>
+            <p>The five (or more) numbers separated by dots is the corresponding
+                <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Mesoamerican Long Count
+                    calendar</a> date. This is commonly known as the &ldquo;Mayan calendar.&rdquo; This calendar is not
+                available for dates before August 11, 3114 BCE (Gregorian) or September 6, 3114 BCE (Julian).</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is the FR (French Republican calendar) date?</h4>
+            <p>The <a href="https://en.wikipedia.org/wiki/French_Republican_calendar">French Republican
+                calendar</a> was a calendar created and implemented during the French Revolution. It is also frequently
+                referred to as the <em>French Revolutionary Calendar</em>, but this is a misnomer:
+                year 1 of the calendar started on 22 September 1792, the day after the
+                <a href="https://en.wikipedia.org/wiki/Proclamation_of_the_abolition_of_the_monarchy">abolition of the
+                    monarchy</a> and the founding of the <a href="https://en.wikipedia.org/wiki/French_First_Republic">French
+                    First Republic</a>.</p>
+            <p>Specifically, the variant used here is <a href="https://frcal.qt.ax/">the one I computed from
+                astronomy</a>.</p>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Copyright &copy; 2022<%= new Date().getFullYear() > 2022 ? `–${new Date().getFullYear()}`
+            : '' %>
+            <a href="https://quantum5.ca">Quantum</a>.
+            Licensed under <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">GNU AGPLv3</a>.
+            Source code available on <a href="https://github.com/quantum5/frcal">GitHub</a>.<br>
+        </p>
+    </div>
+</footer>
+<script>
+  (function(j,u,l,i,a,n,c){j['GoogleAnalyticsObject']=a;j[a]=j[a]||function(){
+    (j[a].q=j[a].q||[]).push(arguments)},j[a].l=1*new Date();n=u.createElement(l),
+    c=u.getElementsByTagName(l)[0];n.async=1;n.src=i;c.parentNode.insertBefore(n,c)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-102581070-4', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

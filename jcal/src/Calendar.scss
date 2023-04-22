@@ -1,0 +1,164 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/buttons';
+@import './consts';
+
+.Calendar {
+    @include make-container();
+}
+
+.Calendar-head {
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: white;
+    margin-top: -$spacer * 4;
+    padding-top: $spacer * 4;
+
+    .btn {
+        margin: 0 1px;
+    }
+}
+
+.Calendar-prev, .Calendar-next {
+    flex: 0 2.5em;
+}
+
+.Calendar-prev {
+    text-align: right;
+}
+
+.Calendar-month-name {
+    flex: 1;
+    max-width: 30rem;
+    text-align: center;
+}
+
+.Month-weekdayHead {
+    display: none;
+}
+
+.Month-days {
+    @include make-row($gutter: 0);
+
+    > * {
+        @include make-col-ready();
+    }
+}
+
+.DayOuter {
+    padding: $calendar-gutter;
+}
+
+.DayFiller {
+    display: none;
+}
+
+.DayOuter, .WeekdayName {
+    display: flex;
+    @include make-col($size: 1, $columns: 2);
+}
+
+@include media-breakpoint-up(sm) {
+    .DayOuter, .WeekdayName {
+        @include make-col($size: 1, $columns: 3);
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .DayOuter, .WeekdayName {
+        @include make-col($size: 1, $columns: 4);
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .DayOuter, .WeekdayName {
+        @include make-col($size: 1, $columns: 5);
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .Month-weekdayHead {
+        display: block;
+        @include make-row($gutter: 0);
+        position: sticky;
+        top: 0;
+        background: white;
+        margin-top: -$spacer * 7;
+        padding-top: $spacer * 7;
+    }
+
+    .DayOuter, .WeekdayName, .DayFiller {
+        @include make-col($size: 1, $columns: 7);
+    }
+
+    .Day-weekday {
+        display: none;
+    }
+
+    .DayFiller {
+        display: block;
+    }
+}
+
+.Month {
+    margin-left: -$calendar-gutter;
+    margin-right: -$calendar-gutter;
+}
+
+.Day, .DayFiller {
+    padding: 0.5em;
+    border-radius: $border-radius;
+}
+
+.Day {
+    flex: 1;
+    border: 1px solid black;
+}
+
+.DayFiller {
+    border: 1px solid transparent;
+}
+
+.WeekdayName {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.Day-name {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.Day-weekday {
+    font-weight: 600;
+}
+
+.Day-today {
+    background: $gray-300;
+}
+
+.Calendar-month-name.input-group {
+    justify-content: center;
+    font-size: 0.75em;
+}
+
+.Calendar-month-input {
+    max-width: 12.5em;
+}
+
+.Calendar-year-input {
+    max-width: 6em;
+}
+
+.Calendar-today-button {
+    max-width: 5em;
+}

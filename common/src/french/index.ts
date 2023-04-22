@@ -42,9 +42,7 @@ export type FrenchDate = {
     day: FrenchDay,
 };
 
-const monthNames: {
-    [key in FrenchMonth]: string
-} = {
+const monthNames: { [key in FrenchMonth]: string } = {
     1: 'Vendémiaire',
     2: 'Brumaire',
     3: 'Frimaire',
@@ -64,8 +62,8 @@ export const decadeNames = [
     'primidi', 'duodi', 'tridi', 'quartidi', 'quintidi', 'sextidi', 'septidi', 'octidi', 'nonidi', 'décadi',
 ];
 
-export const startJD = data.start_jd;
-export const startYear = data.start_year;
+export const frStartJD = data.start_jd;
+export const frStartYear = data.start_year;
 const leaps: Array<number> = [0];
 
 let leapFromStart = 0;
@@ -75,23 +73,23 @@ data.leap.forEach(leap => {
 
 });
 
-export const endYear = startYear + leaps.length - 1;
+export const frEndYear = frStartYear + leaps.length - 1;
 
 export function frSupportedYear(year: number): boolean {
-    return startYear <= year && year <= endYear;
+    return frStartYear <= year && year <= frEndYear;
 }
 
 export function frJDN(year: number, month: FrenchMonth, day: FrenchDay): number {
-    const dy = year - startYear;
+    const dy = year - frStartYear;
     const dd = month * 30 + day - 31;
-    return startJD + 365 * dy + leaps[dy] + dd;
+    return frStartJD + 365 * dy + leaps[dy] + dd;
 }
 
 export function frIsLeap(year: number): boolean {
-    return !!data.leap[year - startYear];
+    return !!data.leap[year - frStartYear];
 }
 
-export const endJD = frJDN(endYear, 13, frIsLeap(endYear) ? 6 : 5);
+export const frEndJD = frJDN(frEndYear, 13, frIsLeap(frEndYear) ? 6 : 5);
 
 export function jdnFrench(jdn: number): FrenchDate {
     let lo = 0;
@@ -99,18 +97,18 @@ export function jdnFrench(jdn: number): FrenchDate {
 
     while (lo + 1 < hi) {
         const mid = Math.floor((lo + hi) / 2);
-        if (startJD + 365 * mid + leaps[mid] <= jdn)
+        if (frStartJD + 365 * mid + leaps[mid] <= jdn)
             lo = mid;
         else
             hi = mid;
     }
 
-    const dd = jdn - (startJD + 365 * lo + leaps[lo]);
+    const dd = jdn - (frStartJD + 365 * lo + leaps[lo]);
     return {
-        year: startYear + lo,
+        year: frStartYear + lo,
         month: Math.floor(dd / 30) + 1 as FrenchMonth,
         day: dd % 30 + 1 as FrenchDay,
-    }
+    };
 }
 
 export function monthName(month: FrenchMonth): string {
@@ -147,5 +145,9 @@ export function dateRuralName(month: FrenchMonth, day: FrenchDay): { name: strin
     return {name, title};
 }
 
-export const startGregorian = jdnGregorian(startJD);
-export const endGregorian = jdnGregorian(endJD);
+export const startGregorian = jdnGregorian(frStartJD);
+export const endGregorian = jdnGregorian(frEndJD);
+
+export function frDateFormat({year, month, day}: { year: number, month: FrenchMonth, day: FrenchDay }): string {
+    return `${dateName(month, day)} ${year}`;
+}

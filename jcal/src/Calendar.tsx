@@ -1,90 +1,78 @@
 import React from 'react';
 import './Calendar.scss';
-import {
-    dateName,
-    dateRuralName,
-    decadeNames,
-    frEndYear,
-    FrenchDay,
-    FrenchMonth,
-    frIsLeap,
-    frJDN,
-    jdnFrench,
-    monthName,
-    frStartYear,
-} from '@common/french';
-import {jdnDate} from '@common/gregorian';
+import {formatJG, jdnGregorian, JulianDay, JulianMonth, monthName, weekdayNames} from '@common/gregorian';
 import {jdnLongCount} from '@common/longCount';
+import {jdnJulian, julianJDN, julianMonthDays} from '@common/julian';
+import {frDateFormat, frEndJD, frStartJD, jdnFrench} from '@common/french';
 
 type MonthProps = {
     year: number;
-    month: FrenchMonth;
+    month: JulianMonth;
 };
 
 type DateProps = MonthProps & {
-    day: FrenchDay;
+    day: JulianDay;
 };
 
-function DecadeName({name}: { name: string }): JSX.Element {
-    return <div className="DecadeName">{name}</div>;
+function WeekdayName({name}: { name: string }): JSX.Element {
+    return <div className="WeekdayName">{name}</div>;
 }
 
 function DayDetail({jdn}: { jdn: number }): JSX.Element {
+    const lc = jdnLongCount(jdn);
     return <div className="DayDetail">
-        <div className="DayDetail-gregorian">{jdnDate(jdn).toDateString()}</div>
-        <div className="DayDetail-lc">{jdnLongCount(jdn)?.join('.')}</div>
+        <div className="DayDetail-jdn"><abbr title="Julian day number">JD</abbr> {jdn}</div>
+        <div className="DayDetail-gregorian">
+            <abbr title="Gregorian date">G.</abbr>{' '}
+            {formatJG(jdnGregorian(jdn))}
+        </div>
+        {lc && <div className="DayDetail-lc">
+          <abbr title="Mesoamerican long count date">LC</abbr>{' '}
+            {lc.join('.\u200b')}
+        </div>}
+        {jdn >= frStartJD && jdn <= frEndJD && <div className="DayDetail-fr">
+          <abbr title="French Republican Calendar">FR</abbr>{' '}
+            {frDateFormat(jdnFrench(jdn))}
+        </div>}
     </div>;
 }
 
-function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
-    const jdn = frJDN(year, month, day);
-    const rural = dateRuralName(month, day)!;
+function Day({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
+    const jdn = julianJDN(year, month, day);
     return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
-        <div className="Day-decade">{decadeNames[(day - 1) % 10]}</div>
-        <div className="Day-rural" title={rural.title} tabIndex={0}>{rural.name}</div>
+        <div className="Day-weekday">{weekdayNames[(day - 1) % 7]}</div>
         <DayDetail jdn={jdn}/>
     </div>;
 }
 
-function NormalMonth({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.Element {
-    const decadeHeads = decadeNames.map((name, i) => <DecadeName key={i} name={name}/>);
+function Month({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.Element {
+    const decadeHeads = weekdayNames.map((name, i) => <WeekdayName key={i} name={name}/>);
+    const firstJDN = julianJDN(year, month, 1);
+    const firstWeekday = (firstJDN + 1) % 7;
+    const daysTotal = julianMonthDays(year, month);
     return <div className="Month">
-        <div className="Month-decadeHead">{decadeHeads}</div>
-        <div className="Month-decades">{
-            Array.from(Array(3).keys()).map(i => <div key={i} className="Month-decade">{
-                Array.from(Array(10).keys()).map(j => <React.Fragment key={j}>
-                    <NormalDay year={year} month={month} day={i * 10 + j + 1 as FrenchDay} todayJDN={todayJDN}/>
-                    {j % 2 === 1 && <div className="Month-decadeSplitter-small"/>}
-                    {j === 4 && <div className="Month-decadeSplitter-medium"/>}
-                </React.Fragment>)
-            }</div>)
+        <div className="Month-weekdayHead">{decadeHeads}</div>
+        <div className="Month-days">{
+            Array.from(Array(6).keys()).flatMap(i => {
+                if (i * 7 - firstWeekday + 1 > daysTotal)
+                    return [];
+                return Array.from(Array(7).keys()).map(j => {
+                    const day = i * 7 + j - firstWeekday + 1 as JulianDay;
+                    if (day < 1 || day > daysTotal)
+                        return <div key={j} className="DayFiller"/>;
+                    return <div key={j} className="DayOuter">
+                        <Day year={year} month={month} day={day} todayJDN={todayJDN}/>
+                    </div>;
+                });
+            })
         }</div>
     </div>;
 }
 
-function ComplementaryDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
-    const jdn = frJDN(year, month, day);
-    return <div className={`Day ComplementaryDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
-        <div className="Day-name">{dateName(month, day)}</div>
-        <DayDetail jdn={jdn}/>
-    </div>;
-}
-
-function ComplementaryDays({year, todayJDN}: { year: number, todayJDN: number }): JSX.Element {
-    const leap = frIsLeap(year);
-    return <div className="ComplementaryDays">{
-        Array.from(Array(6).keys()).map(i => <React.Fragment key={i}>
-            {(i < 5 || leap) && <ComplementaryDay year={year} month={13} day={i + 1 as FrenchDay} todayJDN={todayJDN}/>}
-            {i === 5 && !leap && <div className="ComplementaryDay-fake"/>}
-            {i % 2 === 1 && <div className="ComplementaryDays-splitter"/>}
-        </React.Fragment>)
-    }</div>;
-}
-
 export type CalendarProps = MonthProps & {
     todayJDN: number;
-    onSwitch?: (year: number, month: FrenchMonth) => void,
+    onSwitch?: (year: number, month: JulianMonth) => void,
 };
 
 type CalendarState = {
@@ -115,71 +103,63 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
     private goToNormalized(year: number, month: number) {
         if (month < 1) {
             --year;
-            month += 13;
+            month += 12;
         }
 
-        if (month > 13) {
+        if (month > 12) {
             ++year;
-            month -= 13;
+            month -= 12;
         }
 
-        if (year < frStartYear) {
-            year = frStartYear;
-            month = 1;
-        } else if (year > frEndYear) {
-            year = frEndYear;
-            month = 13;
-        }
-
-        this.props.onSwitch && this.props.onSwitch(year, month as FrenchMonth);
+        this.props.onSwitch && this.props.onSwitch(year, month as JulianMonth);
     }
 
     prevYear = () => {
         this.goToNormalized(this.props.year - 1, this.props.month);
-    }
+    };
 
     prevMonth = () => {
         this.goToNormalized(this.props.year, this.props.month - 1);
-    }
+    };
 
     nextYear = () => {
         this.goToNormalized(this.props.year + 1, this.props.month);
-    }
+    };
 
     nextMonth = () => {
         this.goToNormalized(this.props.year, this.props.month + 1);
-    }
+    };
 
     startSelection = () => {
         this.setState({selecting: true});
-    }
+    };
 
     handleClickOutside = (event: any) => {
         if (this.state.selecting && this.selection.current && !this.selection.current.contains(event.target))
             this.setState({selecting: false});
-    }
+    };
 
     handleKeyUp = (event: any) => {
         if (event.key === 'Escape')
             this.setState({selecting: false});
-    }
+    };
 
     monthChange = (event: any) => {
-        this.goToNormalized(this.props.year, +event.target.value as FrenchMonth);
-    }
+        this.goToNormalized(this.props.year, +event.target.value as JulianMonth);
+    };
 
     yearChange = (event: any) => {
         if (/^-?\d+/.test(event.target.value)) {
             this.goToNormalized(+event.target.value, this.props.month);
         }
         this.setState({yearStr: event.target.value});
-    }
+    };
 
     goToToday = () => {
-        const {year, month} = jdnFrench(this.props.todayJDN);
+        const [year, month] = jdnJulian(this.props.todayJDN);
         this.goToNormalized(year, month);
         this.setState({selecting: false});
-    }
+    };
 
     componentDidUpdate(prevProps: CalendarProps) {
         if (prevProps.year !== this.props.year) {
@@ -203,19 +183,19 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                     </button>
                 </div>
                 {!this.state.selecting && <div className="Calendar-month-name" onClick={this.startSelection}>
-                    {this.props.month < 13 && monthName(this.props.month)} {this.props.year}
+                    {monthName(this.props.month)} {this.props.year}
                 </div>}
                 {this.state.selecting && <div className="Calendar-month-name input-group" ref={this.selection}
                                               onKeyUp={this.handleKeyUp}>
                   <select className="Calendar-month-input form-control" onChange={this.monthChange}
                           value={this.props.month}>{
-                      Array.from(Array(13).keys()).map(i => {
-                          const month = i + 1 as FrenchMonth;
+                      Array.from(Array(12).keys()).map(i => {
+                          const month = i + 1 as JulianMonth;
                           return <option key={i} value={month}>{monthName(month)}</option>;
                       })
                   }</select>
                   <input type="number" className="Calendar-year-input form-control" value={this.state.yearStr}
-                         onChange={this.yearChange} min={frStartYear} max={frEndYear}/>
+                         onChange={this.yearChange}/>
                   <button type="button" className="form-control btn btn-primary Calendar-today-button"
                           onClick={this.goToToday}>Today
                   </button>
@@ -227,9 +207,7 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
                     </button>
                 </div>
             </div>
-            {this.props.month < 13 &&
-              <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>}
-            {this.props.month === 13 && <ComplementaryDays year={this.props.year} todayJDN={this.props.todayJDN}/>}
+            <Month year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>
         </div>;
     }
 }

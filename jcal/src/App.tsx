@@ -1,20 +1,17 @@
 import React, {FormEvent} from 'react';
 import {Calendar} from './Calendar';
-import {
-    endGregorian,
-    frEndJD,
-    FrenchMonth,
-    frSupportedYear,
-    jdnFrench,
-    startGregorian,
-    frStartJD,
-} from '@common/french';
-import {dateJDN, gregorianJDN} from '@common/gregorian';
-import {TimeOfDay} from './TimeOfDay';
+import {frEndJD, frStartJD} from '@common/french';
+import {dateJDN, gregorianJDN, JulianMonth} from '@common/gregorian';
+import {DayChanger} from '@common/DayChanger';
+import {jdnJulian} from '@common/julian';
+
+// Not real limitations other than JS number precision.
+const START_YEAR = -10_000_000_000_000;
+const END_YEAR = 10_000_000_000_000;
 
 type YearMonth = {
     year: number;
-    month: FrenchMonth;
+    month: JulianMonth;
 }
 
 function parseURL(): YearMonth | null {
@@ -24,9 +21,9 @@ function parseURL(): YearMonth | null {
 
     const month = +match[2];
     const year = +match[1];
-    if (!frSupportedYear(year) || month < 1 || month > 13)
+    if (month < 1 || month > 23)
         return null;
-    return {year: year, month: month as FrenchMonth};
+    return {year: year, month: month as JulianMonth};
 }
 
 type AppState = YearMonth & {
@@ -43,7 +40,7 @@ class App extends React.Component<{}, AppState> {
         super(props);
         const today = new Date();
         const todayJDN = dateJDN(today);
-        const {year, month} = jdnFrench(todayJDN);
+        const [year, month] = jdnJulian(todayJDN);
 
         this.state = {
             ...(parseURL() || {year, month}),
@@ -80,8 +77,7 @@ class App extends React.Component<{}, AppState> {
     }
 
     validYear() {
-        return /^-?\d+$/.test(this.state.goYear) && startGregorian[0] <= +this.state.goYear &&
-            +this.state.goYear <= endGregorian[0];
+        return /^-?\d+$/.test(this.state.goYear) && START_YEAR <= +this.state.goYear && +this.state.goYear <= END_YEAR;
     }
 
     validMonth() {
@@ -99,14 +95,14 @@ class App extends React.Component<{}, AppState> {
             return;
 
         const jdn = gregorianJDN(+this.state.goYear, +this.state.goMonth, +this.state.goDay);
-        const {year, month} = jdnFrench(Math.min(Math.max(frStartJD, jdn), frEndJD));
+        const [year, month] = jdnJulian(Math.min(Math.max(frStartJD, jdn), frEndJD));
         this.setState({year, month});
     }
 
     setState(state: any, callback?: () => void) {
         super.setState(state, () => {
             this.updateURL();
-            callback && callback();
+            callback?.();
         });
     }
 
@@ -122,7 +118,7 @@ class App extends React.Component<{}, AppState> {
                     this.setState({year, month});
                 }}/>
 
-            <TimeOfDay onDateChange={this.onDateChange}/>
+            <DayChanger onDateChange={this.onDateChange}/>
 
             <div className="navigate">
                 <h4>Go to a date</h4>
@@ -130,7 +126,7 @@ class App extends React.Component<{}, AppState> {
                     <span className="input-group-text">Gregorian<span className="hide-small">&nbsp;Date</span></span>
                     <input type="number" className={`form-control go-year ${this.validYear() ? '' : 'is-invalid'}`}
                            onChange={this.changeField.bind(this, 'goYear')} value={this.state.goYear}
-                           min={startGregorian[0]} max={endGregorian[0]}/>
+                           min={START_YEAR} max={END_YEAR}/>
                     <input type="number" className={`form-control go-month ${this.validMonth() ? '' : 'is-invalid'}`}
                            onChange={this.changeField.bind(this, 'goMonth')} value={this.state.goMonth}
                            min={1} max={12}/>

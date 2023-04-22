@@ -1,4 +1,4 @@
-import {gregorianJDN, jdnDate, jdnGregorian, JulianDay, JulianMonth} from './gregorian';
+import {gregorianJDN, jdnDate, jdnGregorian, JulianDay, JulianMonth, gregorianMonthDays} from './gregorian';
 
 describe('gregorianJDN', () => {
     it('works', () => {
@@ -65,5 +65,44 @@ describe('jdnGregorian', () => {
         checkJDN(2110701, 1066, 10, 14);
         checkJDN(1721417, 0, 12, 25);
         checkJDN(0, -4712, 1, 1);
+    });
+});
+
+describe('monthLength', () => {
+    it('works for normal months', () => {
+        expect(gregorianMonthDays(2023, 1)).toEqual(31); // January
+        expect(gregorianMonthDays(2023, 3)).toEqual(31); // March
+        expect(gregorianMonthDays(2023, 4)).toEqual(30); // April
+        expect(gregorianMonthDays(2023, 5)).toEqual(31); // May
+        expect(gregorianMonthDays(2023, 6)).toEqual(30); // June
+        expect(gregorianMonthDays(2023, 7)).toEqual(31); // July
+        expect(gregorianMonthDays(2023, 8)).toEqual(31); // August
+        expect(gregorianMonthDays(2023, 9)).toEqual(30); // September
+        expect(gregorianMonthDays(2023, 10)).toEqual(31); // October
+        expect(gregorianMonthDays(2023, 11)).toEqual(30); // November
+        expect(gregorianMonthDays(2023, 12)).toEqual(31); // December
+    });
+
+    it('handles Gregorian leap years correctly', () => {
+        // Leap year: divisible by 400
+        expect(gregorianMonthDays(1600, 2)).toEqual(29);
+        expect(gregorianMonthDays(2000, 2)).toEqual(29);
+        expect(gregorianMonthDays(2400, 2)).toEqual(29);
+
+        // Not a leap year: divisible by 100 but not by 400
+        expect(gregorianMonthDays(1700, 2)).toEqual(28);
+        expect(gregorianMonthDays(1800, 2)).toEqual(28);
+        expect(gregorianMonthDays(1900, 2)).toEqual(28);
+        expect(gregorianMonthDays(2100, 2)).toEqual(28);
+
+        // Leap year: divisible by 4 but not by 100
+        expect(gregorianMonthDays(2004, 2)).toEqual(29);
+        expect(gregorianMonthDays(2008, 2)).toEqual(29);
+        expect(gregorianMonthDays(2012, 2)).toEqual(29);
+        expect(gregorianMonthDays(2016, 2)).toEqual(29);
+
+        expect(gregorianMonthDays(2001, 2)).toEqual(28);
+        expect(gregorianMonthDays(2002, 2)).toEqual(28);
+        expect(gregorianMonthDays(2003, 2)).toEqual(28);
     });
 });

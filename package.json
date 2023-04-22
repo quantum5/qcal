@@ -1,0 +1,8 @@
+{
+  "name": "qcal",
+  "workspaces": [
+    "common",
+    "frcal",
+    "jcal"
+  ]
+}
