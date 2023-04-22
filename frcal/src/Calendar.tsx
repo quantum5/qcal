@@ -13,7 +13,7 @@ import {
     monthName,
     startYear,
 } from '@common/french';
-import {jdnGregorian} from '@common/gregorian';
+import {jdnDate} from '@common/gregorian';
 import {jdnLongCount} from '@common/longCount';
 
 type MonthProps = {
@@ -31,7 +31,7 @@ function DecadeName({name}: { name: string }): JSX.Element {
 
 function DayDetail({jdn}: { jdn: number }): JSX.Element {
     return <div className="DayDetail">
-        <div className="DayDetail-gregorian">{jdnGregorian(jdn).toDateString()}</div>
+        <div className="DayDetail-gregorian">{jdnDate(jdn).toDateString()}</div>
         <div className="DayDetail-lc">{jdnLongCount(jdn)}</div>
     </div>;
 }

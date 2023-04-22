@@ -80,8 +80,8 @@ class App extends React.Component<{}, AppState> {
     }
 
     validYear() {
-        return /^-?\d+$/.test(this.state.goYear) && startGregorian.getFullYear() <= +this.state.goYear &&
-            +this.state.goYear <= endGregorian.getFullYear();
+        return /^-?\d+$/.test(this.state.goYear) && startGregorian[0] <= +this.state.goYear &&
+            +this.state.goYear <= endGregorian[0];
     }
 
     validMonth() {
@@ -112,7 +112,7 @@ class App extends React.Component<{}, AppState> {
 
     onDateChange = (todayJDN: number) => {
         this.setState({todayJDN});
-    }
+    };
 
     render() {
         return <>
@@ -130,7 +130,7 @@ class App extends React.Component<{}, AppState> {
                     <span className="input-group-text">Gregorian<span className="hide-small">&nbsp;Date</span></span>
                     <input type="number" className={`form-control go-year ${this.validYear() ? '' : 'is-invalid'}`}
                            onChange={this.changeField.bind(this, 'goYear')} value={this.state.goYear}
-                           min={startGregorian.getFullYear()} max={endGregorian.getFullYear()}/>
+                           min={startGregorian[0]} max={endGregorian[0]}/>
                     <input type="number" className={`form-control go-month ${this.validMonth() ? '' : 'is-invalid'}`}
                            onChange={this.changeField.bind(this, 'goMonth')} value={this.state.goMonth}
                            min={1} max={12}/>
