@@ -61,7 +61,7 @@
     display: none;
 }
 
-.DayOuter, .WeekdayName {
+.DayOuter {
     display: flex;
     @include make-col($size: 1, $columns: 2);
 }
@@ -91,8 +91,12 @@
         position: sticky;
         top: 0;
         background: white;
-        margin-top: -$spacer * 7;
-        padding-top: $spacer * 7;
+        margin-top: -$spacer * 7.5;
+        padding-top: $spacer * 7.5;
+    }
+
+    .Month-days {
+        margin-top: $spacer;
     }
 
     .DayOuter, .WeekdayName, .DayFiller {
