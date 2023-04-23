@@ -1,5 +1,6 @@
 {
   "name": "qcal",
+  "private": true,
   "workspaces": [
     "common",
     "frcal",
