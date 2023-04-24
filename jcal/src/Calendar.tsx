@@ -41,7 +41,7 @@ function Day({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JS
     const jdn = julianJDN(year, month, day);
     return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
-        <div className="Day-weekday">{weekdayNames[(day - 1) % 7]}</div>
+        <div className="Day-weekday">{weekdayNames[(jdn + 1) % 7]}</div>
         <DayDetail jdn={jdn}/>
     </div>;
 }
