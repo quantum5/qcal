@@ -17,7 +17,7 @@
     font-weight: 600;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 20;
     background: white;
     margin-top: -$spacer * 4;
     padding-top: $spacer * 4;
@@ -93,6 +93,7 @@
         background: white;
         margin-top: -$spacer * 7.5;
         padding-top: $spacer * 7.5;
+        z-index: 19;
     }
 
     .Month-days {
@@ -183,7 +184,7 @@
             border: 1px solid;
             width: fit-content;
             padding: 3px;
-            z-index: 20;
+            z-index: 10;
         }
     }
 }
