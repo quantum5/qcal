@@ -15,6 +15,7 @@ import {
 } from '@common/french';
 import {jdnDate} from '@common/gregorian';
 import {jdnLongCount} from '@common/longCount';
+import {useMobileTooltipProps} from '@common/MobileTooltip';
 
 type MonthProps = {
     year: number;
@@ -39,10 +40,11 @@ function DayDetail({jdn}: { jdn: number }): JSX.Element {
 function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
     const jdn = frJDN(year, month, day);
     const rural = dateRuralName(month, day)!;
+    const mobile = useMobileTooltipProps();
     return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
         <div className="Day-decade">{decadeNames[(day - 1) % 10]}</div>
-        <div className="Day-rural" title={rural.title} tabIndex={0}>{rural.name}</div>
+        <div className="Day-rural"><abbr title={rural.title} {...mobile}>{rural.name}</abbr></div>
         <DayDetail jdn={jdn}/>
     </div>;
 }

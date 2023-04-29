@@ -167,24 +167,3 @@
 .Calendar-today-button {
     max-width: 5em;
 }
-
-@media (pointer: coarse), (hover: none) {
-    .DayDetail abbr {
-        position: relative;
-        display: inline-flex;
-        justify-content: center;
-
-        &:focus::after {
-            content: attr(title);
-            position: absolute;
-            top: 90%;
-            left: 0;
-            color: #000;
-            background-color: #fff;
-            border: 1px solid;
-            width: fit-content;
-            padding: 3px;
-            z-index: 10;
-        }
-    }
-}

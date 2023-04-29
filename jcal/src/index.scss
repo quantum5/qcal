@@ -9,6 +9,7 @@
 @import 'bootstrap/scss/forms';
 @import 'bootstrap/scss/root';
 @import './consts';
+@import '@common/MobileTooltip.scss';
 
 body {
   padding-top: $spacer * 4;
