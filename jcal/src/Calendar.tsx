@@ -21,17 +21,17 @@ function WeekdayName({name}: { name: string }): JSX.Element {
 function DayDetail({jdn}: { jdn: number }): JSX.Element {
     const lc = jdnLongCount(jdn);
     return <div className="DayDetail">
-        <div className="DayDetail-jdn"><abbr title="Julian day number">JD</abbr> {jdn}</div>
+        <div className="DayDetail-jdn"><abbr title="Julian day number" tabIndex={0}>JD</abbr> {jdn}</div>
         <div className="DayDetail-gregorian">
-            <abbr title="Gregorian date">G.</abbr>{' '}
+            <abbr title="Gregorian date" tabIndex={0}>G.</abbr>{' '}
             {formatJG(jdnGregorian(jdn))}
         </div>
         {lc && <div className="DayDetail-lc">
-          <abbr title="Mesoamerican long count date">LC</abbr>{' '}
+          <abbr title="Mesoamerican long count date" tabIndex={0}>LC</abbr>{' '}
             {lc.join('.\u200b')}
         </div>}
         {jdn >= frStartJD && jdn <= frEndJD && <div className="DayDetail-fr">
-          <abbr title="French Republican Calendar">FR</abbr>{' '}
+          <abbr title="French Republican Calendar" tabIndex={0}>FR</abbr>{' '}
             {frDateFormat(jdnFrench(jdn))}
         </div>}
     </div>;

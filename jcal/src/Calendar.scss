@@ -168,21 +168,22 @@
 }
 
 @media (pointer: coarse), (hover: none) {
-    .DayDetail-gregorian abbr {
+    .DayDetail abbr {
         position: relative;
         display: inline-flex;
         justify-content: center;
-        text-decoration: underline dashed;
 
         &:focus::after {
             content: attr(title);
             position: absolute;
             top: 90%;
+            left: 0;
             color: #000;
             background-color: #fff;
             border: 1px solid;
             width: fit-content;
             padding: 3px;
+            z-index: 20;
         }
     }
 }
