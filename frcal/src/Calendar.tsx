@@ -30,7 +30,7 @@ type DateProps = MonthProps & {
 };
 
 function DecadeName({name}: { name: string }): JSX.Element {
-    return <div className="DecadeName">{name}</div>;
+    return <div className="WeekdayName">{name}</div>;
 }
 
 function DayDetail({jdn}: { jdn: number }): JSX.Element {
@@ -44,9 +44,9 @@ function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number 
     const jdn = frJDN(year, month, day);
     const rural = dateRuralName(month, day)!;
     const mobile = useMobileTooltipProps();
-    return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
+    return <div className={`Day ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
-        <div className="Day-decade">{decadeNames[(day - 1) % 10]}</div>
+        <div className="Day-weekday">{decadeNames[(day - 1) % 10]}</div>
         <div className="Day-rural"><abbr title={rural.title} {...mobile}>{rural.name}</abbr></div>
         <DayDetail jdn={jdn}/>
     </div>;
@@ -55,22 +55,18 @@ function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number 
 function NormalMonth({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.Element {
     const decadeHeads = decadeNames.map((name, i) => <DecadeName key={i} name={name}/>);
     return <div className="Month">
-        <div className="Month-decadeHead">{decadeHeads}</div>
-        <div className="Month-decades">{
-            Array.from(Array(3).keys()).map(i => <div key={i} className="Month-decade">{
-                Array.from(Array(10).keys()).map(j => <React.Fragment key={j}>
-                    <NormalDay year={year} month={month} day={i * 10 + j + 1 as FrenchDay} todayJDN={todayJDN}/>
-                    {j % 2 === 1 && <div className="Month-decadeSplitter-small"/>}
-                    {j === 4 && <div className="Month-decadeSplitter-medium"/>}
-                </React.Fragment>)
-            }</div>)
+        <div className="Month-weekdayHead">{decadeHeads}</div>
+        <div className="Month-days">{
+            Array.from(Array(30).keys()).map(i => <div key={i} className="DayOuter NormalDay">
+                <NormalDay year={year} month={month} day={i + 1 as FrenchDay} todayJDN={todayJDN}/>
+            </div>)
         }</div>
     </div>;
 }
 
 function ComplementaryDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
     const jdn = frJDN(year, month, day);
-    return <div className={`Day ComplementaryDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
+    return <div className={`Day ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{dateName(month, day)}</div>
         <DayDetail jdn={jdn}/>
     </div>;
@@ -78,13 +74,13 @@ function ComplementaryDay({year, month, day, todayJDN}: DateProps & { todayJDN: 
 
 function ComplementaryDays({year, todayJDN}: { year: FrenchYear, todayJDN: number }): JSX.Element {
     const leap = frIsLeap(year);
-    return <div className="ComplementaryDays">{
-        Array.from(Array(6).keys()).map(i => <React.Fragment key={i}>
-            {(i < 5 || leap) && <ComplementaryDay year={year} month={13} day={i + 1 as FrenchDay} todayJDN={todayJDN}/>}
-            {i === 5 && !leap && <div className="ComplementaryDay-fake"/>}
-            {i % 2 === 1 && <div className="ComplementaryDays-splitter"/>}
-        </React.Fragment>)
-    }</div>;
+    return <div className="Month">
+        <div className="Month-days">{
+            Array.from(Array(leap ? 6 : 5).keys()).map(i => <div key={i} className="DayOuter ComplementaryDay">
+                <ComplementaryDay year={year} month={13} day={i + 1 as FrenchDay} todayJDN={todayJDN}/>
+            </div>)
+        }</div>
+    </div>;
 }
 
 export class Calendar extends MonthBasedCalendar<FrenchYear, FrenchMonth> {

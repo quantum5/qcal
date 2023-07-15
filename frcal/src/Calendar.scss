@@ -7,112 +7,65 @@
 @import '@common/ui/consts.scss';
 @import '@common/ui/MonthBasedCalendar.scss';
 
-.Calendar {
-    @include make-container();
-}
+@include media-breakpoint-up(xs) {
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 2);
+    }
 
-.Month-decadeHead {
-    display: none;
-}
-
-.Month-decade {
-    @include make-row($gutter: 0);
-
-    > * {
-        @include make-col-ready();
+    .DayOuter.ComplementaryDay {
+        @include make-col($size: 1, $columns: 1);
     }
 }
 
-.Month-decadeSplitter-small, .Month-decadeSplitter-medium {
-    width: 100%;
-}
-
-.Month-decadeSplitter-medium {
-    display: none;
+@include media-breakpoint-up(sm) {
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 3);
+    }
 }
 
 @include media-breakpoint-up(md) {
-    .Month-decadeSplitter-small {
-        display: none;
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 4);
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 6);
     }
 
-    .Month-decadeSplitter-medium {
-        display: block;
+    .DayOuter.ComplementaryDay {
+        @include make-col($size: 1, $columns: 2);
     }
 }
 
 @include media-breakpoint-up(xl) {
-    .Month-decadeSplitter-medium {
-        display: none;
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 8);
     }
+}
 
-    .Month-decadeHead {
+@include media-breakpoint-up(xxl) {
+    .Month-weekdayHead {
         display: block;
         @include make-row($gutter: 0);
+        position: sticky;
+        top: 0;
+        background: white;
+        margin-top: -$spacer * 7.5;
+        padding-top: $spacer * 7.5;
+        z-index: 19;
     }
 
-    .Day-decade {
+    .Month-days {
+        margin-top: $spacer;
+    }
+
+    .DayOuter.NormalDay, .WeekdayName {
+        @include make-col($size: 1, $columns: 10);
+    }
+
+    .Day-weekday {
         display: none;
     }
-}
-
-.Day, .DecadeName, .ComplementaryDay-fake {
-    margin: $calendar-gutter;
-    @include make-col($columns: 10);
-}
-
-@include media-breakpoint-up(lg) {
-    .ComplementaryDays {
-        @include make-row($gutter: 0);
-
-        > * {
-            @include make-col-ready();
-        }
-    }
-
-    .ComplementaryDay, .ComplementaryDay-fake {
-        @include make-col();
-    }
-
-    .ComplementaryDays-splitter {
-        width: 100%;
-    }
-}
-
-.Month, .ComplementaryDays {
-    margin-left: -$calendar-gutter;
-    margin-right: -$calendar-gutter;
-}
-
-.ComplementaryDay {
-    margin-top: $calendar-gutter;
-}
-
-.ComplementaryDay-fake {
-    padding: 0.5em;
-}
-
-.Day {
-    padding: 0.5em;
-    border: 1px solid black;
-    border-radius: $border-radius;
-}
-
-.DecadeName {
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.2em;
-}
-
-.Day-name {
-    font-size: 2em;
-    font-weight: 600;
-}
-
-.Day-decade {
-    font-weight: 600;
-}
-
-.Day-today {
-    background: $gray-300;
 }

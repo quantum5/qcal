@@ -1,0 +1,50 @@
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/grid';
+
+@include media-breakpoint-up(sm) {
+  .DayOuter {
+    @include make-col($size: 1, $columns: 3);
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .DayOuter {
+    @include make-col($size: 1, $columns: 4);
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .DayOuter {
+    @include make-col($size: 1, $columns: 5);
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .Month-weekdayHead {
+    display: block;
+    @include make-row($gutter: 0);
+    position: sticky;
+    top: 0;
+    background: white;
+    margin-top: -$spacer * 7.5;
+    padding-top: $spacer * 7.5;
+    z-index: 19;
+  }
+
+  .Month-days {
+    margin-top: $spacer;
+  }
+
+  .DayOuter, .WeekdayName, .DayFiller {
+    @include make-col($size: 1, $columns: 7);
+  }
+
+  .Day-weekday {
+    display: none;
+  }
+
+  .DayFiller {
+    display: block;
+  }
+}

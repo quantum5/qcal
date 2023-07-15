@@ -1,5 +1,14 @@
 @import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/grid';
+@import './consts';
 
+.Calendar {
+  @include make-container();
+}
+
+/* Calendar head */
 .Calendar-head {
   display: flex;
   justify-content: center;
@@ -46,4 +55,69 @@
 
 .Calendar-today-button {
   max-width: 5em;
+}
+
+/* Days */
+.Month {
+  margin-left: -$calendar-gutter;
+  margin-right: -$calendar-gutter;
+}
+
+.Month-days {
+  @include make-row($gutter: 0);
+
+  > * {
+    @include make-col-ready();
+  }
+}
+
+.DayOuter {
+  padding: $calendar-gutter;
+}
+
+.DayFiller {
+  display: none;
+}
+
+.DayOuter {
+  display: flex;
+  @include make-col($size: 1, $columns: 2);
+}
+
+.Day, .DayFiller {
+  padding: 0.5em;
+  border-radius: $border-radius;
+}
+
+.Day {
+  flex: 1;
+  border: 1px solid black;
+}
+
+.DayFiller {
+  border: 1px solid transparent;
+}
+
+.Day-name {
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.Day-weekday {
+  font-weight: 600;
+}
+
+.Day-today {
+  background: $gray-300;
+}
+
+/* Weekdays */
+.Month-weekdayHead {
+  display: none;
+}
+
+.WeekdayName {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2em;
 }
