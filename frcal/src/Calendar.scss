@@ -4,7 +4,7 @@
 @import 'bootstrap/scss/forms';
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/buttons';
-@import './consts';
+@import '@common/ui/consts.scss';
 @import '@common/ui/MonthBasedCalendar.scss';
 
 .Calendar {
