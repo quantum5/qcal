@@ -5,3 +5,4 @@ calendars from major cultures.
 
 Currently, the following calendars are supported:
 * [French Republican Calendar](frcal/README.md)
+* [Julian Calendar](jcal/README.md)
