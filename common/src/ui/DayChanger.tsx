@@ -1,5 +1,5 @@
 import React from 'react';
-import {dateJDN} from './gregorian';
+import {dateJDN} from '../gregorian';
 
 function dayMs(date: Date): number {
     return date.getHours() * 3_600_000 + date.getMinutes() * 60_000 + date.getSeconds() * 1000 + date.getMilliseconds();

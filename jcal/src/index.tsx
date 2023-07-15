@@ -4,7 +4,7 @@ import 'bootstrap/js/dist/collapse';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {MobileTooltipProvider} from '@common/MobileTooltip';
+import {MobileTooltipProvider} from '@common/ui/MobileTooltip';
 
 ReactDOM.render(
     <React.StrictMode>

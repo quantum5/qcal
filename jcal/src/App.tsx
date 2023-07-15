@@ -1,7 +1,7 @@
 import React from 'react';
 import {Calendar} from './Calendar';
 import {dateJDN, gregorianJDN, JulianMonth} from '@common/gregorian';
-import {DayChanger} from '@common/DayChanger';
+import {DayChanger} from '@common/ui/DayChanger';
 import {jdnJulian} from '@common/julian';
 import {GregorianJumper} from '@common/dateJump';
 

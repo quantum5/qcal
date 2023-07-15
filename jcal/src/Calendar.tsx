@@ -4,8 +4,8 @@ import {formatJG, jdnGregorian, JulianDay, JulianMonth, monthName, weekdayNames}
 import {jdnLongCount} from '@common/longCount';
 import {jdnJulian, julianJDN, julianMonthDays} from '@common/julian';
 import {frDateFormat, frEndJD, frStartJD, jdnFrench} from '@common/french';
-import {useMobileTooltipProps} from '@common/MobileTooltip';
-import {MonthBasedCalendar} from '@common/MonthBasedCalendar';
+import {useMobileTooltipProps} from '@common/ui/MobileTooltip';
+import {MonthBasedCalendar} from '@common/ui/MonthBasedCalendar';
 
 type JulianYear = number;
 

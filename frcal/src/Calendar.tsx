@@ -15,8 +15,8 @@ import {
 } from '@common/french';
 import {jdnDate} from '@common/gregorian';
 import {jdnLongCount} from '@common/longCount';
-import {useMobileTooltipProps} from '@common/MobileTooltip';
-import {MonthBasedCalendar} from '@common/MonthBasedCalendar';
+import {useMobileTooltipProps} from '@common/ui/MobileTooltip';
+import {MonthBasedCalendar} from '@common/ui/MonthBasedCalendar';
 
 type FrenchYear = number;
 
