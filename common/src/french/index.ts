@@ -1,6 +1,5 @@
 import data from './cal.json';
 import ruralName from './rural-days.json';
-import {jdnGregorian} from '../gregorian';
 
 // Month 13 is for the complementary days
 export type FrenchMonth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
@@ -144,9 +143,6 @@ export function dateRuralName(month: FrenchMonth, day: FrenchDay): { name: strin
     const [name, title] = rural;
     return {name, title};
 }
-
-export const startGregorian = jdnGregorian(frStartJD);
-export const endGregorian = jdnGregorian(frEndJD);
 
 export function frDateFormat({year, month, day}: { year: number, month: FrenchMonth, day: FrenchDay }): string {
     return `${dateName(month, day)} ${year}`;
