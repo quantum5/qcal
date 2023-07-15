@@ -8,8 +8,8 @@
 @import 'bootstrap/scss/card';
 @import 'bootstrap/scss/forms';
 @import 'bootstrap/scss/root';
-@import '@common/ui/consts.scss';
-@import '@common/ui/MobileTooltip.scss';
+@import './consts.scss';
+@import './MobileTooltip.scss';
 
 body {
   padding-top: $spacer * 4;
