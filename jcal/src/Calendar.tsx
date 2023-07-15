@@ -5,9 +5,12 @@ import {jdnLongCount} from '@common/longCount';
 import {jdnJulian, julianJDN, julianMonthDays} from '@common/julian';
 import {frDateFormat, frEndJD, frStartJD, jdnFrench} from '@common/french';
 import {useMobileTooltipProps} from '@common/MobileTooltip';
+import {MonthBasedCalendar} from '@common/MonthBasedCalendar';
+
+type JulianYear = number;
 
 type MonthProps = {
-    year: number;
+    year: JulianYear;
     month: JulianMonth;
 };
 
@@ -72,144 +75,74 @@ function Month({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.
     </div>;
 }
 
-export type CalendarProps = MonthProps & {
-    todayJDN: number;
-    onSwitch?: (year: number, month: JulianMonth) => void,
-};
-
-type CalendarState = {
-    selecting: boolean,
-    yearStr: string,
-};
-
-export class Calendar extends React.Component<CalendarProps, CalendarState> {
-    selection: React.RefObject<HTMLDivElement>;
-
-    constructor(props: CalendarProps) {
-        super(props);
-        this.state = {
-            selecting: false,
-            yearStr: this.props.year.toString(),
-        };
-        this.selection = React.createRef();
+export class Calendar extends MonthBasedCalendar<JulianYear, JulianMonth> {
+    override parseYear(year: string): JulianYear {
+        return +year;
     }
 
-    componentDidMount() {
-        document.addEventListener('click', this.handleClickOutside, true);
+    override parseMonth(month: string): JulianMonth {
+        return +month as JulianMonth;
     }
 
-    componentWillUnmount() {
-        document.removeEventListener('click', this.handleClickOutside, true);
+    override yearToString(year: JulianYear): string {
+        return year.toString();
+    }
+
+    override monthToString(month: JulianMonth): string {
+        return month.toString();
     }
 
     private goToNormalized(year: number, month: number) {
-        if (month < 1) {
+        while (month < 1) {
             --year;
             month += 12;
         }
 
-        if (month > 12) {
+        while (month > 12) {
             ++year;
             month -= 12;
         }
 
-        this.props.onSwitch && this.props.onSwitch(year, month as JulianMonth);
+        this.goTo(year, month as JulianMonth);
     }
 
-    prevYear = () => {
+    override prevYear = () => {
         this.goToNormalized(this.props.year - 1, this.props.month);
     };
 
-    prevMonth = () => {
+    override prevMonth = () => {
         this.goToNormalized(this.props.year, this.props.month - 1);
     };
 
-    nextYear = () => {
+    override nextYear = () => {
         this.goToNormalized(this.props.year + 1, this.props.month);
     };
 
-    nextMonth = () => {
+    override nextMonth = () => {
         this.goToNormalized(this.props.year, this.props.month + 1);
     };
 
-    startSelection = () => {
-        this.setState({selecting: true});
-    };
-
-    handleClickOutside = (event: any) => {
-        if (this.state.selecting && this.selection.current && !this.selection.current.contains(event.target))
-            this.setState({selecting: false});
-    };
-
-    handleKeyUp = (event: any) => {
-        if (event.key === 'Escape')
-            this.setState({selecting: false});
-    };
-
-    monthChange = (event: any) => {
-        this.goToNormalized(this.props.year, +event.target.value as JulianMonth);
-    };
-
-    yearChange = (event: any) => {
-        if (/^-?\d+/.test(event.target.value)) {
-            this.goToNormalized(+event.target.value, this.props.month);
-        }
-        this.setState({yearStr: event.target.value});
-    };
-
-    goToToday = () => {
-        const [year, month] = jdnJulian(this.props.todayJDN);
-        this.goToNormalized(year, month);
-        this.setState({selecting: false});
-    };
-
-    componentDidUpdate(prevProps: CalendarProps) {
-        if (prevProps.year !== this.props.year) {
-            const yearStr = this.props.year.toString();
-            if (this.state.yearStr !== yearStr) {
-                this.setState({
-                    yearStr: yearStr,
-                });
-            }
-        }
+    override isValidYear(year: string): boolean {
+        return /^-?\d+/.test(year);
     }
 
-    render(): JSX.Element {
-        return <div className="Calendar">
-            <div className="Calendar-head">
-                <div className="Calendar-prev">
-                    <button type="button" className="btn btn-secondary" title="Previous year" onClick={this.prevYear}>«
-                    </button>
-                    <button type="button" className="btn btn-secondary" title="Previous month"
-                            onClick={this.prevMonth}>‹
-                    </button>
-                </div>
-                {!this.state.selecting && <div className="Calendar-month-name" onClick={this.startSelection}>
-                    {monthName(this.props.month)} {this.props.year}
-                </div>}
-                {this.state.selecting && <div className="Calendar-month-name input-group" ref={this.selection}
-                                              onKeyUp={this.handleKeyUp}>
-                  <select className="Calendar-month-input form-control" onChange={this.monthChange}
-                          value={this.props.month}>{
-                      Array.from(Array(12).keys()).map(i => {
-                          const month = i + 1 as JulianMonth;
-                          return <option key={i} value={month}>{monthName(month)}</option>;
-                      })
-                  }</select>
-                  <input type="number" className="Calendar-year-input form-control" value={this.state.yearStr}
-                         onChange={this.yearChange}/>
-                  <button type="button" className="form-control btn btn-primary Calendar-today-button"
-                          onClick={this.goToToday}>Today
-                  </button>
-                </div>}
-                <div className="Calendar-next">
-                    <button type="button" className="btn btn-secondary" title="Next month" onClick={this.nextMonth}>›
-                    </button>
-                    <button type="button" className="btn btn-secondary" title="Next year" onClick={this.nextYear}>»
-                    </button>
-                </div>
-            </div>
-            <Month year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>
-        </div>;
+    override jdnLookup(jdn: number): { year: JulianYear; month: JulianMonth } {
+        const [year, month] = jdnJulian(jdn);
+        return {year, month};
+    }
+
+    override monthName(year: JulianYear, month: JulianMonth): string {
+        return `${monthName(month)} ${year}`;
+    }
+
+    override renderMonthOptions(): JSX.Element[] {
+        return Array.from(Array(12).keys()).map(i => {
+            const month = i + 1 as JulianMonth;
+            return <option key={i} value={month}>{monthName(month)}</option>;
+        });
+    }
+
+    override renderBody(): JSX.Element {
+        return <Month year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>
     }
 }

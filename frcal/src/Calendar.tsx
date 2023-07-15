@@ -4,21 +4,24 @@ import {
     dateName,
     dateRuralName,
     decadeNames,
-    frEndYear,
     FrenchDay,
     FrenchMonth,
+    frEndYear,
     frIsLeap,
     frJDN,
+    frStartYear,
     jdnFrench,
     monthName,
-    frStartYear,
 } from '@common/french';
 import {jdnDate} from '@common/gregorian';
 import {jdnLongCount} from '@common/longCount';
 import {useMobileTooltipProps} from '@common/MobileTooltip';
+import {MonthBasedCalendar} from '@common/MonthBasedCalendar';
+
+type FrenchYear = number;
 
 type MonthProps = {
-    year: number;
+    year: FrenchYear;
     month: FrenchMonth;
 };
 
@@ -73,7 +76,7 @@ function ComplementaryDay({year, month, day, todayJDN}: DateProps & { todayJDN: 
     </div>;
 }
 
-function ComplementaryDays({year, todayJDN}: { year: number, todayJDN: number }): JSX.Element {
+function ComplementaryDays({year, todayJDN}: { year: FrenchYear, todayJDN: number }): JSX.Element {
     const leap = frIsLeap(year);
     return <div className="ComplementaryDays">{
         Array.from(Array(6).keys()).map(i => <React.Fragment key={i}>
@@ -84,43 +87,30 @@ function ComplementaryDays({year, todayJDN}: { year: number, todayJDN: number })
     }</div>;
 }
 
-export type CalendarProps = MonthProps & {
-    todayJDN: number;
-    onSwitch?: (year: number, month: FrenchMonth) => void,
-};
-
-type CalendarState = {
-    selecting: boolean,
-    yearStr: string,
-};
-
-export class Calendar extends React.Component<CalendarProps, CalendarState> {
-    selection: React.RefObject<HTMLDivElement>;
-
-    constructor(props: CalendarProps) {
-        super(props);
-        this.state = {
-            selecting: false,
-            yearStr: this.props.year.toString(),
-        };
-        this.selection = React.createRef();
+export class Calendar extends MonthBasedCalendar<FrenchYear, FrenchMonth> {
+    override parseYear(year: string): FrenchYear {
+        return +year;
     }
 
-    componentDidMount() {
-        document.addEventListener('click', this.handleClickOutside, true);
+    override parseMonth(month: string): FrenchMonth {
+        return +month as FrenchMonth;
     }
 
-    componentWillUnmount() {
-        document.removeEventListener('click', this.handleClickOutside, true);
+    override yearToString(year: FrenchYear): string {
+        return year.toString();
+    }
+
+    override monthToString(month: FrenchMonth): string {
+        return month.toString();
     }
 
     private goToNormalized(year: number, month: number) {
-        if (month < 1) {
+        while (month < 1) {
             --year;
             month += 13;
         }
 
-        if (month > 13) {
+        while (month > 13) {
             ++year;
             month -= 13;
         }
@@ -133,105 +123,49 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
             month = 13;
         }
 
-        this.props.onSwitch && this.props.onSwitch(year, month as FrenchMonth);
+        this.goTo(year, month as FrenchMonth);
     }
 
-    prevYear = () => {
+    override prevYear = () => {
         this.goToNormalized(this.props.year - 1, this.props.month);
-    }
+    };
 
-    prevMonth = () => {
+    override prevMonth = () => {
         this.goToNormalized(this.props.year, this.props.month - 1);
-    }
+    };
 
-    nextYear = () => {
+    override nextYear = () => {
         this.goToNormalized(this.props.year + 1, this.props.month);
-    }
+    };
 
-    nextMonth = () => {
+    override nextMonth = () => {
         this.goToNormalized(this.props.year, this.props.month + 1);
+    };
+
+    override isValidYear(year: string): boolean {
+        return /^-?\d+/.test(year);
     }
 
-    startSelection = () => {
-        this.setState({selecting: true});
+    override jdnLookup(jdn: number): { year: FrenchYear; month: FrenchMonth } {
+        return jdnFrench(jdn);
     }
 
-    handleClickOutside = (event: any) => {
-        if (this.state.selecting && this.selection.current && !this.selection.current.contains(event.target))
-            this.setState({selecting: false});
+    override monthName(year: FrenchYear, month: FrenchMonth): string {
+        return month === 13 ? year.toString() : `${monthName(month)} ${year}`;
     }
 
-    handleKeyUp = (event: any) => {
-        if (event.key === 'Escape')
-            this.setState({selecting: false});
+    override renderMonthOptions(): JSX.Element[] {
+        return Array.from(Array(13).keys()).map(i => {
+            const month = i + 1 as FrenchMonth;
+            return <option key={i} value={month}>{monthName(month)}</option>;
+        });
     }
 
-    monthChange = (event: any) => {
-        this.goToNormalized(this.props.year, +event.target.value as FrenchMonth);
-    }
-
-    yearChange = (event: any) => {
-        if (/^-?\d+/.test(event.target.value)) {
-            this.goToNormalized(+event.target.value, this.props.month);
+    override renderBody(): JSX.Element {
+        if (this.props.month < 13) {
+            return <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>;
+        } else {
+            return <ComplementaryDays year={this.props.year} todayJDN={this.props.todayJDN}/>;
         }
-        this.setState({yearStr: event.target.value});
-    }
-
-    goToToday = () => {
-        const {year, month} = jdnFrench(this.props.todayJDN);
-        this.goToNormalized(year, month);
-        this.setState({selecting: false});
-    }
-
-    componentDidUpdate(prevProps: CalendarProps) {
-        if (prevProps.year !== this.props.year) {
-            const yearStr = this.props.year.toString();
-            if (this.state.yearStr !== yearStr) {
-                this.setState({
-                    yearStr: yearStr,
-                });
-            }
-        }
-    }
-
-    render(): JSX.Element {
-        return <div className="Calendar">
-            <div className="Calendar-head">
-                <div className="Calendar-prev">
-                    <button type="button" className="btn btn-secondary" title="Previous year" onClick={this.prevYear}>«
-                    </button>
-                    <button type="button" className="btn btn-secondary" title="Previous month"
-                            onClick={this.prevMonth}>‹
-                    </button>
-                </div>
-                {!this.state.selecting && <div className="Calendar-month-name" onClick={this.startSelection}>
-                    {this.props.month < 13 && monthName(this.props.month)} {this.props.year}
-                </div>}
-                {this.state.selecting && <div className="Calendar-month-name input-group" ref={this.selection}
-                                              onKeyUp={this.handleKeyUp}>
-                  <select className="Calendar-month-input form-control" onChange={this.monthChange}
-                          value={this.props.month}>{
-                      Array.from(Array(13).keys()).map(i => {
-                          const month = i + 1 as FrenchMonth;
-                          return <option key={i} value={month}>{monthName(month)}</option>;
-                      })
-                  }</select>
-                  <input type="number" className="Calendar-year-input form-control" value={this.state.yearStr}
-                         onChange={this.yearChange} min={frStartYear} max={frEndYear}/>
-                  <button type="button" className="form-control btn btn-primary Calendar-today-button"
-                          onClick={this.goToToday}>Today
-                  </button>
-                </div>}
-                <div className="Calendar-next">
-                    <button type="button" className="btn btn-secondary" title="Next month" onClick={this.nextMonth}>›
-                    </button>
-                    <button type="button" className="btn btn-secondary" title="Next year" onClick={this.nextYear}>»
-                    </button>
-                </div>
-            </div>
-            {this.props.month < 13 &&
-              <NormalMonth year={this.props.year} month={this.props.month} todayJDN={this.props.todayJDN}/>}
-            {this.props.month === 13 && <ComplementaryDays year={this.props.year} todayJDN={this.props.todayJDN}/>}
-        </div>;
     }
 }
