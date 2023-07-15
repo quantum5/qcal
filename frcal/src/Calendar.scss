@@ -5,40 +5,10 @@
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/buttons';
 @import './consts';
+@import '@common/ui/MonthBasedCalendar.scss';
 
 .Calendar {
     @include make-container();
-}
-
-.Calendar-head {
-    display: flex;
-    justify-content: center;
-    font-size: 2em;
-    font-weight: 600;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background: white;
-    margin-top: -$spacer * 4;
-    padding-top: $spacer * 4;
-
-    .btn {
-        margin: 0 1px;
-    }
-}
-
-.Calendar-prev, .Calendar-next {
-    flex: 0 2.5em;
-}
-
-.Calendar-prev {
-    text-align: right;
-}
-
-.Calendar-month-name {
-    flex: 1;
-    max-width: 30rem;
-    text-align: center;
 }
 
 .Month-decadeHead {
@@ -145,21 +115,4 @@
 
 .Day-today {
     background: $gray-300;
-}
-
-.Calendar-month-name.input-group {
-    justify-content: center;
-    font-size: 0.75em;
-}
-
-.Calendar-month-input {
-    max-width: 12.5em;
-}
-
-.Calendar-year-input {
-    max-width: 6em;
-}
-
-.Calendar-today-button {
-    max-width: 5em;
 }
