@@ -5,6 +5,7 @@ import {JulianMonth} from '@common/gregorian';
 import {TimeOfDay} from './TimeOfDay';
 import {GregorianJumper} from '@common/dateJump';
 import MonthBasedApp from '@common/ui/MonthBasedApp';
+import Export from './Export';
 
 export default class App extends MonthBasedApp<number, FrenchMonth> {
     override parseYearMonth(year: string, month: string) {
@@ -34,8 +35,13 @@ export default class App extends MonthBasedApp<number, FrenchMonth> {
 
             <div className="navigate">
                 <h4>Go to a date</h4>
-                <GregorianJumper minJDN={frStartJD} maxJDN={frEndJD} todayJDN={todayJDN}
+                <GregorianJumper minJDN={frStartJD} maxJDN={frEndJD} initialJDN={todayJDN}
                                  onJump={this.goToJDN}/>
+            </div>
+
+            <div className="download">
+                <h4>Export calendar</h4>
+                <Export minJDN={frStartJD} maxJDN={frEndJD} initialJDN={todayJDN}/>
             </div>
         </>;
     }

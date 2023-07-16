@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/js/dist/collapse';
-import '@common/ui/index.scss';
+import './index.scss';
 import App from './App';
 import reportWebVitals from '@common/ui/reportWebVitals';
 import {MobileTooltipProvider} from '@common/ui/MobileTooltip';

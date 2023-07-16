@@ -38,7 +38,7 @@ export default class App extends MonthBasedApp<number, JulianMonth> {
 
             <div className="navigate">
                 <h4>Go to a date</h4>
-                <GregorianJumper minJDN={START_JDN} maxJDN={END_JDN} todayJDN={todayJDN} onJump={this.goToJDN}/>
+                <GregorianJumper minJDN={START_JDN} maxJDN={END_JDN} initialJDN={todayJDN} onJump={this.goToJDN}/>
             </div>
         </>;
     }

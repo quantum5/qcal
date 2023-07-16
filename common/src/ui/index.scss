@@ -43,20 +43,22 @@ nav.navbar {
   }
 }
 
+.gregorian-select {
+  .year {
+    max-width: 7em;
+  }
+
+  .month, .day {
+    max-width: 5em;
+  }
+}
+
 .navigate {
   max-width: $calendar-width;
   margin-top: $spacer;
   @include make-container();
 
-  .go-year {
-    max-width: 7em;
-  }
-
-  .go-month, .go-day {
-    max-width: 5em;
-  }
-
-  .go-button {
+  .btn-primary {
     max-width: 3em;
   }
 }
