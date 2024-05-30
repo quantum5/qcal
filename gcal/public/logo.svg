@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" viewBox="0 0 87.6 98.5">
+  <defs>
+    <linearGradient id="a">
+      <stop offset="0" stop-color="#d0bcba"/>
+      <stop offset="1" stop-color="#fefdfd"/>
+    </linearGradient>
+    <linearGradient id="c">
+      <stop offset="0" stop-color="#d0bcba"/>
+      <stop offset="1" stop-color="#6c6c6c"/>
+    </linearGradient>
+    <linearGradient id="b">
+      <stop offset="0" stop-color="#978888"/>
+      <stop offset="1" stop-color="#fbfcfc"/>
+    </linearGradient>
+    <linearGradient id="d" x1="-33.8" x2="14.2" y1="36.5" y2="50.5" gradientTransform="translate(178.8 49.4)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#be9e70"/>
+      <stop offset="1" stop-color="#694c30"/>
+    </linearGradient>
+    <linearGradient id="e" x1="195.9" x2="196.2" y1="89" y2="70.7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e40102"/>
+      <stop offset="1" stop-color="#bb7874"/>
+    </linearGradient>
+    <linearGradient id="f" x1="195.9" x2="195.9" y1="73" y2="103.6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7c1f16"/>
+      <stop offset="1" stop-color="#7c1f16" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="g" x1="197.6" x2="196.7" y1="81.1" y2="88.7" gradientTransform="translate(0 .2)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#aa090a"/>
+      <stop offset="1" stop-color="#e50102"/>
+    </linearGradient>
+    <linearGradient xlink:href="#a" id="i" x1="281.2" x2="279.6" y1="94" y2="92.5" gradientTransform="translate(-34.4 9.2)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#a" id="j" x1="213.3" x2="223.5" y1="113.9" y2="122.7" gradientTransform="translate(29.5 -14)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#b" id="k" x1="221.6" x2="219.2" y1="35" y2="35" gradientTransform="matrix(1.08 0 0 1.07 -55.1 33.9)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="l" x1="250.1" x2="250.1" y1="38.6" y2="26.5" gradientTransform="translate(-68 39)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#b" id="m" x1="221.6" x2="219.2" y1="35" y2="35" gradientTransform="matrix(1.08 0 0 1.07 -47.6 33.9)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="n" x1="250.1" x2="250.1" y1="38.6" y2="26.5" gradientTransform="translate(-60.5 39)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#b" id="o" x1="221.6" x2="219.2" y1="35" y2="35" gradientTransform="matrix(1.08 0 0 1.07 -40 33.9)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="p" x1="250.1" x2="250.1" y1="38.6" y2="26.5" gradientTransform="translate(-53 39)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#b" id="q" x1="221.6" x2="219.2" y1="35" y2="35" gradientTransform="matrix(1.08 0 0 1.07 -32.6 33.9)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="r" x1="250.1" x2="250.1" y1="38.6" y2="26.5" gradientTransform="translate(-45.5 39)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#b" id="s" x1="221.6" x2="219.2" y1="35" y2="35" gradientTransform="matrix(1.08 0 0 1.07 -25 33.9)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="t" x1="250.1" x2="250.1" y1="38.6" y2="26.5" gradientTransform="translate(-38 39)" gradientUnits="userSpaceOnUse"/>
+    <radialGradient id="h" cx="196.9" cy="132.3" r="21" gradientTransform="matrix(0 .99 -1.01 0 343.8 -116.1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fffefe"/>
+      <stop offset="1" stop-color="#d5d7da"/>
+    </radialGradient>
+  </defs>
+  <g transform="matrix(1.79 0 0 1.86 -259.2 -121.6)">
+    <rect width="48" height="48" x="146" y="70.4" fill="#694c30" rx="1.6" ry="1.5"/>
+    <rect width="48" height="48" x="145" y="69.4" fill="url(#d)" rx="1.6" ry="1.5"/>
+  </g>
+  <path fill="url(#e)" stroke="url(#f)" stroke-linecap="round" stroke-width=".6" d="M177 73.3h41.4v15.4H177z" transform="matrix(1.82 0 0 1.82 -316.8 -121.9)"/>
+  <path fill="url(#g)" d="M177 74v14.5h41.2V86c-10.5-.1-14-2.4-18.8-4.4-4.3-1.8-13.5-.1-17.8-1.3-3.2-1.4-3-2.7-4.5-6.2z" transform="matrix(1.82 0 0 1.82 -316.8 -121.9)"/>
+  <path fill="url(#h)" stroke="#afa497" stroke-linecap="round" stroke-width=".6" d="M206.2 75.1h41.4v29.4h-41.4z" transform="matrix(1.82 0 0 1.82 -370.2 -96.5)"/>
+  <path fill="none" stroke="#c60002" stroke-opacity=".1" stroke-width="1.82" d="M5.57 46.24h74.98M5.57 53.52h74.98M5.57 90.1h74.98M5.57 82.82h74.98M5.57 75.36h74.98M5.57 68.08h74.98M5.57 60.8h74.98"/>
+  <path fill="url(#i)" fill-rule="evenodd" stroke="url(#j)" stroke-width=".5" d="M247.5 97.6a16 16 0 0 1-5.7 6.7c2.1.3 4-.5 5-1 .4-1.6.7-4 .7-5.7z" opacity=".5" transform="matrix(1.82 0 0 1.82 -370.2 -96.5)"/>
+  <g stroke-linecap="round" stroke-width=".7" transform="matrix(1.82 0 0 1.82 -315.8 -119.3)">
+    <rect width="2.9" height="11.4" x="180.6" y="65.8" fill="url(#k)" stroke="url(#l)" rx="1.4" ry="2.2"/>
+    <rect width="2.9" height="11.4" x="188.1" y="65.8" fill="url(#m)" stroke="url(#n)" rx="1.4" ry="2.2"/>
+    <rect width="2.9" height="11.4" x="195.7" y="65.8" fill="url(#o)" stroke="url(#p)" rx="1.4" ry="2.2"/>
+    <rect width="2.9" height="11.4" x="203.2" y="65.8" fill="url(#q)" stroke="url(#r)" rx="1.4" ry="2.2"/>
+    <rect width="2.9" height="11.4" x="210.7" y="65.8" fill="url(#s)" stroke="url(#t)" rx="1.4" ry="2.2"/>
+  </g>
+  <path d="M24.6 74.7h5.3V59.6l-5.4 1.1v-4l5.4-1.2h5.7v19.2h5.3v4.1H24.6zm21.9-19.2h15V60H51.3v3.6l1.4-.2 1.4-.1q4.3 0 6.7 2 2.3 2.2 2.3 6t-2.6 6q-2.5 2-7.1 2-2 0-4-.3-1.9-.4-3.8-1.2V73q1.9 1.1 3.6 1.7 1.7.5 3.2.5 2.2 0 3.5-1 1.2-1.1 1.2-3 0-1.8-1.2-2.9-1.3-1-3.5-1-1.3 0-2.7.3-1.5.3-3.2 1z" aria-label="15" style="line-height:1.25" word-spacing="0"/>
+  <g style="line-height:1.25" word-spacing="0">
+    <path fill="#fff" d="M62.19 30.8q0 3.08-1.53 4.73-1.52 1.65-4.36 1.65-2.85 0-4.37-1.65T50.4 30.8q0-3.09 1.52-4.71 1.53-1.64 4.38-1.64 2.86 0 4.36 1.65 1.52 1.64 1.52 4.72zm-9.03 0q0 2.08.78 3.13.8 1.05 2.36 1.05 3.14 0 3.14-4.17 0-4.18-3.13-4.18-1.56 0-2.36 1.06-.8 1.04-.8 3.12zm15.24 6.38q-4.43 0-4.43-4.85 0-2.41 1.2-3.68 1.2-1.28 3.45-1.28 1.64 0 2.94.65l-.76 2q-.6-.25-1.13-.4-.53-.17-1.05-.17-2.01 0-2.01 2.86 0 2.78 2.01 2.78.74 0 1.38-.2.63-.2 1.27-.62v2.2q-.63.4-1.27.56-.64.15-1.6.15zm9.05-2.06q.67 0 1.62-.3v1.93q-.96.43-2.37.43-1.55 0-2.26-.78-.7-.78-.7-2.35v-4.56H72.5v-1.1l1.43-.86.74-2h1.65v2.02h2.65v1.94h-2.65v4.56q0 .55.3.81.32.26.83.26zm5.59-2.86q0 1.4.46 2.13.46.72 1.5.72t1.49-.71q.45-.72.45-2.14 0-1.4-.45-2.1-.46-.7-1.5-.7-1.03 0-1.5.7-.45.7-.45 2.1zm6.54 0q0 2.31-1.22 3.62-1.21 1.3-3.39 1.3-1.36 0-2.4-.6-1.04-.6-1.6-1.7-.56-1.13-.56-2.62 0-2.31 1.2-3.6 1.22-1.29 3.41-1.29 1.36 0 2.4.6 1.05.59 1.6 1.7.56 1.1.56 2.6zm7.4-4.89q1.68 0 2.62 1.31.95 1.3.95 3.58 0 2.35-.98 3.63-.97 1.3-2.66 1.3-1.66 0-2.61-1.22h-.18l-.43 1.04h-1.97V23.84h2.58v3.07q0 .58-.1 1.87h.1q.9-1.4 2.68-1.4zm-.83 2.07q-.96 0-1.4.59-.44.58-.45 1.94v.28q0 1.52.45 2.18.45.66 1.44.66.8 0 1.26-.73.47-.73.47-2.13t-.47-2.09q-.48-.7-1.3-.7zm10.45-.24q-.82 0-1.28.53-.47.52-.54 1.48h3.63q-.02-.96-.5-1.48-.49-.52-1.3-.52zm.37 7.98q-2.29 0-3.57-1.26-1.29-1.26-1.29-3.57 0-2.38 1.18-3.67 1.2-1.3 3.3-1.3 2 0 3.12 1.13 1.12 1.15 1.12 3.16v1.25h-6.1q.04 1.1.65 1.72.6.62 1.7.62.86 0 1.62-.18.76-.18 1.6-.56v2q-.68.33-1.45.5-.77.16-1.88.16zm11.23-9.81q.53 0 .88.08l-.2 2.42q-.3-.09-.76-.09-1.23 0-1.93.64-.68.63-.68 1.78V37h-2.58v-9.46h1.95l.38 1.6h.13q.44-.8 1.18-1.29.76-.49 1.64-.49z" aria-label="October" transform="translate(-40.94)"/>
+  </g>
+</svg>
