@@ -45,6 +45,72 @@
 </nav>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
+<div class="main">
+    <h2 id="explanation">Explanation</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is this?</h4>
+            <p class="lead">This is an implementation of the <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian
+                calendar</a>—which is the default civil calendar in most countries—with conversions to various other
+                calendars.</p>
+            <p>Currently, it displays the following conversions for each day, if possible:</p>
+            <ul>
+                <li>the <a href="https://en.wikipedia.org/wiki/Julian_calendar">Julian calendar</a> date;</li>
+                <li>the <a href="https://en.wikipedia.org/wiki/Julian_day">Julian day (JD) number</a>;</li>
+                <li>the <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Mesoamerican Long Count
+                    calendar</a> date; and
+                </li>
+                <li>the <a href="https://en.wikipedia.org/wiki/French_Republican_calendar">French Republican
+                    calendar</a> date.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">How are BCE years handled?</h4>
+            <p class="lead">The astronomical convention is used, i.e. year 0 is 1 BCE, year -1 is 2 BCE, etc.</p>
+            <p>Due to the way the common era (a.k.a. Anno Domini) year numbering system works, the year 1 BCE is
+                followed directly by 1 CE with no year zero. This makes math hard. As such, the astronomical convention
+                of making 1 BCE year 0 and extending this into the past was used.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is the JD (Julian day number) value?</h4>
+            <p>The integer <a href="https://en.wikipedia.org/wiki/Julian_day">Julian day (JD) number</a> is the
+                continuous count of days since the beginning of the Julian period, which is very useful in astronomy and
+                in software for calculating durations without worrying about weird calendar issues. In this respect,
+                it's very similar to Unix time.</p>
+            <p>JD 0 is assigned to the date Monday, January 1, 4713 BCE (Julian) or November 24, 4714 BCE (Gregorian).
+                More specifically, if fractional JDs are considered, then the integer value specifically refers to the
+                Universal Time noon on that date.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is the LC (Mesoamerican Long Count) date?</h4>
+            <p>The five (or more) numbers separated by dots is the corresponding
+                <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Mesoamerican Long Count
+                    calendar</a> date. This is commonly known as the &ldquo;Mayan calendar.&rdquo; This calendar is not
+                available for dates before August 11, 3114 BCE (Gregorian) or September 6, 3114 BCE (Julian).</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is the FR (French Republican calendar) date?</h4>
+            <p>The <a href="https://en.wikipedia.org/wiki/French_Republican_calendar">French Republican
+                calendar</a> was a calendar created and implemented during the French Revolution. It is also frequently
+                referred to as the <em>French Revolutionary Calendar</em>, but this is a misnomer:
+                year 1 of the calendar started on 22 September 1792, the day after the
+                <a href="https://en.wikipedia.org/wiki/Proclamation_of_the_abolition_of_the_monarchy">abolition of the
+                    monarchy</a> and the founding of the <a href="https://en.wikipedia.org/wiki/French_First_Republic">French
+                    First Republic</a>.</p>
+            <p>Specifically, the variant used here is <a href="https://frcal.qt.ax/">the one I computed from
+                astronomy</a>.</p>
+        </div>
+    </div>
+</div>
 <footer class="footer">
     <div class="container">
         <p class="text-muted">Copyright &copy; 2022<%= new Date().getFullYear() > 2022 ? `–${new Date().getFullYear()}`
