@@ -77,6 +77,35 @@
     </div>
     <div class="card">
         <div class="card-body">
+            <h4 class="card-title">What is the J (Julian calendar) date?</h4>
+            <p class="lead">The <a href="https://en.wikipedia.org/wiki/Julian_calendar">Julian
+                calendar</a> is the predecessor to the Gregorian calendar, originally introduced by Julius Caesar in 46
+                BC.</p>
+            <p>Julius Caesar (with aid of Sosigenes of Alexandria) introduced this calendar to replace the earlier Roman
+                calendar, which required manual addition of leap months to keep it in synchrony with the seasons.
+                Unfortunately, it had leap days every four years without question, resulting in the average year
+                having 365.25 days. However, the actual tropical year is roughly 365.2422 days, resulting in the Julian
+                calendar gaining a day every 129 years. This means that seasons drift, starting earlier and earlier in
+                the year.</p>
+            <p>In 1582, Pope Gregory XIII decided to fix this drift by reducing the number of leap days, motivated by a
+                desire to keep the March equinox on March 21st, since that value was hardcoded in the calculation for
+                the date of Easter. To achieve this, he made years divisible by 100 but not by 400 non-leap years,
+                resulting in 97 leap years every 400 years, resulting in the Gregorian calendar. To bring the equinox
+                back in alignment, October 5th to October 14th in 1582 were deleted. The result is the Gregorian
+                calendar.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">How are dates before the adoption of the Gregorian calendar handled?</h4>
+            <p class="lead">This version uses the proleptic Gregorian calendar for those dates.</p>
+            <p>Since the Gregorian calendar was adopted at different times in different countries, there's no nice way
+                of handling the transition. In the future, I might make a version that implements the transition with a
+                country selector, but this version will stay proleptic forever.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
             <h4 class="card-title">What is the JD (Julian day number) value?</h4>
             <p>The integer <a href="https://en.wikipedia.org/wiki/Julian_day">Julian day (JD) number</a> is the
                 continuous count of days since the beginning of the Julian period, which is very useful in astronomy and
