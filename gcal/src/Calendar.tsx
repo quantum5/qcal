@@ -11,7 +11,7 @@ import {
     weekdayNames,
 } from '@common/gregorian';
 import {jdnLongCount} from '@common/longCount';
-import {jdnJulian, julianJDN, julianMonthDays} from '@common/julian';
+import {jdnJulian} from '@common/julian';
 import {frDateFormat, frEndJD, frStartJD, jdnFrench} from '@common/french';
 import {useMobileTooltipProps} from '@common/ui/MobileTooltip';
 import {MonthBasedCalendar} from '@common/ui/MonthBasedCalendar';
