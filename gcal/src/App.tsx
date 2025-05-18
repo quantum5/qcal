@@ -2,7 +2,7 @@ import React from 'react';
 import {Calendar} from './Calendar';
 import {JulianMonth} from '@common/gregorian';
 import {DayChanger} from '@common/ui/DayChanger';
-import {jdnJulian} from '@common/julian';
+import {jdnGregorian} from '@common/gregorian';
 import MonthBasedApp from '@common/ui/MonthBasedApp';
 
 export default class App extends MonthBasedApp<number, JulianMonth> {
@@ -13,7 +13,7 @@ export default class App extends MonthBasedApp<number, JulianMonth> {
     }
 
     override defaultSelector(todayJDN: number) {
-        const [year, month] = jdnJulian(todayJDN);
+        const [year, month] = jdnGregorian(todayJDN);
         return {year, month};
     }
 
