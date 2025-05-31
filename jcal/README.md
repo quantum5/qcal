@@ -2,10 +2,12 @@
 
 ![demo](demo.png)
 
+[See it live!][0]
+
 ## What is this?
 
-The [Julian calendar][0] is a calendar introduced by Julius Caesar in 46 BC. A
-reformed version, the [Gregorian calendar][1], forms the basis of civil calendar
+The [Julian calendar][1] is a calendar introduced by Julius Caesar in 46 BC. A
+reformed version, the [Gregorian calendar][2], forms the basis of civil calendar
 in most countries.
 
 Julius Caesar (with aid of Sosigenes of Alexandria) introduced this calendar to
@@ -28,5 +30,8 @@ This website extends the Julian calendar indefinitely into the future for
 reference reasons. Note that in the 20th and 21st centuries, the Julian
 calendar is 13 days behind the Gregorian calendar.
 
-[0]: https://en.wikipedia.org/wiki/Julian_calendar
-[1]: https://en.wikipedia.org/wiki/Gregorian_calendar
+[0]: https://jcal.qt.ax/
+
+[1]: https://en.wikipedia.org/wiki/Julian_calendar
+
+[2]: https://en.wikipedia.org/wiki/Gregorian_calendar
