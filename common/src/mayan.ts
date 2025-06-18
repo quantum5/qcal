@@ -58,3 +58,10 @@ export function tzolkinName(name: TzolkinName): string {
 export function formatTzolkin(tzolkin: Tzolkin): string {
   return `${tzolkin.number} ${tzolkinName(tzolkin.name)}`;
 }
+
+export function jdnTzolkin(jdn: number): Tzolkin {
+  return {
+    number: ((jdn % 13 + 18) % 13 + 1) as TzolkinNumber,
+    name: (jdn % 20 + 36) % 20,
+  };
+}
