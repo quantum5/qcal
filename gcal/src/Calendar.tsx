@@ -10,6 +10,7 @@ import {
     monthName,
     weekdayNames,
 } from '@common/gregorian';
+import {jdnTzolkin, formatTzolkin} from '@common/mayan';
 import {jdnLongCount} from '@common/longCount';
 import {jdnJulian} from '@common/julian';
 import {frDateFormat, frEndJD, frStartJD, jdnFrench} from '@common/french';
@@ -39,6 +40,10 @@ function DayDetail({jdn}: { jdn: number }): JSX.Element {
         <div className="DayDetail-julian">
             <abbr title="Julian date" {...mobile}>J.</abbr>{' '}
             {formatJG(jdnJulian(jdn))}
+        </div>
+        <div className="DayDetail-tz">
+            <abbr title="Tzolkʼin (Mayan)" {...mobile}>TZ</abbr>{' '}
+            {formatTzolkin(jdnTzolkin(jdn))}
         </div>
         {lc && <div className="DayDetail-lc">
           <abbr title="Mesoamerican long count date" {...mobile}>LC</abbr>{' '}
