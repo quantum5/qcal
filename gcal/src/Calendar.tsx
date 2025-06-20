@@ -68,7 +68,7 @@ function Day({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JS
 function Month({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.Element {
     const decadeHeads = weekdayNames.map((name, i) => <WeekdayName key={i} name={name}/>);
     const firstJDN = gregorianJDN(year, month, 1);
-    const firstWeekday = (firstJDN + 1) % 7;
+    const firstWeekday = (firstJDN % 7 + 8) % 7;
     const daysTotal = gregorianMonthDays(year, month);
     return <div className="Month">
         <div className="Month-weekdayHead">{decadeHeads}</div>
