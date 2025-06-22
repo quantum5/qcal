@@ -1,4 +1,4 @@
-import {formatTzolkin, jdnTzolkin, TzolkinName, tzolkinName} from './mayan';
+import {formatHaab, formatTzolkin, jdnTzolkin, TzolkinName, tzolkinName} from './mayan';
 
 describe('tzolkinName', () => {
   it('should return correct name for IMIX', () => {
@@ -78,5 +78,20 @@ describe('jdnTzolkin', () => {
 
     // Should have 260 unique combinations
     expect(results.size).toBe(260);
+  });
+});
+
+describe('formatHaab', () => {
+  it('formats normal month and day', () => {
+    expect(formatHaab(1, 5)).toBe('5 Pop');
+    expect(formatHaab(7, 12)).toBe('12 Yaxkʼin');
+  });
+
+  it('formats Wayeb month', () => {
+    expect(formatHaab(19, 4)).toBe('4 Wayebʼ');
+  });
+
+  it('formats zero day', () => {
+    expect(formatHaab(3, 0)).toBe('0 Sip');
   });
 });

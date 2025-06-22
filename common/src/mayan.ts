@@ -65,3 +65,32 @@ export function jdnTzolkin(jdn: number): Tzolkin {
     name: (jdn % 20 + 36) % 20,
   };
 }
+
+export type HaabMonth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19;
+export type HaabDay = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19;
+
+const haabNames: Record<HaabMonth, string> = {
+  1: 'Pop',
+  2: 'Woʼ',
+  3: 'Sip',
+  4: 'Sotzʼ',
+  5: 'Sek',
+  6: 'Xul',
+  7: 'Yaxkʼin',
+  8: 'Mol',
+  9: 'Chʼen',
+  10: 'Yax',
+  11: 'Sakʼ',
+  12: 'Keh',
+  13: 'Mak',
+  14: 'Kʼankʼin',
+  15: 'Muwan',
+  16: 'Pax',
+  17: 'Kʼayabʼ',
+  18: 'Kumkʼu',
+  19: 'Wayebʼ',
+};
+
+export function formatHaab(month: HaabMonth, day: HaabDay): string {
+  return `${day} ${haabNames[month]}`;
+}
