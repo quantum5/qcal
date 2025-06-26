@@ -62,6 +62,15 @@ describe('jdnTzolkin', () => {
         expect(jdnTzolkin(2460857)).toEqual({number: 2, name: TzolkinName.IX});
     });
 
+    it('converts sample dates from history correctly', () => {
+        expect(jdnTzolkin(584283)).toEqual({number: 4, name: TzolkinName.AJAW}); // Mayan creation
+        expect(jdnTzolkin(1705426)).toEqual({number: 1, name: TzolkinName.AKBAL}); // Ides of March
+        expect(jdnTzolkin(2266296)).toEqual({number: 12, name: TzolkinName.BEN}); // Columbus reaches the Americas
+        expect(jdnTzolkin(2430336)).toEqual({number: 5, name: TzolkinName.BEN}); // a date which will live in infamy
+        expect(jdnTzolkin(2440423)).toEqual({number: 4, name: TzolkinName.AJAW}); // Moon landing
+        expect(jdnTzolkin(2458920)).toEqual({number: 2, name: TzolkinName.KABAN}); // COVID-19 pandemic
+    });
+
     it('handles negative JDN correctly', () => {
         expect(jdnTzolkin(-1)).toEqual({number: 5, name: TzolkinName.KIB});
         expect(jdnTzolkin(-10)).toEqual({number: 9, name: TzolkinName.MANIK});
