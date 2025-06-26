@@ -1,4 +1,4 @@
-import {formatHaab, formatTzolkin, jdnTzolkin, TzolkinName, tzolkinName} from './mayan';
+import {formatHaab, formatTzolkin, jdnHaab, jdnTzolkin, TzolkinName, tzolkinName} from './mayan';
 
 describe('tzolkinName', () => {
     it('should return correct name for IMIX', () => {
@@ -102,5 +102,54 @@ describe('formatHaab', () => {
 
     it('formats zero day', () => {
         expect(formatHaab(3, 0)).toBe('0 Sip');
+    });
+});
+
+describe('jdnHaab', () => {
+    it('converts sample consecutive dates in June 2025 correctly', () => {
+        expect(jdnHaab(2460828)).toEqual({month: 4, day: 3});
+        expect(jdnHaab(2460829)).toEqual({month: 4, day: 4});
+        expect(jdnHaab(2460830)).toEqual({month: 4, day: 5});
+        expect(jdnHaab(2460831)).toEqual({month: 4, day: 6});
+        expect(jdnHaab(2460832)).toEqual({month: 4, day: 7});
+        expect(jdnHaab(2460833)).toEqual({month: 4, day: 8});
+        expect(jdnHaab(2460834)).toEqual({month: 4, day: 9});
+        expect(jdnHaab(2460835)).toEqual({month: 4, day: 10});
+        expect(jdnHaab(2460836)).toEqual({month: 4, day: 11});
+        expect(jdnHaab(2460837)).toEqual({month: 4, day: 12});
+        expect(jdnHaab(2460838)).toEqual({month: 4, day: 13});
+        expect(jdnHaab(2460839)).toEqual({month: 4, day: 14});
+        expect(jdnHaab(2460840)).toEqual({month: 4, day: 15});
+        expect(jdnHaab(2460841)).toEqual({month: 4, day: 16});
+        expect(jdnHaab(2460842)).toEqual({month: 4, day: 17});
+        expect(jdnHaab(2460843)).toEqual({month: 4, day: 18});
+        expect(jdnHaab(2460844)).toEqual({month: 4, day: 19});
+        expect(jdnHaab(2460845)).toEqual({month: 5, day: 0});
+        expect(jdnHaab(2460846)).toEqual({month: 5, day: 1});
+        expect(jdnHaab(2460847)).toEqual({month: 5, day: 2});
+        expect(jdnHaab(2460848)).toEqual({month: 5, day: 3});
+        expect(jdnHaab(2460849)).toEqual({month: 5, day: 4});
+        expect(jdnHaab(2460850)).toEqual({month: 5, day: 5});
+        expect(jdnHaab(2460851)).toEqual({month: 5, day: 6});
+        expect(jdnHaab(2460852)).toEqual({month: 5, day: 7});
+        expect(jdnHaab(2460853)).toEqual({month: 5, day: 8});
+        expect(jdnHaab(2460854)).toEqual({month: 5, day: 9});
+        expect(jdnHaab(2460855)).toEqual({month: 5, day: 10});
+        expect(jdnHaab(2460856)).toEqual({month: 5, day: 11});
+        expect(jdnHaab(2460857)).toEqual({month: 5, day: 12});
+    });
+
+    it('converts sample dates from history correctly', () => {
+        expect(jdnHaab(584283)).toEqual({month: 18, day: 8}); // Mayan creation
+        expect(jdnHaab(1705426)).toEqual({month: 11, day: 11}); // Ides of March
+        expect(jdnHaab(2266296)).toEqual({month: 4, day: 16}); // Columbus reaches the Americas
+        expect(jdnHaab(2430336)).toEqual({month: 12, day: 11}); // a date which will live in infamy
+        expect(jdnHaab(2440423)).toEqual({month: 5, day: 18}); // Moon landing
+        expect(jdnHaab(2458920)).toEqual({month: 18, day: 5}); // COVID-19 pandemic
+    });
+
+    it('handles negative JDN correctly', () => {
+        expect(jdnHaab(-365)).toEqual({month: 4, day: 5});
+        expect(jdnHaab(-1)).toEqual({month: 4, day: 4});
     });
 });
