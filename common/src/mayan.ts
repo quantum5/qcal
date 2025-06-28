@@ -96,7 +96,7 @@ const haabNames: Record<HaabMonth, string> = {
     19: 'Wayebʼ',
 };
 
-export function formatHaab(month: HaabMonth, day: HaabDay): string {
+export function formatHaab({month, day}: Haab): string {
     return `${day} ${haabNames[month]}`;
 }
 

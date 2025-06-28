@@ -10,7 +10,7 @@ import {
     monthName,
     weekdayNames,
 } from '@common/gregorian';
-import {jdnTzolkin, formatTzolkin} from '@common/mayan';
+import {formatHaab, formatTzolkin, jdnHaab, jdnTzolkin} from '@common/mayan';
 import {jdnLongCount} from '@common/longCount';
 import {jdnJulian} from '@common/julian';
 import {frDateFormat, frEndJD, frStartJD, jdnFrench} from '@common/french';
@@ -45,8 +45,12 @@ function DayDetail({jdn}: { jdn: number }): JSX.Element {
             <abbr title="Tzolkʼin (Mayan)" {...mobile}>TZ</abbr>{' '}
             {formatTzolkin(jdnTzolkin(jdn))}
         </div>
+        <div className="DayDetail-haab">
+            <abbr title="Haabʼ (Mayan)" {...mobile}>HA</abbr>{' '}
+            {formatHaab(jdnHaab(jdn))}
+        </div>
         {lc && <div className="DayDetail-lc">
-          <abbr title="Mesoamerican long count date" {...mobile}>LC</abbr>{' '}
+        <abbr title="Mesoamerican long count date" {...mobile}>LC</abbr>{' '}
             {lc.join('.\u200b')}
         </div>}
         {jdn >= frStartJD && jdn <= frEndJD && <div className="DayDetail-fr">
