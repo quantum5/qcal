@@ -1,4 +1,4 @@
-import {formatHaab, formatTzolkin, jdnHaab, jdnTzolkin, TzolkinName, tzolkinName} from './mayan';
+import {formatHaab, formatLordOfNight, formatTzolkin, jdnHaab, jdnTzolkin, TzolkinName, tzolkinName} from './mayan';
 
 describe('tzolkinName', () => {
     it('should return correct name for IMIX', () => {
@@ -151,5 +151,43 @@ describe('jdnHaab', () => {
     it('handles negative JDN correctly', () => {
         expect(jdnHaab(-365)).toEqual({month: 4, day: 5});
         expect(jdnHaab(-1)).toEqual({month: 4, day: 4});
+    });
+});
+
+describe('formatLordOfNight', () => {
+    it('should format Lord of Night 1', () => {
+        expect(formatLordOfNight(1)).toBe('G1');
+    });
+
+    it('should format Lord of Night 2', () => {
+        expect(formatLordOfNight(2)).toBe('G2');
+    });
+
+    it('should format Lord of Night 3', () => {
+        expect(formatLordOfNight(3)).toBe('G3');
+    });
+
+    it('should format Lord of Night 4', () => {
+        expect(formatLordOfNight(4)).toBe('G4');
+    });
+
+    it('should format Lord of Night 5', () => {
+        expect(formatLordOfNight(5)).toBe('G5');
+    });
+
+    it('should format Lord of Night 6', () => {
+        expect(formatLordOfNight(6)).toBe('G6');
+    });
+
+    it('should format Lord of Night 7', () => {
+        expect(formatLordOfNight(7)).toBe('G7');
+    });
+
+    it('should format Lord of Night 8', () => {
+        expect(formatLordOfNight(8)).toBe('G8');
+    });
+
+    it('should format Lord of Night 9', () => {
+        expect(formatLordOfNight(9)).toBe('G9');
     });
 });

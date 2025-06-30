@@ -107,3 +107,9 @@ export function jdnHaab(jdn: number): Haab {
         day: yearDay % 20 as HaabDay,
     };
 }
+
+export type LordOfNight = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export function formatLordOfNight(lordOfNight: LordOfNight): string {
+    return `G${lordOfNight}`;
+}
