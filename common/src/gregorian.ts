@@ -49,6 +49,8 @@ const monthNames: { [key in JulianMonth]: string } = {
     12: 'December',
 };
 
+export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
 export const weekdayNames = [
     'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
 ];
@@ -89,6 +91,10 @@ export function jdnDate(jdn: number, julian_before?: number): Date {
 
 export function monthName(month: JulianMonth): string {
     return monthNames[month];
+}
+
+export function jdnWeekDay(jdn: number): Weekday {
+    return (jdn % 7 + 8) % 7 as Weekday;
 }
 
 export function gregorianMonthDays(year: number, month: JulianMonth, julian = false): 28 | 29 | 30 | 31 {
