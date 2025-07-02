@@ -8,6 +8,7 @@ import {
     JulianDay,
     JulianMonth,
     monthName,
+    jdnWeekDay,
     weekdayNames,
 } from '@common/gregorian';
 import {formatHaab, formatTzolkin, jdnHaab, jdnTzolkin} from '@common/mayan';
@@ -64,7 +65,7 @@ function Day({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JS
     const jdn = gregorianJDN(year, month, day);
     return <div className={`Day NormalDay ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}</div>
-        <div className="Day-weekday">{weekdayNames[(jdn + 1) % 7]}</div>
+        <div className="Day-weekday">{weekdayNames[jdnWeekDay(jdn)]}</div>
         <DayDetail jdn={jdn}/>
     </div>;
 }
@@ -72,7 +73,7 @@ function Day({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JS
 function Month({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.Element {
     const decadeHeads = weekdayNames.map((name, i) => <WeekdayName key={i} name={name}/>);
     const firstJDN = gregorianJDN(year, month, 1);
-    const firstWeekday = (firstJDN % 7 + 8) % 7;
+    const firstWeekday = jdnWeekDay(firstJDN);
     const daysTotal = gregorianMonthDays(year, month);
     return <div className="Month">
         <div className="Month-weekdayHead">{decadeHeads}</div>
