@@ -113,3 +113,7 @@ export type LordOfNight = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export function formatLordOfNight(lordOfNight: LordOfNight): string {
     return `G${lordOfNight}`;
 }
+
+export function jdnLordOfNight(jdn: number): LordOfNight {
+    return (jdn % 9 + 15) % 9 + 1 as LordOfNight;
+}
