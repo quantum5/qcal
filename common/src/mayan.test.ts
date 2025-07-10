@@ -1,4 +1,13 @@
-import {formatHaab, formatLordOfNight, formatTzolkin, jdnHaab, jdnTzolkin, TzolkinName, tzolkinName} from './mayan';
+import {
+    formatHaab,
+    formatLordOfNight,
+    formatTzolkin,
+    jdnHaab,
+    jdnLordOfNight,
+    jdnTzolkin,
+    TzolkinName,
+    tzolkinName,
+} from './mayan';
 
 describe('tzolkinName', () => {
     it('should return correct name for IMIX', () => {
@@ -189,5 +198,37 @@ describe('formatLordOfNight', () => {
 
     it('should format Lord of Night 9', () => {
         expect(formatLordOfNight(9)).toBe('G9');
+    });
+});
+
+describe('jdnLordOfNight', () => {
+    it('converts two consecutive cycles correctly', () => {
+        expect(jdnLordOfNight(2460828)).toBe(1);
+        expect(jdnLordOfNight(2460829)).toBe(2);
+        expect(jdnLordOfNight(2460830)).toBe(3);
+        expect(jdnLordOfNight(2460831)).toBe(4);
+        expect(jdnLordOfNight(2460832)).toBe(5);
+        expect(jdnLordOfNight(2460833)).toBe(6);
+        expect(jdnLordOfNight(2460834)).toBe(7);
+        expect(jdnLordOfNight(2460835)).toBe(8);
+        expect(jdnLordOfNight(2460836)).toBe(9);
+        expect(jdnLordOfNight(2460837)).toBe(1);
+        expect(jdnLordOfNight(2460838)).toBe(2);
+        expect(jdnLordOfNight(2460839)).toBe(3);
+        expect(jdnLordOfNight(2460840)).toBe(4);
+        expect(jdnLordOfNight(2460841)).toBe(5);
+        expect(jdnLordOfNight(2460842)).toBe(6);
+        expect(jdnLordOfNight(2460843)).toBe(7);
+        expect(jdnLordOfNight(2460844)).toBe(8);
+        expect(jdnLordOfNight(2460845)).toBe(9);
+    });
+
+    it('converts sample dates from history correctly', () => {
+        expect(jdnLordOfNight(584283)).toBe(1); // Mayan creation
+        expect(jdnLordOfNight(1705426)).toBe(5); // Ides of March
+        expect(jdnLordOfNight(2266296)).toBe(4); // Columbus reaches the Americas
+        expect(jdnLordOfNight(2430336)).toBe(1); // a date which will live in infamy
+        expect(jdnLordOfNight(2440423)).toBe(8); // Moon landing
+        expect(jdnLordOfNight(2458920)).toBe(1); // COVID-19 pandemic
     });
 });
