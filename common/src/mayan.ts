@@ -108,6 +108,17 @@ export function jdnHaab(jdn: number): Haab {
     };
 }
 
+export type HaabExt = Haab & {
+    year: number,
+};
+
+export function jdnHaabExt(jdn: number): HaabExt {
+    return {
+        ...jdnHaab(jdn),
+        year: Math.floor((jdn - 583935) / 365),
+    };
+}
+
 export type LordOfNight = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export function formatLordOfNight(lordOfNight: LordOfNight): string {
