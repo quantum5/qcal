@@ -2,7 +2,7 @@ import {
     formatHaab,
     formatLordOfNight,
     formatTzolkin,
-    jdnHaab,
+    jdnHaab, jdnHaabExt,
     jdnLordOfNight,
     jdnTzolkin,
     TzolkinName,
@@ -160,6 +160,38 @@ describe('jdnHaab', () => {
     it('handles negative JDN correctly', () => {
         expect(jdnHaab(-365)).toEqual({month: 4, day: 5});
         expect(jdnHaab(-1)).toEqual({month: 4, day: 4});
+    });
+});
+
+describe('jdnHaabExt', () => {
+    it('handles creation correctly', () => {
+        expect(jdnHaabExt(583934)).toEqual({year: -1, month: 19, day: 4}); // end of the year before creation
+        expect(jdnHaabExt(583935)).toEqual({year: 0, month: 1, day: 0}); // start of the year of creation
+        expect(jdnHaabExt(584283)).toEqual({year: 0, month: 18, day: 8}); // creation
+        expect(jdnHaabExt(584299)).toEqual({year: 0, month: 19, day: 4}); // end of the year of creation
+        expect(jdnHaabExt(584300)).toEqual({year: 1, month: 1, day: 0}); // first 0 Pop after creation
+    });
+
+    it('handles 5141 cycles since creation correctly', () => {
+        expect(jdnHaabExt(2460748)).toEqual({year: 5141, month: 18, day: 8}); // exactly 5141 years since creation
+        expect(jdnHaabExt(2460764)).toEqual({year: 5141, month: 19, day: 4}); // end of that cycle
+        expect(jdnHaabExt(2460765)).toEqual({year: 5142, month: 1, day: 0}); // start of the next cycle
+    });
+
+    it('converts sample dates from history correctly', () => {
+        expect(jdnHaabExt(584283)).toEqual({year: 0, month: 18, day: 8}); // Mayan creation
+        expect(jdnHaabExt(1705426)).toEqual({year: 3072, month: 11, day: 11}); // Ides of March
+        expect(jdnHaabExt(2266296)).toEqual({year: 4609, month: 4, day: 16}); // Columbus reaches the Americas
+        expect(jdnHaabExt(2430336)).toEqual({year: 5058, month: 12, day: 11}); // a date which will live in infamy
+        expect(jdnHaabExt(2440423)).toEqual({year: 5086, month: 5, day: 18}); // Moon landing
+        expect(jdnHaabExt(2458920)).toEqual({year: 5136, month: 18, day: 5}); // COVID-19 pandemic
+    });
+
+    it('handles negative JDN correctly', () => {
+        expect(jdnHaabExt(-365)).toEqual({year: -1601, month: 4, day: 5});
+        expect(jdnHaabExt(-66)).toEqual({year: -1601, month: 19, day: 4});
+        expect(jdnHaabExt(-65)).toEqual({year: -1600, month: 1, day: 0});
+        expect(jdnHaabExt(-1)).toEqual({year: -1600, month: 4, day: 4});
     });
 });
 
