@@ -1,7 +1,7 @@
 import {
     formatHaab,
     formatLordOfNight,
-    formatTzolkin,
+    formatTzolkin, HaabMonth, haabMonthDays,
     jdnHaab, jdnHaabExt,
     jdnLordOfNight,
     jdnTzolkin,
@@ -160,6 +160,18 @@ describe('jdnHaab', () => {
     it('handles negative JDN correctly', () => {
         expect(jdnHaab(-365)).toEqual({month: 4, day: 5});
         expect(jdnHaab(-1)).toEqual({month: 4, day: 4});
+    });
+});
+
+describe('haabMonthDays', () => {
+    it('returns 20 days for months 1-18', () => {
+        for (let month = 1; month <= 18; month++) {
+            expect(haabMonthDays(month as HaabMonth)).toBe(20);
+        }
+    });
+
+    it('returns 5 days for month 19 (Wayeb)', () => {
+        expect(haabMonthDays(19)).toBe(5);
     });
 });
 

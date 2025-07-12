@@ -108,6 +108,10 @@ export function jdnHaab(jdn: number): Haab {
     };
 }
 
+export function haabMonthDays(month: HaabMonth): number {
+    return month === 19 ? 5 : 20;
+}
+
 export type HaabYear = number;
 
 export type HaabExt = Haab & {
