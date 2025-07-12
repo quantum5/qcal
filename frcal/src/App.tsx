@@ -1,7 +1,6 @@
 import React from 'react';
 import {Calendar} from './Calendar';
 import {FrenchMonth, frEndJD, frStartJD, frSupportedYear, jdnFrench} from '@common/french';
-import {JulianMonth} from '@common/gregorian';
 import {TimeOfDay} from './TimeOfDay';
 import {GregorianJumper} from '@common/dateJump';
 import MonthBasedApp from '@common/ui/MonthBasedApp';
@@ -11,7 +10,7 @@ export default class App extends MonthBasedApp<number, FrenchMonth> {
     override parseYearMonth(year: string, month: string) {
         if (!frSupportedYear(+year) || +month < 1 || +month > 13)
             return null;
-        return {year: +year, month: +month as JulianMonth};
+        return {year: +year, month: +month as FrenchMonth};
     }
 
     override defaultSelector(todayJDN: number) {
