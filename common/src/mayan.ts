@@ -108,8 +108,10 @@ export function jdnHaab(jdn: number): Haab {
     };
 }
 
+export type HaabYear = number;
+
 export type HaabExt = Haab & {
-    year: number,
+    year: HaabYear,
 };
 
 export function jdnHaabExt(jdn: number): HaabExt {
