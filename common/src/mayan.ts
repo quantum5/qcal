@@ -125,6 +125,10 @@ export function jdnHaabExt(jdn: number): HaabExt {
     };
 }
 
+export function haabExtJDN({year, month, day}: HaabExt): number {
+    return 583935 + 365 * year + (month - 1) * 20 + day;
+}
+
 export type LordOfNight = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export function formatLordOfNight(lordOfNight: LordOfNight): string {
