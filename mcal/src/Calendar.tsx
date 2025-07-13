@@ -4,7 +4,7 @@ import {jdnDate} from '@common/gregorian';
 import {jdnLongCount} from '@common/longCount';
 import {MonthBasedCalendar} from '@common/ui/MonthBasedCalendar';
 import {
-    formatLordOfNight,
+    formatLordOfNight, formatTzolkin,
     HaabDay,
     haabExtJDN,
     HaabMonth,
@@ -12,7 +12,7 @@ import {
     haabNames,
     HaabYear,
     jdnHaabExt,
-    jdnLordOfNight,
+    jdnLordOfNight, jdnTzolkin,
 } from '@common/mayan';
 
 type MonthProps = {
@@ -24,21 +24,22 @@ type DateProps = MonthProps & {
     day: HaabDay;
 };
 
-function NormalDay({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
+function Day({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
     const jdn = haabExtJDN({year, month, day});
     return <div className={`Day ${jdn === todayJDN ? 'Day-today' : ''}`}>
-        <div className="Day-name">{day}</div>
-        <div className="DayDetail-lc">{jdnLongCount(jdn)?.join('.')}</div>
+        <div className="Day-name">{day}<span className="Day-haabMonth"> {haabNames[month]}</span></div>
+        <div className="Day-tzolkin">{formatTzolkin(jdnTzolkin(jdn))}</div>
+        <div className="Day-lc">{jdnLongCount(jdn)?.join('.')}</div>
         <div className="Day-lordOfNight">{formatLordOfNight(jdnLordOfNight(jdn))}</div>
-        <div className="DayDetail-gregorian">{jdnDate(jdn).toDateString()}</div>
+        <div className="Day-gregorian">{jdnDate(jdn).toDateString()}</div>
     </div>;
 }
 
 function Month({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.Element {
     return <div className="Month">
         <div className="Month-days">{
-            Array.from(Array(haabMonthDays(month)).keys()).map(i => <div key={i} className="DayOuter NormalDay">
-                <NormalDay year={year} month={month} day={i + 1 as HaabDay} todayJDN={todayJDN}/>
+            Array.from(Array(haabMonthDays(month)).keys()).map(i => <div key={i} className="DayOuter">
+                <Day year={year} month={month} day={i + 1 as HaabDay} todayJDN={todayJDN}/>
             </div>)
         }</div>
     </div>;
