@@ -1,25 +1,28 @@
 import React from 'react';
 import {Calendar} from './Calendar';
-import {FrenchMonth, frEndJD, frStartJD, frSupportedYear, jdnFrench} from '@common/french';
-import {JulianMonth} from '@common/gregorian';
 import {GregorianJumper} from '@common/dateJump';
 import MonthBasedApp from '@common/ui/MonthBasedApp';
-import Export from './Export';
+import {HaabMonth, HaabYear, jdnHaabExt} from '@common/mayan';
+import {gregorianJDN} from '@common/gregorian';
 
-export default class App extends MonthBasedApp<number, FrenchMonth> {
+// Not real limitations other than JS number precision.
+const START_JDN = gregorianJDN(-10_000_000_000_000, 1, 1);
+const END_JDN = gregorianJDN(10_000_000_000_000, 12, 31);
+
+export default class App extends MonthBasedApp<HaabYear, HaabMonth> {
     override parseYearMonth(year: string, month: string) {
-        if (!frSupportedYear(+year) || +month < 1 || +month > 13)
+        if (+month < 1 || +month > 19)
             return null;
-        return {year: +year, month: +month as JulianMonth};
+        return {year: +year, month: +month as HaabMonth};
     }
 
     override defaultSelector(todayJDN: number) {
-        const {year, month} = jdnFrench(todayJDN);
+        const {year, month} = jdnHaabExt(todayJDN);
         return {year, month};
     }
 
     goToJDN = (jdn: number) => {
-        const {year, month} = jdnFrench(Math.min(Math.max(frStartJD, jdn), frEndJD));
+        const {year, month} = jdnHaabExt(jdn);
         this.setState({selector: {year, month}});
     };
 
@@ -27,18 +30,12 @@ export default class App extends MonthBasedApp<number, FrenchMonth> {
         const {selector: {year, month}, todayJDN} = this.state;
         return <>
             <Calendar
-                year={year} month={month} todayJDN={todayJDN}
-                onSwitch={(year, month) => this.setState({selector: {year, month}})}/>
+              year={year} month={month} todayJDN={todayJDN}
+              onSwitch={(year, month) => this.setState({selector: {year, month}})}/>
 
             <div className="navigate">
                 <h4>Go to a date</h4>
-                <GregorianJumper minJDN={frStartJD} maxJDN={frEndJD} initialJDN={todayJDN}
-                                 onJump={this.goToJDN}/>
-            </div>
-
-            <div className="download">
-                <h4>Export calendar</h4>
-                <Export minJDN={frStartJD} maxJDN={frEndJD} initialJDN={todayJDN}/>
+                <GregorianJumper minJDN={START_JDN} maxJDN={END_JDN} initialJDN={todayJDN} onJump={this.goToJDN}/>
             </div>
         </>;
     }
