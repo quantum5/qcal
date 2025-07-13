@@ -1,0 +1,71 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/buttons';
+@import '@common/ui/consts.scss';
+@import '@common/ui/MonthBasedCalendar.scss';
+
+@include media-breakpoint-up(xs) {
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 2);
+    }
+
+    .DayOuter.ComplementaryDay {
+        @include make-col($size: 1, $columns: 1);
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 3);
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 4);
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 6);
+    }
+
+    .DayOuter.ComplementaryDay {
+        @include make-col($size: 1, $columns: 2);
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .DayOuter.NormalDay {
+        @include make-col($size: 1, $columns: 8);
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    .Month-weekdayHead {
+        display: block;
+        @include make-row($gutter: 0);
+        position: sticky;
+        top: 0;
+        background: white;
+        margin-top: -$spacer * 7.5;
+        padding-top: $spacer * 7.5;
+        z-index: 19;
+    }
+
+    .Month-days {
+        margin-top: $spacer;
+    }
+
+    .DayOuter.NormalDay, .WeekdayName {
+        @include make-col($size: 1, $columns: 10);
+    }
+
+    .Day-weekday {
+        display: none;
+    }
+}

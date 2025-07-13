@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#ff0000"/>
+    <meta name="description" content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons, along with revolutionary decimal time."/>
+    <meta property="og:title" content="French Republican Calendar"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="%PUBLIC_URL%"/>
+    <meta property="og:description" content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons, along with revolutionary decimal time."/>
+    <meta property="og:image" content="%PUBLIC_URL%/logo512.png"/>
+    <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:width" content="512"/>
+    <meta property="og:image:height" content="512"/>
+    <meta property="og:image:alt" content="A calendar icon that displays the date 18 Brumaire."/>
+    <link rel="canonical" href="%PUBLIC_URL%/"/>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
+    <title>French Republican Calendar (a.k.a. French Revolutionary Calendar)</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">French Republican Calendar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-anchors"
+                aria-controls="nav-anchors" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav-anchors">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#explanation">Explanation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://jcal.qt.ax">Julian Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://gcal.qt.ax">Gregorian Calendar</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+<div class="main">
+    <h2 id="explanation">Explanation</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is this?</h4>
+            <p class="lead">The <a href="https://en.wikipedia.org/wiki/French_Republican_calendar">French Republican
+                calendar</a> was a calendar created and implemented during the French Revolution.</p>
+            <p>It is also frequently referred to as the <em>French Revolutionary Calendar</em>, but this is a misnomer:
+                year 1 of the calendar started on 22 September 1792, the day after the
+                <a href="https://en.wikipedia.org/wiki/Proclamation_of_the_abolition_of_the_monarchy">abolition of the
+                    monarchy</a> and the founding of the <a href="https://en.wikipedia.org/wiki/French_First_Republic">French
+                    First Republic</a>.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">How does it work?</h4>
+            <p class="lead">A year consists of 12 months of 30 days each, divided into three <em>décades</em> of 10 days
+                each, followed by 5 complementary days (6 in leap years).</p>
+            <p>The year starts on the day of the autumnal equinox at the Paris Observatory (longitude 2°20′14.03″ E). A
+                leap year follow directly from this definition: a year is a leap year when the next autumnal equinox
+                happens 366 days later instead of the normal 365. By this definition, the year will <b>never</b> drift
+                with respect to the seasons.</p>
+            <p>The 12 months are: <em>Vendémiaire</em>, <em>Brumaire</em>, <em>Frimaire</em>, <em>Nivôse</em>, <em>Pluviôse</em>,
+                <em>Ventôse</em>, <em>Germinal</em>, <em>Floréal</em>, <em>Prairial</em>, <em>Messidor</em>, <em>Thermidor</em>,
+                <em>Fructidor.</em> Every three months represent a season, and the endings of the names reflect this
+                fact.</p>
+            <p>The complementary days are: <em>la Fête de la Vertu</em>, <em>la Fête du Génie</em>, <em>la Fête du
+                Travail</em>, <em>la Fête de l'Opinion</em>, <em>la Fête des Récompenses,</em> and <em>la Fête de la
+                Révolution</em> (leap years only).</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What's so special about this version?</h4>
+            <p class="lead">Most versions of the calendar floating around doesn't use the original definition above.</p>
+            <p>Most versions uses the so-called <em>Romme</em> method for leap years, using the same leap year rules as
+                the Gregorian calendar, i.e. every year divisible by four, except century years not divisible by 400.
+                This method might make sense, except years 3, 7, and 11 were leap years under the original rules and
+                were observed as such in real life, but the <em>Romme</em> method instead makes years 4, 8, 12 leap
+                years instead.</p>
+            <p>This version uses the original rules. The <a href="https://ssd.jpl.nasa.gov/planets/eph_export.html">JPL's
+                DE440 and DE441 ephemerides</a> were used to calculate the exact timings of the autumnal equinoxes
+                between the Gregorian years 13201 BCE and 17191 CE (corresponding to the French Republican years -14991
+                to 15399). The times were then converted to UT1+00:09:21, the exact local time at the Paris Observatory.
+                UT1 was chosen to keep track of the Earth's rotation without having to worry about the issues posed by
+                leap seconds in UTC. Note that due to the uncertainty over
+                <a href="https://en.wikipedia.org/wiki/%CE%94T_(timekeeping)">ΔT</a> — the difference between UT1 and
+                Terrestrial Time (TT) used in the ephemerides — it is theoretically possible for there to be
+                inaccuracies when the equinox occurs very close to midnight.</p>
+            <p>For more details about how I calculated this calendar, please see
+                <a href="https://quantum5.ca/2022/03/09/art-of-time-keeping-part-4-french-republican-calendar/">my blog
+                    post on the topic</a>. This is the fourth part of a series on time-keeping, and you are highly
+                encouraged to read the
+                <a href="https://quantum5.ca/2022/02/16/art-of-time-keeping-part-1-years-dates/">first</a>
+                <a href="https://quantum5.ca/2022/02/23/art-of-time-keeping-part-2-time/">three</a>
+                <a href="https://quantum5.ca/2022/03/02/art-of-time-keeping-part-3-astronomy-equinoxes/">parts</a>
+                for a more complete understanding.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What are those names above the Gregorian date?</h4>
+            <p>Those are the names of the days in the
+                <a href="https://en.wikipedia.org/wiki/French_Republican_calendar#Rural_calendar">rural version of the
+                    calendar</a>. This was intended to replace the Catholic Church's calendar of saints, as the French
+                Revolution wanted to reduce the influence of the church. Every day of the year has a unique name
+                associated with the rural economy and these names are supposed to correspond with the season.</p>
+            <p>Every <em>quintidi</em> is named after an animal, every <em>décadi</em> is named after an agricultural
+                tool, and the remaining days are named after various plants or produce. The only exception is the winter
+                month of Nivôse, which has the remaining days named after minerals.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What are those numbers below the Gregorian date?</h4>
+            <p>The five (or more) numbers separated by dots is the corresponding
+                <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Mesoamerican Long Count
+                    calendar</a> date. This is commonly known as the &ldquo;Mayan calendar.&rdquo; This calendar is not
+                available for dates before August 11, 3114 BCE (25 Thermidor -4905).</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">What is decimal time?</h4>
+            <p class="lead">Decimal time is a time system used during the French Revolution that divided the day into 10
+                hours, each with 100 minutes, which contained 100 seconds each.</p>
+            <p>The result is 100,000 seconds in one day, compared to the 86,400 seconds with the normal 24-hour
+                system. This makes it very easy to denote time as a decimal fraction of a day. For example, decimal time
+                5:67:72 (around 13:37:31) on January 1, 2000 can be represented as <code>2000-01-01.56772</code>.</p>
+            <p>Also note that each decimal hour is 2.4 normal hours, each decimal minute is 1.44 normal minutes, and
+                each decimal second is 0.864 normal seconds.</p>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Copyright &copy; 2022-<%= new Date().getFullYear() %>
+            <a href="https://quantum5.ca">Quantum</a>.
+            Licensed under <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">GNU AGPLv3</a>.
+            Source code available on <a href="https://github.com/quantum5/qcal">GitHub</a>.<br>
+        </p>
+    </div>
+</footer>
+<script>
+  (function(r,e,p,u,b,l,i,c){r['GoogleAnalyticsObject']=b;r[b]=r[b]||function(){
+    (r[b].q=r[b].q||[]).push(arguments)},r[b].l=1*new Date();l=e.createElement(p),
+    i=e.getElementsByTagName(p)[0];l.async=1;l.src=u;i.parentNode.insertBefore(l,i)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-102581070-4', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+@import '@common/ui/index.scss';
+
+.download {
+  max-width: $calendar-width;
+  margin-top: $spacer;
+  @include make-container();
+
+  .input-group-text {
+    width: 6em;
+  }
+
+  .btn-primary {
+    max-width: 5em;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .download form {
+    display: flex;
+
+    .input-group {
+      width: fit-content;
+      margin-right: $spacer / 2;
+    }
+
+    .input-group-text {
+      width: auto;
+    }
+  }
+}
