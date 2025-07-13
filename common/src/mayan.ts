@@ -74,7 +74,7 @@ export type Haab = {
     day: HaabDay,
 };
 
-const haabNames: Record<HaabMonth, string> = {
+export const haabNames: Record<HaabMonth, string> = {
     1: 'Pop',
     2: 'Woʼ',
     3: 'Sip',
