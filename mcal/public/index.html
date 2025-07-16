@@ -5,25 +5,27 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="theme-color" content="#ff0000"/>
-    <meta name="description" content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons, along with revolutionary decimal time."/>
-    <meta property="og:title" content="French Republican Calendar"/>
+    <meta name="description"
+          content="An attempt to present the Mayan calendar system in a more familiar calendar format."/>
+    <meta property="og:title" content="Mayan Calendar"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="%PUBLIC_URL%"/>
-    <meta property="og:description" content="An interactive French Republican Calendar (a.k.a. French Revolutionary Calendar) that uses the original equinox method and never drifts out of sync with the seasons, along with revolutionary decimal time."/>
+    <meta property="og:description"
+          content="An attempt to present the Mayan calendar system in a more familiar calendar format."/>
     <meta property="og:image" content="%PUBLIC_URL%/logo512.png"/>
     <meta property="og:image:type" content="image/png"/>
     <meta property="og:image:width" content="512"/>
     <meta property="og:image:height" content="512"/>
-    <meta property="og:image:alt" content="A calendar icon that displays the date 18 Brumaire."/>
+    <meta property="og:image:alt" content="A calendar icon that displays the Mayan date of creation."/>
     <link rel="canonical" href="%PUBLIC_URL%/"/>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
-    <title>French Republican Calendar (a.k.a. French Revolutionary Calendar)</title>
+    <title>Mayan Calendar</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="#">French Republican Calendar</a>
+        <a class="navbar-brand" href="#">Mayan Calendar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-anchors"
                 aria-controls="nav-anchors" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,6 +35,9 @@
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#explanation">Explanation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://frcal.qt.ax">French Republican Calendar</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://jcal.qt.ax">Julian Calendar</a>
@@ -51,13 +56,32 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">What is this?</h4>
-            <p class="lead">The <a href="https://en.wikipedia.org/wiki/French_Republican_calendar">French Republican
-                calendar</a> was a calendar created and implemented during the French Revolution.</p>
-            <p>It is also frequently referred to as the <em>French Revolutionary Calendar</em>, but this is a misnomer:
-                year 1 of the calendar started on 22 September 1792, the day after the
-                <a href="https://en.wikipedia.org/wiki/Proclamation_of_the_abolition_of_the_monarchy">abolition of the
-                    monarchy</a> and the founding of the <a href="https://en.wikipedia.org/wiki/French_First_Republic">French
-                    First Republic</a>.</p>
+            <p class="lead">This is an attempt to render the <a href="https://en.wikipedia.org/wiki/Maya_calendar">Mayan
+                calendar</a> in a more familiar &ldquo;monthly&rdquo; calendar format.</p>
+            <p>The idea of a monthly calendar is sort of alien to the Maya, who used two cycles to track the date and
+                a modified base-20 numbering system to track the exact date:</p>
+            <ul>
+                <li>The <a href="https://en.wikipedia.org/wiki/Tzolk%CA%BCin"><strong>tzolkʼin</strong></a>
+                    cycle, which is a 260-day cycle based on combining 20 day names with 13 numbers, used for religious
+                    and ceremonial events and for divination;
+                </li>
+                <li>The <a href="https://en.wikipedia.org/wiki/Haab%CA%BC"><strong>haabʼ</strong></a> cycle, which is a
+                    365-day cycle consisting of 18 &ldquo;months&rdquo; of 20 day each, plus 5 days at the end of the
+                    year known as the <em>Wayebʼ</em>;
+                </li>
+                <li>The <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar"><strong>Long
+                    Count</strong></a>, a modified base-20 system used to represent the number of days since the
+                    mythical date of creation, which is August 11, 3114 BCE in the proleptic Gregorian calendar or
+                    September 6, 3114 BCE in the proleptic Julian calendar. It is typically represented as five numbers
+                    separated by dots, with each number counting from 0 up to 19, except for the second last number,
+                    which counts from 0 to 17.
+                </li>
+            </ul>
+            <p>Since the <em>haabʼ</em> is the closest equivalent to months in the Mayan system, this calendar
+                application is based on the <em>haabʼ</em>. This poses a problem, as in the Mayan system, the Long Count
+                is used to track the absolute date and the cycles of <em>tzolkʼin</em> and <em>haabʼ</em> are
+                unnumbered. To mitigate this issue, we attempt to number the <em>haabʼ</em> cycles, with the date of
+                creation in cycle 0.</p>
         </div>
     </div>
     <div class="card">
@@ -151,10 +175,17 @@
     </div>
 </footer>
 <script>
-  (function(r,e,p,u,b,l,i,c){r['GoogleAnalyticsObject']=b;r[b]=r[b]||function(){
-    (r[b].q=r[b].q||[]).push(arguments)},r[b].l=1*new Date();l=e.createElement(p),
-    i=e.getElementsByTagName(p)[0];l.async=1;l.src=u;i.parentNode.insertBefore(l,i)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  (function (r, e, p, u, b, l, i, c) {
+    r['GoogleAnalyticsObject'] = b;
+    r[b] = r[b] || function () {
+      (r[b].q = r[b].q || []).push(arguments);
+    }, r[b].l = 1 * new Date();
+    l = e.createElement(p),
+      i = e.getElementsByTagName(p)[0];
+    l.async = 1;
+    l.src = u;
+    i.parentNode.insertBefore(l, i);
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
   ga('create', 'UA-102581070-4', 'auto');
   ga('send', 'pageview');
