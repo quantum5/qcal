@@ -30,14 +30,15 @@ type DateProps = MonthProps & {
 function Day({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JSX.Element {
     const jdn = haabExtJDN({year, month, day});
     const mobile = useMobileTooltipProps();
+    const longCount = jdnLongCount(jdn)?.join('.');
     return <div className={`Day ${jdn === todayJDN ? 'Day-today' : ''}`}>
         <div className="Day-name">{day}<span className="Day-haabMonth"> {haabNames[month]}</span></div>
         <div className="Day-tzolkin">
             <abbr title="Tzolkʼin" {...mobile}>T.</abbr> {formatTzolkin(jdnTzolkin(jdn))}
         </div>
-        <div className="Day-lc">
-            <abbr title="Long count" {...mobile}>L.</abbr> {jdnLongCount(jdn)?.join('.')}
-        </div>
+        {longCount && <div className="Day-lc">
+            <abbr title="Long count" {...mobile}>L.</abbr> {longCount}
+        </div>}
         <div className="Day-lordOfNight">
             <abbr title="Lord of the Night" {...mobile}>N.</abbr> {formatLordOfNight(jdnLordOfNight(jdn))
         }</div>
