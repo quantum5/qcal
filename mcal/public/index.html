@@ -121,8 +121,8 @@
         <div class="card-body">
             <h4 class="card-title">How does the Long Count work?</h4>
             <p class="lead">The Long Count calendar is a count of days since the Mayan date of creation, which is August
-                11, 3114 BCE in the proleptic Gregorian calendar or September 6, 3114 BCE in the proleptic Julian
-                calendar.</p>
+                11, 3114&nbsp;BCE in the proleptic Gregorian calendar or September 6, 3114&nbsp;BCE in the proleptic
+                Julian calendar.</p>
             <p>It uses a modified base-20 system to represent this number, with each &ldquo;digit&rdquo; counting from 0
                 up to 19, except for the second last &ldquo;digit,&rdquo; which counts from 0 to 17. Typically, five
                 numbers are shown, separated by dots, but in theory, more numbers could be used for dates in the distant
@@ -132,6 +132,17 @@
             <p>Each &ldquo;digit&rdquo; of the Long Count have a name, from the rightmost: kʼin, winal, tun, kʼatun,
                 bʼakʼtun, piktun, kalabtun, kʼinchiltun, alautun, hablatun. Terms from bʼakʼtun and beyond were invented
                 by modern scholars and were not used by the classical Maya.</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">How are BCE years handled for Julian or Gregorian dates?</h4>
+            <p class="lead">We use the astronomical convention, i.e. year 0 is 1&nbsp;BCE and -1 is 2&nbsp;BCE, and so
+                on.</p>
+            <p>Since there is normally no year 0, with the year 1&nbsp;BCE followed immediately by the year 1&nbsp;CE,
+                this creates a lot of problems for arithmetic. For simplicity's sake, we use the astronomical
+                convention, which fixes the mistake made over a thousand years ago by having a year 0. This makes the
+                math so much easier.</p>
         </div>
     </div>
     <div class="card">
@@ -157,10 +168,17 @@
     </div>
 </footer>
 <script>
-  (function(t,z,o,l,k,i,n){t['GoogleAnalyticsObject']=k;t[k]=t[k]||function(){
-    (t[k].q=t[k].q||[]).push(arguments)},t[k].l=1*new Date();i=z.createElement(o),
-    n=z.getElementsByTagName(o)[0];i.async=1;i.src=l;n.parentNode.insertBefore(i,n)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  (function (t, z, o, l, k, i, n) {
+    t['GoogleAnalyticsObject'] = k;
+    t[k] = t[k] || function () {
+      (t[k].q = t[k].q || []).push(arguments);
+    }, t[k].l = 1 * new Date();
+    i = z.createElement(o),
+      n = z.getElementsByTagName(o)[0];
+    i.async = 1;
+    i.src = l;
+    n.parentNode.insertBefore(i, n);
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
   ga('create', 'UA-102581070-4', 'auto');
   ga('send', 'pageview');
