@@ -1,10 +1,11 @@
 import React from 'react';
 import './Calendar.scss';
-import {jdnDate} from '@common/gregorian';
+import {formatJG, jdnGregorian} from '@common/gregorian';
 import {jdnLongCount} from '@common/longCount';
 import {MonthBasedCalendar} from '@common/ui/MonthBasedCalendar';
 import {
-    formatLordOfNight, formatTzolkin,
+    formatLordOfNight,
+    formatTzolkin,
     HaabDay,
     haabExtJDN,
     HaabMonth,
@@ -12,7 +13,8 @@ import {
     haabNames,
     HaabYear,
     jdnHaabExt,
-    jdnLordOfNight, jdnTzolkin,
+    jdnLordOfNight,
+    jdnTzolkin,
 } from '@common/mayan';
 import {useMobileTooltipProps} from '@common/ui/MobileTooltip';
 
@@ -40,7 +42,7 @@ function Day({year, month, day, todayJDN}: DateProps & { todayJDN: number }): JS
             <abbr title="Lord of the Night" {...mobile}>N.</abbr> {formatLordOfNight(jdnLordOfNight(jdn))
         }</div>
         <div className="Day-gregorian">
-            <abbr title="Gregorian date" {...mobile}>G.</abbr> {jdnDate(jdn).toDateString()}
+            <abbr title="Gregorian date" {...mobile}>G.</abbr> {formatJG(jdnGregorian(jdn))}
         </div>
     </div>;
 }
