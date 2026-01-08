@@ -4,6 +4,7 @@ import {GregorianJumper} from '@common/dateJump';
 import MonthBasedApp from '@common/ui/MonthBasedApp';
 import {HaabMonth, HaabYear, jdnHaabExt} from '@common/mayan';
 import {gregorianJDN} from '@common/gregorian';
+import LongCountJumper from './LongCountJumper';
 
 // Not real limitations other than JS number precision.
 const START_JDN = gregorianJDN(-10_000_000_000_000, 1, 1);
@@ -35,7 +36,11 @@ export default class App extends MonthBasedApp<HaabYear, HaabMonth> {
 
             <div className="navigate">
                 <h4>Go to a date</h4>
-                <GregorianJumper minJDN={START_JDN} maxJDN={END_JDN} initialJDN={todayJDN} onJump={this.goToJDN}/>
+
+                <div className="navigators">
+                    <GregorianJumper minJDN={START_JDN} maxJDN={END_JDN} initialJDN={todayJDN} onJump={this.goToJDN}/>
+                    <LongCountJumper initialJDN={todayJDN} onJump={this.goToJDN}/>
+                </div>
             </div>
         </>;
     }

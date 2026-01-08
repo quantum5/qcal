@@ -1,5 +1,17 @@
 @import '@common/ui/index.scss';
 
+.navigators {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: $spacer;
+  row-gap: $spacer / 2;
+
+  .input-group {
+    width: 100%;
+    max-width: 25em;
+  }
+}
+
 .download {
   max-width: $calendar-width;
   margin-top: $spacer;
