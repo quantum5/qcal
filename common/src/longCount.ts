@@ -18,3 +18,11 @@ export function jdnLongCount(jdn: number): LongCount | null {
 
     return parts.reverse();
 }
+
+export function longCountJDN(longCount: LongCount): number {
+    const state = [...longCount];
+    const last = (state.pop() ?? 0) + (state.pop() ?? 0) * 20;
+    let sum = 0;
+    state.forEach((value) => sum = sum * 20 + value);
+    return sum * 360 + last + 584283;
+}
