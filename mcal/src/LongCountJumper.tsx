@@ -6,7 +6,7 @@ function LongCountSelector({initial, onChange}: {
     onChange: (longCount: LongCount | undefined) => void
 }): JSX.Element {
     const [input, setInput] = React.useState(() => initial.join('.'));
-    const valid = /^(?:(?:[02-9]|1[0-9])\.){3}(?:[02-9]|1[0-7])\.(?:[02-9]|1[0-9])$/.test(input);
+    const valid = /^(?:(?:[02-9]|1[0-9])\.){3,}(?:[02-9]|1[0-7])\.(?:[02-9]|1[0-9])$/.test(input);
 
     React.useEffect(
       () => onChange(valid ? input.split('.').map(x => +x) : undefined),
