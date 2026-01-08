@@ -44,12 +44,10 @@ nav.navbar {
 }
 
 .gregorian-select {
-  .year {
-    max-width: 7em;
-  }
+  max-width: 25em;
 
-  .month, .day {
-    max-width: 5em;
+  .year.form-control {
+    flex: 2;
   }
 }
 
