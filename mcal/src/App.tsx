@@ -2,9 +2,10 @@ import React from 'react';
 import {Calendar} from './Calendar';
 import {GregorianJumper} from '@common/dateJump';
 import MonthBasedApp from '@common/ui/MonthBasedApp';
-import {HaabMonth, HaabYear, jdnHaabExt} from '@common/mayan';
+import {haabExtJDN, HaabMonth, haabMonthDays, HaabYear, jdnHaabExt} from '@common/mayan';
 import {gregorianJDN} from '@common/gregorian';
 import LongCountJumper from './LongCountJumper';
+import TzolkinJumper from './TzolkinJumper';
 
 // Not real limitations other than JS number precision.
 const START_JDN = gregorianJDN(-10_000_000_000_000, 1, 1);
@@ -29,6 +30,8 @@ export default class App extends MonthBasedApp<HaabYear, HaabMonth> {
 
     render() {
         const {selector: {year, month}, todayJDN} = this.state;
+        const haabStartJDN = haabExtJDN({year, month, day: 0});
+
         return <>
             <Calendar
               year={year} month={month} todayJDN={todayJDN}
@@ -40,6 +43,7 @@ export default class App extends MonthBasedApp<HaabYear, HaabMonth> {
                 <div className="navigators">
                     <GregorianJumper minJDN={START_JDN} maxJDN={END_JDN} initialJDN={todayJDN} onJump={this.goToJDN}/>
                     <LongCountJumper initialJDN={todayJDN} onJump={this.goToJDN}/>
+                    <TzolkinJumper initialJDN={todayJDN} onJump={this.goToJDN} haabStartJDN={haabStartJDN} haabEndJDN={haabStartJDN + haabMonthDays(month)}/>
                 </div>
             </div>
         </>;
