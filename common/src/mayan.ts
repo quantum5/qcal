@@ -66,6 +66,24 @@ export function jdnTzolkin(jdn: number): Tzolkin {
     };
 }
 
+export function tzolkinOffset(tzolkin: Tzolkin): number {
+    return (40 * (tzolkin.number - 1) + 221 * tzolkin.name) % 260;
+}
+
+export function prevTzolkin(jdn: number, tzolkin: Tzolkin): number {
+    const current = tzolkinOffset(jdnTzolkin(jdn));
+    const desired = tzolkinOffset(tzolkin);
+    const delta = (current - desired + 260) % 260;
+    return jdn - delta;
+}
+
+export function nextTzolkin(jdn: number, tzolkin: Tzolkin): number {
+    const current = tzolkinOffset(jdnTzolkin(jdn));
+    const desired = tzolkinOffset(tzolkin);
+    const delta = (desired - current + 260) % 260;
+    return jdn + delta;
+}
+
 export type HaabMonth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19;
 export type HaabDay = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19;
 

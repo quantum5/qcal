@@ -1,12 +1,19 @@
 import {
     formatHaab,
     formatLordOfNight,
-    formatTzolkin, HaabMonth, haabMonthDays,
-    jdnHaab, jdnHaabExt, haabExtJDN,
+    formatTzolkin,
+    haabExtJDN,
+    HaabMonth,
+    haabMonthDays,
+    jdnHaab,
+    jdnHaabExt,
     jdnLordOfNight,
-    jdnTzolkin,
+    jdnTzolkin, nextTzolkin,
+    prevTzolkin,
     TzolkinName,
     tzolkinName,
+    TzolkinNumber,
+    tzolkinOffset,
 } from './mayan';
 
 describe('tzolkinName', () => {
@@ -96,6 +103,43 @@ describe('jdnTzolkin', () => {
 
         // Should have 260 unique combinations
         expect(results.size).toBe(260);
+    });
+});
+
+describe('tzolkinOffset', () => {
+    it('works for all possible offsets', () => {
+        Array(260).forEach((_, i) => {
+            const tzolkin = {number: i % 13 + 1 as TzolkinNumber, name: i % 20 as TzolkinName};
+            expect(tzolkinOffset(tzolkin)).toEqual(i);
+        });
+    });
+});
+
+describe('prevTzolkin', () => {
+    it('works for immediately preceding days', () => {
+        expect(prevTzolkin(2461225, {number: 6, name: TzolkinName.IK})).toBe(2461225);
+        expect(prevTzolkin(2461225, {number: 5, name: TzolkinName.IMIX})).toBe(2461224);
+        expect(prevTzolkin(2461225, {number: 4, name: TzolkinName.AJAW})).toBe(2461223);
+    });
+
+    it('goes to the cycle before for succeeding days', () => {
+        expect(prevTzolkin(2461225, {number: 7, name: TzolkinName.AKBAL})).toBe(2460966);
+        expect(prevTzolkin(2461225, {number: 8, name: TzolkinName.KAN})).toBe(2460967);
+        expect(prevTzolkin(2461225, {number: 9, name: TzolkinName.CHIKCHAN})).toBe(2460968);
+    });
+});
+
+describe('nextTzolkin', () => {
+    it('works for immediately succeeding days', () => {
+        expect(nextTzolkin(2461225, {number: 6, name: TzolkinName.IK})).toBe(2461225);
+        expect(nextTzolkin(2461225, {number: 7, name: TzolkinName.AKBAL})).toBe(2461226);
+        expect(nextTzolkin(2461225, {number: 8, name: TzolkinName.KAN})).toBe(2461227);
+    });
+
+    it('goes to the cycle after for preceding days', () => {
+        expect(nextTzolkin(2461225, {number: 5, name: TzolkinName.IMIX})).toBe(2461484);
+        expect(nextTzolkin(2461225, {number: 4, name: TzolkinName.AJAW})).toBe(2461483);
+        expect(nextTzolkin(2461225, {number: 3, name: TzolkinName.KAWAK})).toBe(2461482);
     });
 });
 
