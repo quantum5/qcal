@@ -4,6 +4,7 @@ import {GregorianJumper} from '@common/dateJump';
 import MonthBasedApp from '@common/ui/MonthBasedApp';
 import {haabExtJDN, HaabMonth, haabMonthDays, HaabYear, jdnHaabExt} from '@common/mayan';
 import {gregorianJDN} from '@common/gregorian';
+import {DayChanger} from '@common/ui/DayChanger';
 import LongCountJumper from './LongCountJumper';
 import TzolkinJumper from './TzolkinJumper';
 
@@ -36,6 +37,8 @@ export default class App extends MonthBasedApp<HaabYear, HaabMonth> {
             <Calendar
               year={year} month={month} todayJDN={todayJDN}
               onSwitch={(year, month) => this.setState({selector: {year, month}})}/>
+
+            <DayChanger onDateChange={this.onDateChange}/>
 
             <div className="navigate">
                 <h4>Go to a date</h4>
