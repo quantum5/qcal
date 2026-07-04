@@ -52,7 +52,7 @@ function Month({year, month, todayJDN}: MonthProps & { todayJDN: number }): JSX.
     return <div className="Month">
         <div className="Month-days">{
             Array.from(Array(haabMonthDays(month)).keys()).map(i => <div key={i} className="DayOuter">
-                <Day year={year} month={month} day={i + 1 as HaabDay} todayJDN={todayJDN}/>
+                <Day year={year} month={month} day={i as HaabDay} todayJDN={todayJDN}/>
             </div>)
         }</div>
     </div>;
