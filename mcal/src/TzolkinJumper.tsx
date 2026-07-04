@@ -42,7 +42,7 @@ export default function TzolkinJumper({onJump, initialJDN, haabStartJDN, haabEnd
     }
 
     function toNextTzolkin() {
-        tzolkin !== undefined && onJump(nextTzolkin(haabEndJDN - 1, tzolkin));
+        tzolkin !== undefined && onJump(nextTzolkin(haabEndJDN, tzolkin));
     }
 
     return <form className="input-group long-count-select">
